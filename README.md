@@ -4,11 +4,17 @@ PRIMARY IDEA
 
 One database with two tables. A one to many relationship.
 
-    Table 1
-        - Users ['username', 'name', 'password', 'address', 'Primary Key']
-        - Can utilize Django's built in AUTH_USER?
-    Table 2
-        - Items for sale ['img', 'title', 'keywords', 'description', 'condition', 'price']
+Table 1 - Users
+
+- First
+- Last
+- username/shopname
+- password
+- ['username', 'name', 'password', 'address', 'Primary Key'] - Can utilize Django's built in AUTH_USER?
+
+Table 2 - Items
+
+- Items for sale ['img', 'title', 'keywords', 'description', 'condition', 'price']
 
 Users can
 
@@ -19,7 +25,11 @@ Users can
   - Manage listings, edit pricing, etc.
   - Log a dispute
   - Make purchases (cart?) and do transactions (shipping?).
-- [SECONDARY] leave feedback on their experiences with sellers.
+- [SECONDARY]
+  - leave feedback on their experiences with sellers.
+  - upload tracking information
+- [TERCIARY]
+  - leave a seller rating after transactions
 
 Admin can
 
@@ -38,6 +48,9 @@ Routes
 - payment method
 - list new item
 - submit a dispute ticket
+- How it works
+- About us
+- Contact us?
 - admin specific routes
   - view recent sales
   - manage users
