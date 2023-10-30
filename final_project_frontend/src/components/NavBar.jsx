@@ -6,9 +6,9 @@ export default function MainNav() {
   return (
     <Nav>
       <ul>
-        <li>Home</li>
-        <li>Cart</li>
-        <li>Log In</li>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/cart'>Cart</Link></li>
+        <li><Link to='/login'>Log In</Link></li>
       </ul>
     </Nav>
   );

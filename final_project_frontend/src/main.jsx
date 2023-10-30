@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Cart from "./routes/cart";
 import Login from "./routes/login";
 import Home from "./routes/home";
 import Root from "./routes/root";
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      {
+        path: "/cart",
+        element: <Cart />,
+      }
     ],
   },
 ]);
