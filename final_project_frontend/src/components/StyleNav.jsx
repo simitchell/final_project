@@ -1,18 +1,55 @@
 import styled from "styled-components";
 
 export const Nav = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
   width: 100%;
+  height: 50px;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
-  ul {
-    display: flex;
-    list-style: none;
-    justify-content: flex-end;
-    margin: 0;
-    padding: 0;
-    width: 100%;
+  .navCompanyName {
+    p {
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin: auto;
+      padding: 3px 10px;
+      vertical-align: baseline;
+    }
   }
 
-  ul li {
-    padding: 8px;
+  .searchBar {
+    input {
+      margin: 8px;
+    }
+    button {
+      margin: 8px;
+    }
+  }
+
+  .aboutus {
+    margin: 8px;
+  }
+  .howitworks {
+    margin: 8px;
+  }
+
+  .navLink {
+    ul {
+      display: flex;
+      list-style: none;
+      margin: auto;
+      padding: 3px 10px;
+      vertical-align: baseline;
+      width: 100%;
+    }
+
+    ul li {
+      padding: 8px;
+    }
   }
 `;

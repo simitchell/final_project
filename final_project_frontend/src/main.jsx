@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import AboutUs from "./routes/aboutus";
 import Cart from "./routes/cart";
 import Login from "./routes/login";
 import Home from "./routes/home";
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUs />
       }
     ],
   },
