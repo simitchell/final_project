@@ -5,10 +5,10 @@ import MainNav from "../components/navbar";
 export default function Root() {
   return (
     <>
-      <Outlet />
       <MainNav />
       <h1>Fox Body Swap Meet</h1>
       <h2>For enthusiasts, by enthusiasts</h2>
+      <Outlet />
     </>
   );
 }
