@@ -8,7 +8,7 @@ export const Nav = styled.nav`
   z-index: 9999;
   width: 100%;
   height: 50px;
-  background-color: grey;
+  background-color: #d3d3d3;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
