@@ -38,7 +38,7 @@ export default function LoginForm() {
     localStorage.setItem("access_token", access);
     localStorage.setItem("refresh_token", refresh);
 
-    window.location.href = "/url";
+    window.location.href = "/";
   };
 
   return (
@@ -50,7 +50,6 @@ export default function LoginForm() {
         value={username}
         onChange={handleChangeUsername}
       />
-
       <label>Password</label>
       <input
         type="password"

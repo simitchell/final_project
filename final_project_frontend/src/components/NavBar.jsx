@@ -7,7 +7,9 @@ export default function MainNav() {
   return (
     <Nav>
       <div className="navCompanyName">
-        <p>Fox Body Swap Meet</p>
+        <Link to="/">
+          <p>Fox Body Swap Meet</p>
+        </Link>
       </div>
       <div className="searchBar">
         <input type="search"></input>
@@ -28,7 +30,7 @@ export default function MainNav() {
       <div className="navLink">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/createlisting">Create Listing</Link>
           </li>
           <li>
             <Link to="/cart">Cart</Link>

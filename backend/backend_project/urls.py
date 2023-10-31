@@ -25,16 +25,13 @@ router = routers.DefaultRouter()
 # router.register(r'urls', views.UrlViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
     # path('snd/<str:short_url>', views.RedirectView.as_view(), name='url-redirect'),
-    path('admin/', admin.site.urls),
-    path('logout/', views.LogoutView.as_view(), name="logout"),
-    path('token/',
-         views.CustomTokenObtainPairView.as_view(),
-         name='token_obtain_pair'),
-    path('token/refresh/',
-         jwt_views.TokenRefreshView.as_view(),
-         name='token_refresh'),
+    path("admin/", admin.site.urls),
+    path("listing/", views.ListingView.as_view(), name="listing"),
+    path("logout/", views.LogoutView.as_view(), name="logout"),
+    path("token/", views.CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
