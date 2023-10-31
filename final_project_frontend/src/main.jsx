@@ -4,6 +4,7 @@ import AboutUs from "./routes/aboutus";
 import Cart from "./routes/cart";
 import Login from "./routes/login";
 import Home from "./routes/home";
+import HowItWorks from "./routes/howitworks";
 import Root from "./routes/root";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -27,8 +28,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/aboutus",
-        element: <AboutUs />
-      }
+        element: <AboutUs />,
+      },
+      {
+        path: "/howitworks",
+        element: <HowItWorks />,
+      },
     ],
   },
 ]);

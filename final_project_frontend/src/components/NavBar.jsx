@@ -14,12 +14,16 @@ export default function MainNav() {
         <Button type="submit">Search</Button>
       </div>
       <div className="aboutUs">
-        <Button className="aboutus" type="button">
-          About Us
-        </Button>
-        <Button className="howitworks" type="button">
-          How It Works
-        </Button>
+        <Link to="/aboutus">
+          <Button className="aboutus" type="button">
+            About Us
+          </Button>
+        </Link>
+        <Link to="howitworks">
+          <Button className="howitworks" type="button">
+            How It Works
+          </Button>
+        </Link>
       </div>
       <div className="navLink">
         <ul>

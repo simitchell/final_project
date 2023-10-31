@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 export const Nav = styled.nav`
+  /* color-scheme: light dark; */
   position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;
   width: 100%;
   height: 50px;
-  background-color: whitesmoke;
+  background-color: grey;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
