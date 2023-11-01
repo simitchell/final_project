@@ -24,7 +24,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 class ListingViewSet(viewsets.ModelViewSet):
     permisssion_classes = [IsAuthenticatedOrReadOnly]
 
-    queryset = Listing.objects.all().filter(user_id=2).order_by("title")
+    queryset = Listing.objects.all()
     serializer_class = ListingSerializer
 
 
@@ -67,6 +67,7 @@ class ListingView(APIView):
             self.title = request.data("title")
             self.price = request.data("price")
             self.description = request.data("description")
+            # self.user_id = 
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         listing.save()

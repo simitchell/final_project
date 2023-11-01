@@ -1,10 +1,11 @@
 import ListingForm from "../components/ListingForm";
+import { StyleRoute } from "../components/StyleRoute";
 
 export default function Listing() {
   return (
-    <div>
+    <StyleRoute>
       <h2>Create a Listing</h2>
       <ListingForm />
-    </div>
+    </StyleRoute>
   );
 }

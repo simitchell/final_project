@@ -24,7 +24,7 @@ from rest_framework_simplejwt import views as jwt_views
 router = routers.DefaultRouter()
 # router.register(r'urls', views.UrlViewSet)
 router.register(r"listing", views.ListingViewSet)
-router.register(r"logout", views.LogoutView)
+# router.register(r"logout", views.LogoutView)
 
 urlpatterns = [
     path("", include(router.urls)),

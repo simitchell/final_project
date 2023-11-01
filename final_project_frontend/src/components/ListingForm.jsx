@@ -28,14 +28,12 @@ export default function ListingForm() {
   const handleSubmit = async (e) => {
     console.log("here");
     e.preventDefault();
-    // const formData = new FormData(updateForm.current);
     const listing = {
       title,
       description,
       price,
+      userId,
     };
-
-    // listing.save()
 
     const url = "http://127.0.0.1:8000/listing/";
     const data = await fetch(url, {
@@ -45,14 +43,8 @@ export default function ListingForm() {
         Authorization: `Bearer ${auth}`,
       },
       body: JSON.stringify(listing),
-      // body: formData,
     });
-    // updateForm.current.reset();
     revalidator.revalidate();
-    // .then((response) => response.json());
-    // console.log("DATA IS: ", data);
-
-    // return data;
   };
 
   return (

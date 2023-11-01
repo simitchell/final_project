@@ -5,6 +5,7 @@ import { Form } from "./StyleForm";
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userId, setUserId] = useState("");
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -14,11 +15,16 @@ export default function LoginForm() {
     setPassword(e.target.value);
   };
 
+  const handleChangeUserId = (e) => {
+    setUserId();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       username,
       password,
+      userId,
     };
     // console.log(user);
     const url = "http://localhost:8000/token/";
@@ -31,14 +37,16 @@ export default function LoginForm() {
     }).then((response) => response.json());
     console.log("DATA IS:", data);
     const { access, refresh } = data;
-
-    // check statement to see if (if statement) login was correct
-
-    localStorage.clear();
-    localStorage.setItem("access_token", access);
-    localStorage.setItem("refresh_token", refresh);
-
-    window.location.href = "/";
+    if (access !== undefined) {
+      localStorage.clear();
+      localStorage.setItem("access_token", access);
+      localStorage.setItem("refresh_token", refresh);
+      localStorage.setItem("userId", userId);
+      window.location.href = "/";
+    }
+    if (access == undefined) {
+      alert("incorrect login");
+    }
   };
 
   return (
