@@ -9,7 +9,7 @@ User = get_user_model()
 class ListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
-        fields = ["title", "price", "description", "user"]
+        fields = ["id", "title", "price", "description", "user", "user_id"]
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

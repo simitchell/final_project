@@ -12,7 +12,7 @@ export default function ListingForm() {
   const userId = localStorage.getItem("user_id");
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
-
+  console.log({ userId });
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -26,14 +26,14 @@ export default function ListingForm() {
   };
 
   const handleSubmit = async (e) => {
-    console.log("here");
     e.preventDefault();
     const listing = {
       title,
       description,
       price,
-      userId,
+      user_id: userId,
     };
+    console.log({ listing });
 
     const url = "http://127.0.0.1:8000/listing/";
     const data = await fetch(url, {

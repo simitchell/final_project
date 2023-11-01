@@ -62,12 +62,14 @@ class ListingView(APIView):
 
     def post(self, request):
         print(request.data)
+        print(request)
+        print(self)
         listing = Listing()
         try:
             self.title = request.data("title")
             self.price = request.data("price")
             self.description = request.data("description")
-            # self.user_id = 
+            self.user = request.data("user_id")
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         listing.save()

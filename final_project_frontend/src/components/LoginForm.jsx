@@ -5,7 +5,7 @@ import { Form } from "./StyleForm";
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userId, setUserId] = useState("");
+  // const [userId, setUserId] = useState("");
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -15,16 +15,16 @@ export default function LoginForm() {
     setPassword(e.target.value);
   };
 
-  const handleChangeUserId = (e) => {
-    setUserId();
-  };
+  // const handleChangeUserId = (e) => {
+  //   setUserId(localStorage.getItem("userId", userId));
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       username,
       password,
-      userId,
+      // userId,
     };
     // console.log(user);
     const url = "http://localhost:8000/token/";
@@ -36,16 +36,18 @@ export default function LoginForm() {
       body: JSON.stringify(user),
     }).then((response) => response.json());
     console.log("DATA IS:", data);
-    const { access, refresh } = data;
+    const { access, refresh, userId } = data;
     if (access !== undefined) {
       localStorage.clear();
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
       localStorage.setItem("userId", userId);
-      window.location.href = "/";
+      // window.location.href = "/";
+      // handleChangeUserId();
+      console.log(userId);
     }
     if (access == undefined) {
-      alert("incorrect login");
+      alert("You have entered an invalid username or password");
     }
   };
 
