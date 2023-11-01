@@ -9,8 +9,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
 
+# from .forms import ListingForm
 from .models import Listing
 from .serializers import CustomTokenObtainPairSerializer
+from .serializers import ListingSerializer
 
 # Create your views here.
 
@@ -19,11 +21,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
-# class UrlViewSet(viewsets.ModelViewSet):
-#     permission_classes = [IsAuthenticatedOrReadOnly]
+class ListingViewSet(viewsets.ModelViewSet):
+    permisssion_classes = [IsAuthenticatedOrReadOnly]
 
-# queryset = Url.objects.all().filter(user_id=2).order_by('title')
-# serializer_class = UrlSerializer
+    queryset = Listing.objects.all().filter(user_id=2).order_by("title")
+    serializer_class = ListingSerializer
 
 
 # class RedirectView(APIView):
