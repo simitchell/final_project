@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { useRevalidator } from "react-router-dom";
-import { useState } from "react";
 import { Button } from "./StyleButtons";
 import { Form } from "./StyleForm";
 
@@ -28,26 +27,11 @@ export default function ListingForm() {
   return (
     <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
       <label>Listing Title</label>
-      <input
-        type="text"
-        name="title"
-        // value={title}
-        // onChange={handleChangeTitle}
-      />
+      <input type="text" name="title" />
       <label>Description</label>
-      <input
-        type="text"
-        name="description"
-        // value={description}
-        // onChange={handleChangeDescription}
-      />
+      <input type="text" name="description" />
       <label>Price</label>
-      <input
-        type="number"
-        name="price"
-        // value={price}
-        // onChange={handleChangePrice}
-      />
+      <input type="number" name="price" />
       <input type="hidden" name="user" value={localStorage.getItem("userId")} />
       <Button type="submit">Post Listing</Button>
     </Form>

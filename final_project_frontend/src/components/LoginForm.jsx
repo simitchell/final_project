@@ -5,7 +5,6 @@ import { Form } from "./StyleForm";
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [userId, setUserId] = useState("");
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -15,18 +14,12 @@ export default function LoginForm() {
     setPassword(e.target.value);
   };
 
-  // const handleChangeUserId = (e) => {
-  //   setUserId(localStorage.getItem("userId", userId));
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = {
       username,
       password,
-      // userId,
     };
-    // console.log(user);
     const url = "http://localhost:8000/token/";
     const data = await fetch(url, {
       method: "POST",
@@ -42,8 +35,7 @@ export default function LoginForm() {
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
       localStorage.setItem("userId", userId);
-      // window.location.href = "/";
-      // handleChangeUserId();
+      window.location.href = "/";
       console.log(userId);
     }
     if (access == undefined) {
