@@ -44,6 +44,7 @@ export default function LoginForm() {
   };
 
   return (
+    <div>
     <Form onSubmit={handleSubmit}>
       <label>Username</label>
       <input
@@ -61,5 +62,7 @@ export default function LoginForm() {
       />
       <Button type="submit">Login</Button>
     </Form>
+    <p><a href="./register">Register</a> as a new user</p>
+    </div>
   );
 }

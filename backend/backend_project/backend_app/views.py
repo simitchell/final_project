@@ -1,6 +1,4 @@
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import status, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,6 +6,13 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
+from django.contrib.auth.models import make_password
+from rest_framework import status
+from .models import Profile
+
+from .serializers import ProfileSerializer, TokenObtainPairSerializer, UserSerializer, ListingSerializer
+
+
 
 # from .forms import ListingForm
 from .models import Listing
@@ -15,8 +20,6 @@ from .serializers import CustomTokenObtainPairSerializer
 from .serializers import ListingSerializer
 
 # Create your views here.
-
-
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
@@ -27,6 +30,23 @@ class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
 
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            password = make_password(request.data["password"])
+            serializer.save(password=password)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 # class RedirectView(APIView):
 #     model = Url

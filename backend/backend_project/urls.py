@@ -20,19 +20,21 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers
 from backend_project.backend_app import views
 from rest_framework_simplejwt import views as jwt_views
+from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
+
 
 router = routers.DefaultRouter()
-# router.register(r'urls', views.UrlViewSet)
 router.register(r"listing", views.ListingViewSet)
+# router.register()
 # router.register(r"logout", views.LogoutView)
 
 urlpatterns = [
     path("", include(router.urls)),
-    # path('snd/<str:short_url>', views.RedirectView.as_view(), name='url-redirect'),
     path("admin/", admin.site.urls),
     # path("logout/", views.LogoutView.as_view(), name="logout"),
-    path("token/", views.CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

@@ -36,7 +36,7 @@ export default function MainNav() {
             <Link to="/cart">Cart</Link>
           </li>
           <li>
-            <Link to="/login">Log In</Link>
+            <Link to="/login">Log In or Register</Link>
           </li>
         </ul>
       </div>
