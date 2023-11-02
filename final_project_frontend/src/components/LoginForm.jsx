@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "./StyleButtons";
-import { Form } from "./StyleForm";
+import { Form } from "./GlobalStyles/Styles";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -45,24 +45,27 @@ export default function LoginForm() {
 
   return (
     <div>
-    <Form onSubmit={handleSubmit}>
-      <label>Username</label>
-      <input
-        type="text"
-        name="username"
-        value={username}
-        onChange={handleChangeUsername}
-      />
-      <label>Password</label>
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={handleChangePassword}
-      />
-      <Button type="submit">Login</Button>
-    </Form>
-    <p><a href="./register">Register</a> as a new user</p>
+      <h2>Log In</h2>
+      <Form onSubmit={handleSubmit}>
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          onChange={handleChangeUsername}
+        />
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChangePassword}
+        />
+        <Button type="submit">Login</Button>
+      </Form>
+      <p>
+        <a href="./register">Register</a> as a new user
+      </p>
     </div>
   );
 }

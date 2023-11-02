@@ -7,3 +7,9 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
 `;
+
+export const StyleOutput = styled.div`
+    h2 {
+        
+    }
+`

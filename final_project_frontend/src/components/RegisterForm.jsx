@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import React from "react";
-import { Form } from "./StyleForm";
+import { Form } from "./GlobalStyles/Styles";
 import { Button } from "./StyleButtons";
 import { useRevalidator } from "react-router-dom";
 
@@ -24,10 +24,12 @@ export default function RegisterForm() {
     updateForm.current.reset();
     revalidator.revalidate;
     alert("New user created successfully");
+    window.location.href = "/";
   };
 
   return (
     <>
+      <h2>Register a new user</h2>
       <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
         <label>Username</label>
         <input type="text" name="username" />

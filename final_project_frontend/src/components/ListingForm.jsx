@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useRevalidator } from "react-router-dom";
 import { Button } from "./StyleButtons";
-import { Form } from "./StyleForm";
+import { Form } from "./GlobalStyles/Styles";
 
 export default function ListingForm() {
   const auth = localStorage.getItem("access_token");

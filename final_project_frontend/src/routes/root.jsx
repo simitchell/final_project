@@ -1,6 +1,6 @@
 import { useLoaderData, Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-import MainNav from "../components/navbar";
+import MainNav from "../components/NavBar";
 import { StyleRoot } from "../components/StyleRoot";
 
 export default function Root() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Nav } from "./StyleNav";
-import { Button } from "./StyleButtons";
+import { Button } from "../StyleButtons";
 import { Link } from "react-router-dom";
 
 export default function MainNav() {
