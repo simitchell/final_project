@@ -55,20 +55,3 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-class ListingView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        print(request.data)
-        print(request)
-        print(self)
-        # listing = Listing()
-        try:
-            self.title = request.data("title")
-            self.price = request.data("price")
-            self.description = request.data("description")
-            self.user = request.data("user_id")
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
