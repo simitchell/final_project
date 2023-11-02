@@ -9,10 +9,10 @@ export default function ListingForm() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const auth = localStorage.getItem("access_token");
-  const userId = localStorage.getItem("user_id");
+  // const userId = localStorage.getItem("userId");
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
-  console.log({ userId });
+  // console.log({ userId });
   const handleChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -31,7 +31,7 @@ export default function ListingForm() {
       title,
       description,
       price,
-      user_id: userId,
+      user_id: localStorage.getItem("userId"),
     };
     console.log({ listing });
 
