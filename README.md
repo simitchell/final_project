@@ -1,6 +1,8 @@
-PRIMARY IDEA
+www.foxbodyswapmeet.com
 
 - A curated site for buying/selling parts for 79-93 Mustangs. "foxbodyswapmeet.com" or the like.
+
+Dev Notes
 
 One database with two tables. A one to many relationship.
 
