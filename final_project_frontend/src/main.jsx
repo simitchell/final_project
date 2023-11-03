@@ -4,13 +4,12 @@ import AboutUs from "./routes/aboutus";
 import Cart from "./routes/cart";
 import Listing from "./routes/createlisting";
 import Login from "./routes/login";
-import Home from "./routes/home";
+import HomePage from "./routes/home";
 import HowItWorks from "./routes/howitworks";
 import Register from "./routes/register";
 import Root from "./routes/root";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import CreateListing from "./routes/createlisting";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <HomePage />,
       },
       {
         path: "/login",
@@ -44,7 +43,12 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
-      }
+      },
+      {
+        path: "logout/",
+        // element: <LogoutPage />,
+        // loader: logoutLoader,
+      },
     ],
   },
 ]);

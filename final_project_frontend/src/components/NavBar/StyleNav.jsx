@@ -44,6 +44,7 @@ export const Nav = styled.nav`
       display: flex;
       list-style: none;
       margin: auto;
+      font-size: 1rem;
       padding: 3px 10px;
       vertical-align: baseline;
       width: 100%;

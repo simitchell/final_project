@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Button } from "./StyleButtons";
+import { useAuth } from "../AuthContext";
+import { useNavigate } from "react-router";
+import { Button } from "../components/GlobalStyles/Styles";
 import { Form } from "./GlobalStyles/Styles";
 
 export default function LoginForm() {
@@ -30,6 +32,7 @@ export default function LoginForm() {
     }).then((response) => response.json());
     console.log("DATA IS:", data);
     const { access, refresh, userId } = data;
+    console.log(data);
     if (access !== undefined) {
       localStorage.clear();
       localStorage.setItem("access_token", access);

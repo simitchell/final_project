@@ -4,6 +4,7 @@ export default function HowItWorks() {
   return (
     <Text>
       <h3>How It Works Section</h3>
+      <p>loren ipsum</p>
     </Text>
   );
 }

@@ -1,8 +1,9 @@
-export default function Home() {
+
+export default function HomePage() {
   return (
     <div>
-      <h2>Home route</h2>
       <h3>Home page under construction</h3>
+      {/* <Home /> */}
     </div>
   );
 }

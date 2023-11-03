@@ -1,16 +1,18 @@
 import { useRef } from "react";
 import { useRevalidator } from "react-router-dom";
-import { Button } from "./StyleButtons";
+import { Button } from "../components/GlobalStyles/Styles";
 import { Form } from "./GlobalStyles/Styles";
 
 export default function ListingForm() {
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
+  console.log("hello, world");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
+    console.log(formData);
 
     const url = "http://127.0.0.1:8000/listing/";
     const data = await fetch(url, {
@@ -20,6 +22,8 @@ export default function ListingForm() {
       },
       body: formData,
     });
+    console.log(formData);
+    console.log(data);
     updateForm.current.reset();
     revalidator.revalidate();
   };
