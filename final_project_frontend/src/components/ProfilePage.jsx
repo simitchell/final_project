@@ -10,7 +10,7 @@ export default function ProfilePage() {
     const apiUrl = "http://127.0.0.1:8000/listing/";
     const response = await fetch(apiUrl);
     const data = await response.json();
-    setListingData([data, ...listingData]);
+    setListingData(data);
   };
 
   useEffect(() => {
