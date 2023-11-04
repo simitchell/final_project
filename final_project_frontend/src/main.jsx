@@ -6,6 +6,7 @@ import Listing from "./routes/createlisting";
 import Login from "./routes/login";
 import HomePage from "./routes/home";
 import HowItWorks from "./routes/howitworks";
+import Profile from "./routes/profile";
 import Register from "./routes/register";
 import Root from "./routes/root";
 import "./index.css";
@@ -21,33 +22,37 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/login",
-        element: <Login />,
+        path: "/aboutus",
+        element: <AboutUs />,
       },
       {
         path: "/cart",
         element: <Cart />,
       },
       {
-        path: "/aboutus",
-        element: <AboutUs />,
+        path: "/createlisting",
+        element: <Listing />,
       },
       {
         path: "/howitworks",
         element: <HowItWorks />,
       },
       {
-        path: "/createlisting",
-        element: <Listing />,
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/logout",
+        // element: <LogoutPage />,
+        // loader: logoutLoader,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/register",
         element: <Register />,
-      },
-      {
-        path: "logout/",
-        // element: <LogoutPage />,
-        // loader: logoutLoader,
       },
     ],
   },
