@@ -7,7 +7,7 @@ export default function ListingForm() {
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
-  console.log("hello, world");
+  // console.log("hello, world");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,6 +37,7 @@ export default function ListingForm() {
       <label>Price</label>
       <input type="number" name="price" />
       <input type="hidden" name="user" value={localStorage.getItem("userId")} />
+      {/* <input type="hidden" name="username" value={} /> */}
       <Button type="submit">Post Listing</Button>
     </Form>
   );
