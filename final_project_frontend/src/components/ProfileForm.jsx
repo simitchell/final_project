@@ -32,7 +32,6 @@ export default function ProfileForm() {
 
   return (
     <>
-      <h2>Update your profile</h2>
       <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
         <label>Email</label>
         <input type="email" name="email" />
