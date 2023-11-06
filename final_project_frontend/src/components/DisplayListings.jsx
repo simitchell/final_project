@@ -22,10 +22,9 @@ export default function DisplayListings() {
 
   return (
     <div>
-      <p>Profile Page</p>
       <CardContainer>
         {listingData.map((listing, index) => {
-          console.log({ listing });
+          // console.log({ listing });
 
           return (
             <div key={index} className="card">
@@ -48,7 +47,7 @@ export default function DisplayListings() {
                   </span>
                   <span>
                     <strong>User: </strong>
-                    {listing.user}
+                    {listing.username}
                     {/* i need this to display username... */}
                   </span>
                 </div>

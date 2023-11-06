@@ -17,13 +17,19 @@ class UserSerializer(serializers.ModelSerializer):
 class ListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Listing
-        fields = ["id", "title", "price", "description", "user"]
+        fields = ["id", "title", "price", "description", "user", "username"]
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ["id", "user_id"]
+        fields = ["id", "user_id", "email", "bio", "address", "birthdate"]
+
+    def update(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        return Response(serializer.data)
 
 
 # class RegisterSerializer(serializers.ModelSerializer):

@@ -1,10 +1,12 @@
-import ProfilePage from "../components/ProfilePage";
+import ProfileForm from "../components/ProfileForm";
+import ProfilePage from "../components/DisplayListings";
+import DisplayListings from "../components/DisplayListings";
 
 export default function Profile() {
   return (
     <div>
-      <h3>Profile section</h3>
-      <ProfilePage />
+      <ProfileForm />
+      <DisplayListings />
     </div>
   );
 }

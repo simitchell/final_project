@@ -35,10 +35,11 @@ export default function LoginForm() {
     console.log(data);
     if (access !== undefined) {
       localStorage.clear();
+      localStorage.setItem("username", username);
+      localStorage.setItem("userId", userId);
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
-      localStorage.setItem("userId", userId);
-      window.location.href = "/";
+      window.location.href = "/profile/";
       console.log(userId);
     }
     if (access == undefined) {
