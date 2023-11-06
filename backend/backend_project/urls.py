@@ -26,6 +26,7 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
 router = routers.DefaultRouter()
 router.register(r"listing", views.ListingViewSet)
+router.register(r"profile", views.ProfileViewSet)
 # router.register()
 # router.register(r"logout", views.LogoutView)
 
