@@ -10,14 +10,19 @@ from django.contrib.auth.models import make_password
 from rest_framework import status
 from .models import Profile
 
-from .serializers import ProfileSerializer, TokenObtainPairSerializer, UserSerializer, ListingSerializer
-
+from .serializers import (
+    ProfileSerializer,
+    TokenObtainPairSerializer,
+    UserSerializer,
+    ListingSerializer,
+)
 
 
 # from .forms import ListingForm
 from .models import Listing
 from .serializers import CustomTokenObtainPairSerializer
 from .serializers import ListingSerializer
+
 
 # Create your views here.
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -41,12 +46,17 @@ class RegisterView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def perform_udpate(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 # class RedirectView(APIView):
 #     model = Url

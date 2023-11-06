@@ -1,12 +1,13 @@
 import { useRef } from "react";
 import React from "react";
 import { Form } from "./GlobalStyles/Styles";
-import { Button } from "../components/GlobalStyles/Styles"
-import { useRevalidator } from "react-router-dom";
+import { Button } from "../components/GlobalStyles/Styles";
+import { useRevalidator, Navigate } from "react-router-dom";
 
 export default function RegisterForm() {
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
+  // const navigate = Navigate();
   const updateForm = useRef(null);
 
   const handleSubmit = async (e) => {

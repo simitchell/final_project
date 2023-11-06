@@ -3,6 +3,8 @@ import React from "react";
 import { Form } from "./GlobalStyles/Styles";
 import { Button } from "./GlobalStyles/Styles";
 import { useRevalidator } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 
 export default function ProfileForm() {
   const auth = localStorage.getItem("access_token");
@@ -14,9 +16,11 @@ export default function ProfileForm() {
     const formData = new FormData(updateForm.current);
     console.log(formData);
 
+
+    // I need.... this to have some logic.  It has to see if the profile entry exists.  If yes, then hit that profile endpoint and run an update.  If the profile does not exist, then run this POST here
     const url = "http://127.0.0.1:8000/profile/";
     const data = await fetch(url, {
-      method: "PUT",
+      method: "POST",
       headers: {
         Authorization: `Bearer ${auth}`,
       },
@@ -26,15 +30,13 @@ export default function ProfileForm() {
     console.log(data);
     updateForm.current.reset();
     revalidator.revalidate;
-    // alert("Profile information updated successfully");
-    // window.location.href = "/profile/";
+    alert("Profile information updated successfully");
+    window.location.href = "/profile/";
   };
 
   return (
     <>
       <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-        <label>Email</label>
-        <input type="email" name="email" />
         <label>Bio</label>
         <input type="text" name="bio" />
         <label>Address</label>
@@ -50,4 +52,8 @@ export default function ProfileForm() {
       </Form>
     </>
   );
+}
+
+export function DisplayProfile() {
+
 }

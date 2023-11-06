@@ -22,7 +22,6 @@ class Listing(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField(max_length=254, blank=True)
     address = models.CharField(max_length=35, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     birthdate = models.DateField(null=True, blank=True)
