@@ -4,12 +4,19 @@ import React from "react";
 
 export default function DisplayUserListings() {
   const [listingData, setListingData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getInfo = async () => {
-    const apiUrl = "http://127.0.0.1:8000/listing/";
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    setListingData(data);
+    try {
+      const apiUrl = "http://127.0.0.1:8000/listing/";
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      setListingData(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -17,13 +24,17 @@ export default function DisplayUserListings() {
   }, []);
 
   // Filter listings created by user_id
-  const filteredListings = listingData.filter((listing) => listing.username === localStorage.getItem("username"));
+  const filteredListings = listingData.filter(
+    (listing) => listing.username === localStorage.getItem("username")
+  );
 
   return (
     <div>
-      <CardContainer>
-        {filteredListings.map((listing, index) => {
-          return (
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <CardContainer>
+          {filteredListings.map((listing, index) => (
             <div key={index} className="card">
               <h2>{listing.title}</h2>
               <div className="cardInfo">
@@ -50,9 +61,10 @@ export default function DisplayUserListings() {
                 </div>
               </div>
             </div>
-          );
-        })}
-      </CardContainer>
+          ))}
+        </CardContainer>
+      )}
+      {isLoading ? null : filteredListings.length === 0 && <div>No data found</div>}
     </div>
   );
 }

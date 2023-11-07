@@ -63,7 +63,7 @@ export default function ListingDetail() {
               </div>
             </CardContainer>
           ) : (
-            <div>no detail found</div>
+            <div>No detail found</div>
           )}
         </div>
       )}
