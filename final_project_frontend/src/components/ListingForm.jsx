@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useRevalidator } from "react-router-dom";
-import { Button } from "../components/GlobalStyles/Styles";
-import { Form } from "./GlobalStyles/Styles";
+import { Button } from "./GlobalStyles/UtilityStyles";
+import { Form } from "./GlobalStyles/UtilityStyles";
 import { CreateListingContainer } from "./GlobalStyles/CreateListingStyle";
 
 export default function ListingForm() {

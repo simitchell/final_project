@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import React from "react";
-import { Form } from "./GlobalStyles/Styles";
-import { Button } from "./GlobalStyles/Styles";
+import { Form } from "./GlobalStyles/UtilityStyles";
+import { Button } from "./GlobalStyles/UtilityStyles";
 import { useRevalidator } from "react-router-dom";
 import { useState, useEffect } from "react";
 

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import React from "react";
-import { Form } from "./GlobalStyles/Styles";
-import { Button } from "../components/GlobalStyles/Styles";
+import { Form } from "./GlobalStyles/UtilityStyles";
+import { Button } from "./GlobalStyles/UtilityStyles";
 import { useRevalidator, Navigate } from "react-router-dom";
 
 export default function RegisterForm() {
