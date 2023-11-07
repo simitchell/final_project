@@ -3,21 +3,12 @@ import { useParams } from "react-router-dom";
 import React from "react";
 import { CardContainer } from "./GlobalStyles/CardStyle";
 
-// const INITIAL_DATA = {
-//   description: string,
-//   id: number,
-//   price: number,
-//   title: string,
-//   user: number,
-//   username: string,
-// };
-
 export default function ListingDetail() {
   const [listingDetail, setListingDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
-  console.log(id);
+//   console.log(id);
 
   const getIndividualListing = async () => {
     try {
@@ -25,7 +16,7 @@ export default function ListingDetail() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
-      console.log(data);
+    //   console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
