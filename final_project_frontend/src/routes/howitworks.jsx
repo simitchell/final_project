@@ -1,4 +1,4 @@
-import { Text } from "../components/GlobalStyles/StyleText"
+import { Text } from "../components/GlobalStyles/StyleText";
 
 export default function HowItWorks() {
   return (
@@ -17,7 +17,13 @@ export default function HowItWorks() {
           Search listings here and see what's for sale out there. Pick something
           up today and get your Mustang right!
         </li>
-        <li>Sign up at www.stripe.com so you can get your payout!</li>
+        <li>
+          Sign up at{" "}
+          <a href="https://stripe.com/" target="_blank">
+            www.stripe.com
+          </a>{" "}
+          so you can get your payout!
+        </li>
       </ul>
     </Text>
   );
