@@ -1,3 +1,9 @@
-export default function DisplayListingDetail() {
+import ListingDetail from "../components/ListingDetail";
 
+export default function DisplayListingDetail() {
+  return (
+    <>
+      <ListingDetail />
+    </>
+  );
 }
