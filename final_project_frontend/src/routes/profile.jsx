@@ -12,7 +12,7 @@ export default function Profile() {
             This is your profile page, where you can update your information and
             manage your listings.
           </p>
-          <p><a href="./createlisting">Create a listing</a> and get started selling.</p>
+          <p><a href="../createlisting">Create a listing</a> and get started selling.</p>
         </div>
         <div className="profileUpdate">
           <h3>Update your profile</h3>
