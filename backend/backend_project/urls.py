@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers
 from backend_project.backend_app.views import CustomTokenObtainPairView
+from backend_project.backend_app.views import LogoutView, LogoutAllView
 from backend_project.backend_app import views
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
@@ -37,6 +38,8 @@ urlpatterns = [
     path("register/", views.RegisterView.as_view(), name="register"),
     path("token/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("logout/", LogoutView.as_view(), name="auth_logout"),
+    path("logout_all/", LogoutAllView.as_view(), name="auth_logout_all"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
