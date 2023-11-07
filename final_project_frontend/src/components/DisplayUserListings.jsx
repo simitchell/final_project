@@ -1,6 +1,8 @@
 import { CardContainer } from "./GlobalStyles/CardStyle";
 import { useState, useEffect } from "react";
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 export default function DisplayUserListings() {
   const [listingData, setListingData] = useState([]);
@@ -35,6 +37,7 @@ export default function DisplayUserListings() {
       ) : (
         <CardContainer>
           {filteredListings.map((listing, index) => (
+            <Link to={`/listingdetail/${listing.id}`} key={listing.id}>
             <div key={index} className="card">
               <h2>{listing.title}</h2>
               <div className="cardInfo">
@@ -61,6 +64,7 @@ export default function DisplayUserListings() {
                 </div>
               </div>
             </div>
+            </Link>
           ))}
         </CardContainer>
       )}
