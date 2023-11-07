@@ -1,4 +1,4 @@
-import { StyleRoot } from "../components/StyleRoot";
+import StyleRoot from "./GlobalStyles/StyleRoot"
 
 export default function RootComponent() {
   return (

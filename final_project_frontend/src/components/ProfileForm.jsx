@@ -35,11 +35,11 @@ export default function ProfileForm() {
   return (
     <>
       <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-        <label for="address">Address</label>
+        <label>Address</label>
         <input type="text" name="address" />
-        <label for="birthdate">Birthdate</label>
+        <label>Birthdate</label>
         <input type="date" name="birthdate" />
-        <label for="bio">Bio</label>
+        <label>Bio</label>
         <textarea type="text" name="bio" />
         <input
           type="hidden"

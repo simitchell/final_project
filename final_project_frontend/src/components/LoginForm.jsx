@@ -51,14 +51,14 @@ export default function LoginForm() {
     <div>
       <h2>Log In</h2>
       <Form onSubmit={handleSubmit}>
-        <label for="username">Username</label>
+        <label>Username</label>
         <input
           type="text"
           name="username"
           value={username}
           onChange={handleChangeUsername}
         />
-        <label for="password">Password</label>
+        <label>Password</label>
         <input
           type="password"
           name="password"

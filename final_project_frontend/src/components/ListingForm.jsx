@@ -39,11 +39,11 @@ export default function ListingForm() {
         <li>Get paid!</li>
       </ul>
       <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-        <label for="title">Listing Title</label>
+        <label>Listing Title</label>
         <input type="text" name="title" />
-        <label for="price">Price</label>
+        <label>Price</label>
         <input type="number" name="price" />
-        <label for="description">Description</label>
+        <label>Description</label>
         <textarea type="text" name="description" />
         <input
           type="hidden"

@@ -1,7 +1,7 @@
 import { useLoaderData, Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MainNav from "../components/NavBar";
-import { StyleRoot } from "../components/StyleRoot";
+import { StyleRoot } from "../components/GlobalStyles/StyleRoot";
 
 export default function Root() {
   return (

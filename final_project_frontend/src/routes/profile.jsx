@@ -7,9 +7,7 @@ export default function Profile() {
     <ProfileContainer>
       <div className="profileWrapper">
         <div className="profileIntro">
-          <p>
-            <strong>Welcome, {localStorage.getItem("username")}!</strong>
-          </p>
+          <h2>Welcome, {localStorage.getItem("username")}!</h2>
           <p>
             This is your profile page, where you can update your information and
             manage your listings.

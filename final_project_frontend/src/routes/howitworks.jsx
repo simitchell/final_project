@@ -1,4 +1,4 @@
-import { Text } from "../components/StyleText";
+import { Text } from "../components/GlobalStyles/StyleText"
 
 export default function HowItWorks() {
   return (

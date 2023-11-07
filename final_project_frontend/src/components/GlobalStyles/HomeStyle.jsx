@@ -6,3 +6,15 @@ export const HomeContainer = styled.div`
     margin: 3rem;
   }
 `;
+
+export const HomeWrapper = styled.div`
+  display: flex;
+  margin: 0 10%;
+  justify-content: space-between;
+`;
+
+export const HomeWelcome = styled.div``;
+
+export const HomeLogin = styled.div`
+  width: 25%;
+`;
