@@ -1,11 +1,12 @@
 import DisplayListings from "../components/DisplayListings";
 import { Text } from "../components/StyleText";
+import { HomeContainer } from "../components/GlobalStyles/HomeStyle";
 
 export default function HomePage() {
   return (
-    <div>
+    <HomeContainer>
       <Text>
-        <h3>Welcome to Fox Body Swap Meet</h3>
+        <h2>Welcome to Fox Body Swap Meet</h2>
         <p>
           We are a community of automotive enthusiasts, passionate about '79-'93
           Ford Mustangs and the 5.0L legacy. Fox Body Swap Meet is a curated
@@ -17,8 +18,10 @@ export default function HomePage() {
           it works around here.
         </p>
       </Text>
-
+      <div className="listingHeader">
+        <h2>Current Listings</h2>
+      </div>
       <DisplayListings />
-    </div>
+    </HomeContainer>
   );
 }

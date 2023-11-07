@@ -1,13 +1,14 @@
 import styled from "styled-components";
+
 export const CardContainer = styled.div`
-   display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: 1400px;
-    margin: auto;
-    padding: auto;
-    justify-content: space-evenly;
-  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: auto;
+  padding: auto;
+  justify-content: space-evenly;
+
   .card {
     display: flex;
     flex-direction: column;
@@ -43,5 +44,5 @@ export const CardContainer = styled.div`
 
 // // this is potentially the code for the wrapper the cards will display into
 // .cardDisplay {
-   
+
 // }

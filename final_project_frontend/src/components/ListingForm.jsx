@@ -30,20 +30,33 @@ export default function ListingForm() {
   };
 
   return (
-    <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-      <label>Listing Title</label>
-      <input type="text" name="title" />
-      <label>Description</label>
-      <input type="text" name="description" />
-      <label>Price</label>
-      <input type="number" name="price" />
-      <input type="hidden" name="user" value={localStorage.getItem("userId")} />
-      <input
-        type="hidden"
-        name="username"
-        value={localStorage.getItem("username")}
-      />
-      <Button type="submit">Post Listing</Button>
-    </Form>
+    <div>
+      <h2>Create a listing</h2>
+      <h3>Got some fox body stuff for sale?</h3>
+      <ul>
+        <li>Fill out the form</li>
+        <li>Put it up for sale</li>
+        <li>Get paid!</li>
+      </ul>
+      <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+        <label for="title">Listing Title</label>
+        <input type="text" name="title" />
+        <label for="price">Price</label>
+        <input type="number" name="price" />
+        <label for="description">Description</label>
+        <textarea type="text" name="description" />
+        <input
+          type="hidden"
+          name="user"
+          value={localStorage.getItem("userId")}
+        />
+        <input
+          type="hidden"
+          name="username"
+          value={localStorage.getItem("username")}
+        />
+        <Button type="submit">Post Listing</Button>
+      </Form>
+    </div>
   );
 }
