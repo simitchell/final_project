@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import AboutUs from "./routes/aboutus";
 import Cart from "./routes/cart";
+import DisplayListingDetail from "./routes/listingdetail";
 import Listing from "./routes/createlisting";
 import Login from "./routes/login";
 import HomePage from "./routes/home";
@@ -11,6 +12,7 @@ import Register from "./routes/register";
 import Root from "./routes/root";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import ListingDetail from "./components/ListingDetail";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/howitworks",
         element: <HowItWorks />,
+      },
+      {
+        path: "/listingdetail",
+        element: <DisplayListingDetail />,
       },
       {
         path: "/login",
