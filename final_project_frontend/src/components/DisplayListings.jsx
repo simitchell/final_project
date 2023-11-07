@@ -2,6 +2,7 @@ import { CardContainer } from "./GlobalStyles/CardStyle";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { DisplayListingsContainer } from "./GlobalStyles/DisplayListingStyle";
 
 export default function DisplayListings() {
   const [listingData, setListingData] = useState([]);
@@ -25,7 +26,10 @@ export default function DisplayListings() {
   }, []);
 
   return (
-    <div>
+    <DisplayListingsContainer>
+      <div className="listingHeader">
+        <h2>Current Listings</h2>
+      </div>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
@@ -67,6 +71,6 @@ export default function DisplayListings() {
           )}
         </div>
       )}
-    </div>
+    </DisplayListingsContainer>
   );
 }

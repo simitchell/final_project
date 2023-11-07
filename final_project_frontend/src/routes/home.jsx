@@ -32,10 +32,6 @@ export default function HomePage() {
           <LoginForm />
         </HomeLogin>
       </HomeWrapper>
-
-      <div className="listingHeader">
-        <h2>Current Listings</h2>
-      </div>
       <DisplayListings />
     </HomeContainer>
   );

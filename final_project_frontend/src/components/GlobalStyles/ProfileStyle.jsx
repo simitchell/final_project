@@ -13,9 +13,4 @@ export const ProfileContainer = styled.div`
 
     .profileUpdate {
         width: 25%;
-    }
-
-    .listingHeader {
-        text-align: center;
-    }
-`
+    }`
