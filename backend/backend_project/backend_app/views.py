@@ -1,9 +1,14 @@
 from django.shortcuts import render
-from rest_framework import status, viewsets
+from rest_framework import status, viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from rest_framework_simplejwt.tokens import RefreshToken, OutstandingToken, BlacklistedToken
+from rest_framework_simplejwt.tokens import (
+    RefreshToken,
+    OutstandingToken,
+    BlacklistedToken,
+)
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
 from django.contrib.auth.models import make_password
@@ -31,9 +36,12 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 class ListingViewSet(viewsets.ModelViewSet):
     permisssion_classes = [IsAuthenticatedOrReadOnly]
-
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
+    # def perform_create(self, serializer):
+    #     serializer.save(creator=self.request.user)
 
 
 class RegisterView(APIView):
@@ -85,7 +93,8 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        
+
+
 class LogoutAllView(APIView):
     permission_classes = (IsAuthenticated,)
 

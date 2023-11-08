@@ -15,9 +15,19 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ListingSerializer(serializers.ModelSerializer):
+    image_url = serializers.ImageField(required=False)
+
     class Meta:
         model = Listing
-        fields = ["id", "title", "price", "description", "user", "username"]
+        fields = [
+            "id",
+            "user",
+            "username",
+            "title",
+            "price",
+            "description",
+            "image_url",
+        ]
 
 
 class ProfileSerializer(serializers.ModelSerializer):

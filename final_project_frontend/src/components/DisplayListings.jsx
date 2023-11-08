@@ -42,7 +42,7 @@ export default function DisplayListings() {
                     <h2>{listing.title}</h2>
                     <div className="cardInfo">
                       <div>
-                        <p>this will be an image</p>
+                        <img src={listing.image_url} />
                       </div>
                       <div className="returnInfo">
                         <span>

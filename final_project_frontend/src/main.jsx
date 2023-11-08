@@ -5,6 +5,7 @@ import HomePage from "./routes/home";
 import HowItWorks from "./routes/howitworks";
 import Listing from "./routes/createlisting";
 import Login from "./routes/login";
+import LogoutPage from "./routes/logout";
 import Profile from "./routes/profile";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -47,9 +48,8 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "/logout",
+        // path: "/logout",
         // element: <LogoutPage />,
-        // loader: logoutLoader,
       },
       {
         path: "/profile",

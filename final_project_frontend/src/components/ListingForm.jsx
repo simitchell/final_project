@@ -8,7 +8,6 @@ export default function ListingForm() {
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
-  // console.log("hello, world");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,8 +22,8 @@ export default function ListingForm() {
       },
       body: formData,
     });
-    console.log(formData);
-    console.log(data);
+    // console.log(formData);
+    // console.log(data);
     updateForm.current.reset();
     revalidator.revalidate();
     alert("Listing created successfully");
@@ -50,6 +49,12 @@ export default function ListingForm() {
             <input type="number" name="price" />
             <label>Description</label>
             <textarea type="text" name="description" />
+            <label>Upload Image</label>
+            <input
+              type="file"
+              name="image_url"
+              accept="image/jpeg, image/png, image/gif"
+            />
             <input
               type="hidden"
               name="user"
