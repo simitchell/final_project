@@ -30,9 +30,9 @@ export default function LoginForm() {
       },
       body: JSON.stringify(user),
     }).then((response) => response.json());
-    console.log("DATA IS:", data);
+    // console.log("DATA IS:", data);
     const { access, refresh, userId } = data;
-    console.log(data);
+    // console.log(data);
     if (access !== undefined) {
       localStorage.clear();
       localStorage.setItem("username", username);
@@ -40,7 +40,7 @@ export default function LoginForm() {
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
       window.location.href = "/profile/";
-      console.log(userId);
+      // console.log(userId);
     }
     if (access == undefined) {
       alert("You have entered an invalid username or password");

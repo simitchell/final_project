@@ -1,11 +1,13 @@
+import { Button } from "./GlobalStyles/UtilityStyles";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import React from "react";
 import { CardContainer } from "./GlobalStyles/CardStyle";
 
 export default function ListingDetail() {
   const [listingDetail, setListingDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const { id } = useParams();
   //   console.log(id);
@@ -28,6 +30,19 @@ export default function ListingDetail() {
     getIndividualListing();
   }, []);
 
+  const handleDelete = () => {
+    // confirm("Are you sure?  Deleting a listing is permanent.");
+    const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+    const data = fetch(apiUrl, {
+      method: "DELETE",
+      headers: {
+        // Authorization: `Bearer ${auth}`,
+      },
+    });
+    setListingDetail(null);
+    navigate("/profile", { listingDetail });
+  };
+
   return (
     <>
       {isLoading ? (
@@ -43,10 +58,10 @@ export default function ListingDetail() {
                     <img src={listingDetail.image_url} />
                   </div>
                   <div className="returnInfo">
-                    <span>
+                    {/* <span>
                       <strong>Title: </strong>
                       {listingDetail.title}
-                    </span>
+                    </span> */}
                     <span>
                       <strong>Price: </strong>${listingDetail.price}
                     </span>
@@ -55,7 +70,7 @@ export default function ListingDetail() {
                       {listingDetail.description}
                     </span>
                     <span>
-                      <strong>User: </strong>
+                      <strong>Seller: </strong>
                       {listingDetail.username}
                     </span>
                   </div>
@@ -67,6 +82,22 @@ export default function ListingDetail() {
           )}
         </div>
       )}
+      <div className="listingOptions">
+        <Button type="button" id="editButton">
+          Edit
+        </Button>
+        <Button
+          type="button"
+          id="deleteButton"
+          onClick={() => {
+            if (confirm("Are you sure you wish to delete this item?")) {
+              handleDelete();
+            }
+          }}
+        >
+          Delete
+        </Button>
+      </div>
     </>
   );
 }

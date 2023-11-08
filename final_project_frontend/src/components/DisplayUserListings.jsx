@@ -1,13 +1,15 @@
 import { CardContainer } from "./GlobalStyles/CardStyle";
 import { useState, useEffect } from "react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function DisplayUserListings() {
   const [listingData, setListingData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
   const getInfo = async () => {
+    console.log("here");
     try {
       const apiUrl = "http://127.0.0.1:8000/listing/";
       const response = await fetch(apiUrl);
@@ -22,7 +24,7 @@ export default function DisplayUserListings() {
 
   useEffect(() => {
     getInfo();
-  }, []);
+  }, [location.pathname, location.state]);
 
   // Filter listings created by user_id
   const filteredListings = listingData.filter(
@@ -44,10 +46,10 @@ export default function DisplayUserListings() {
                     <img src={listing.image_url} />
                   </div>
                   <div className="returnInfo">
-                    <span>
+                    {/* <span>
                       <strong>Title: </strong>
                       {listing.title}
-                    </span>
+                    </span> */}
                     <span>
                       <strong>Price: </strong>${listing.price}
                     </span>
@@ -56,7 +58,7 @@ export default function DisplayUserListings() {
                       {listing.description}
                     </span>
                     <span>
-                      <strong>User: </strong>
+                      <strong>Seller: </strong>
                       {listing.username}
                       {/* This displays the username of user_id=1 */}
                     </span>

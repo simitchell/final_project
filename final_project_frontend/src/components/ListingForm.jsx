@@ -27,6 +27,7 @@ export default function ListingForm() {
     updateForm.current.reset();
     revalidator.revalidate();
     alert("Listing created successfully");
+    location.reload();
   };
 
   return (

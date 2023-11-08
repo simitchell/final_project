@@ -2,10 +2,9 @@ import React from "react";
 import { Nav } from "./StyleNav";
 import { Button } from "../GlobalStyles/UtilityStyles";
 import { Link } from "react-router-dom";
-// import 
+// import
 
 export default function MainNav() {
-
   const isAuth = localStorage.getItem("access_token");
 
   return (
@@ -43,7 +42,6 @@ export default function MainNav() {
             <Link to="/profile">Profile</Link>
           </li>
           <li>
-            {/* ternary statement to determine if user is logged in or not */}
             {isAuth ? (
               <Link to="/profile">{localStorage.getItem("username")}</Link>
             ) : (
