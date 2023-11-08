@@ -36,7 +36,7 @@ export default function ListingDetail() {
     const data = fetch(apiUrl, {
       method: "DELETE",
       headers: {
-        // Authorization: `Bearer ${auth}`,
+        Authorization: `Bearer ${auth}`,
       },
     });
     setListingDetail(null);

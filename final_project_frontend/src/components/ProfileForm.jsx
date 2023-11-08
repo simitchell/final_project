@@ -13,7 +13,7 @@ export default function ProfileForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
-    console.log(formData);
+    // console.log(formData);
 
     // I need.... this to have some logic.  It has to see if the profile entry exists.  If yes, then hit that profile endpoint and run an update.  If the profile does not exist, then run this POST here
     const url = "http://127.0.0.1:8000/profile/";
@@ -24,8 +24,8 @@ export default function ProfileForm() {
       },
       body: formData,
     });
-    console.log(formData);
-    console.log(data);
+    // console.log(formData);
+    // console.log(data);
     updateForm.current.reset();
     revalidator.revalidate;
     alert("Profile information updated successfully");

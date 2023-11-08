@@ -9,7 +9,7 @@ export default function DisplayUserListings() {
   const location = useLocation();
 
   const getInfo = async () => {
-    console.log("here");
+    // console.log("here");
     try {
       const apiUrl = "http://127.0.0.1:8000/listing/";
       const response = await fetch(apiUrl);
