@@ -8,7 +8,7 @@ export default function ListingDetail() {
   const [isLoading, setIsLoading] = useState(true);
 
   const { id } = useParams();
-//   console.log(id);
+  //   console.log(id);
 
   const getIndividualListing = async () => {
     try {
@@ -16,7 +16,7 @@ export default function ListingDetail() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
-    //   console.log(data);
+      //   console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -39,8 +39,8 @@ export default function ListingDetail() {
               <div className="card">
                 <h2>{listingDetail.title}</h2>
                 <div className="cardInfo">
-                  <div>
-                    <p>this will be an image</p>
+                  <div className="cardImage">
+                    <img src={listingDetail.image_url} />
                   </div>
                   <div className="returnInfo">
                     <span>

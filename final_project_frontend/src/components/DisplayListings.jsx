@@ -41,7 +41,7 @@ export default function DisplayListings() {
                   <div key={index} className="card">
                     <h2>{listing.title}</h2>
                     <div className="cardInfo">
-                      <div>
+                      <div className="cardImage">
                         <img src={listing.image_url} />
                       </div>
                       <div className="returnInfo">

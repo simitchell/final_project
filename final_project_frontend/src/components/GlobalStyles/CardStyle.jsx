@@ -29,6 +29,19 @@ export const CardContainer = styled.div`
       flex-direction: row;
     }
 
+    .cardImage {
+      width: 400px;
+      height: 400px;
+
+      img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+    }
+      
+    
+
     .returnInfo {
       display: flex;
       flex-direction: column;

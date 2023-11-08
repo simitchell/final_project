@@ -173,3 +173,6 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
 
 # URL used to access the media
 MEDIA_URL = '/media/'
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152  # 2MB
+FILE_UPLOAD_MAX_CHUNK_SIZE = 4194304  # 4MB
