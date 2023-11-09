@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRevalidator } from "react-router-dom";
 import { Button } from "./GlobalStyles/UtilityStyles";
 import { Form } from "./GlobalStyles/UtilityStyles";
@@ -6,15 +6,35 @@ import { CreateListingContainer } from "./GlobalStyles/CreateListingStyle";
 
 export default function EditListing() {
   const auth = localStorage.getItem("access_token");
+  const [listingDetail, setListingDetail] = useState(null);
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
+
+  const getIndividualListing = async () => {
+    try {
+      const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      setListingDetail(data);
+        console.log(data);
+        console.log(listingDetail);
+    } catch (error) {
+      // console.log(error);
+    } finally {
+    //   setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getIndividualListing();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
     // console.log(formData);
 
-    const url = `http://127.0.0.1:8000/listing/${id}`;
+    const url = `http://127.0.0.1:8000/listing/${id}/`;
     const data = await fetch(url, {
       method: "PUT",
       headers: {
