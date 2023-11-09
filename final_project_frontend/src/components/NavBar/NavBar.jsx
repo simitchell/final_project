@@ -32,14 +32,12 @@ export default function MainNav() {
       </div>
       <div className="navLink">
         <ul>
+          <li>{isAuth ? null : <Link to="/">Home</Link>}</li>
           <li>
             <Link to="/createlisting">Create Listing</Link>
           </li>
           <li>
             <Link to="/cart">Cart</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
           </li>
           <li>
             {isAuth ? (

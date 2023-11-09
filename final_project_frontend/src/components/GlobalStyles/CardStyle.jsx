@@ -12,7 +12,8 @@ export const CardContainer = styled.div`
   .card {
     display: flex;
     flex-direction: column;
-    max-width: 600px;
+    max-width: 400px;
+    /* max-height: 325px; */
     border: none;
     background-color: #e2e2e2;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -27,35 +28,33 @@ export const CardContainer = styled.div`
     .cardInfo {
       display: flex;
       flex-direction: row;
+      height: 225px;
+      width: inherit;
     }
 
     .cardImage {
-      width: 400px;
-      height: 400px;
+      width: 250px;
+      height: 250px;
+      /* object-fit: contain; */
 
       img {
-      object-fit: contain;
-      width: 100%;
-      height: 100%;
+        object-fit: contain;
+        width: 100%;
+        height: 100%;
+      }
     }
-    }
-      
-    
 
     .returnInfo {
       display: flex;
       flex-direction: column;
       text-align: left;
       padding: 1rem;
+      width: 50%;
 
       span {
-        margin-bottom: 1rem;
+        margin-bottom: 0.7rem;
       }
     }
   }
 `;
 
-// // this is potentially the code for the wrapper the cards will display into
-// .cardDisplay {
-
-// }

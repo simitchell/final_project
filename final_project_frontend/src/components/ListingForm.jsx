@@ -49,7 +49,7 @@ export default function ListingForm() {
             <label>Price</label>
             <input type="number" name="price" />
             <label>Description</label>
-            <textarea type="text" name="description" />
+            <textarea type="text" name="description" maxLength="250" />
             <label>Upload Image</label>
             <input
               type="file"

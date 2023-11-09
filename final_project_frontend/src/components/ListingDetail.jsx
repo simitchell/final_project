@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import React from "react";
 import { CardContainer } from "./GlobalStyles/CardStyle";
+import { DetailCard } from "./GlobalStyles/ListingDetailStyle";
 
 export default function ListingDetail() {
   const [listingDetail, setListingDetail] = useState(null);
@@ -44,20 +45,20 @@ export default function ListingDetail() {
   };
 
   return (
-    <>
+    <DetailCard>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <div>
           {listingDetail ? (
-            <CardContainer>
-              <div className="card">
+            <div>
+              <div className="detailCard">
                 <h2>{listingDetail.title}</h2>
-                <div className="cardInfo">
-                  <div className="cardImage">
+                <div className="detailBody">
+                  <div className="detailImage">
                     <img src={listingDetail.image_url} />
                   </div>
-                  <div className="returnInfo">
+                  <div className="detailInfo">
                     {/* <span>
                       <strong>Title: </strong>
                       {listingDetail.title}
@@ -76,7 +77,7 @@ export default function ListingDetail() {
                   </div>
                 </div>
               </div>
-            </CardContainer>
+            </div>
           ) : (
             <div>No detail found</div>
           )}
@@ -98,6 +99,6 @@ export default function ListingDetail() {
           Delete
         </Button>
       </div>
-    </>
+    </DetailCard>
   );
 }

@@ -58,6 +58,8 @@ class RegisterView(APIView):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+    lookup_field = "user_id"
+    lookup_url_kwarg = "user_id"
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

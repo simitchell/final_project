@@ -34,6 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ["id", "user_id", "bio", "address", "birthdate"]
+        lookup_field = "user_id"
 
     # def update(self, request):
     #     serializer = self.get_serializer(data=request.data)
