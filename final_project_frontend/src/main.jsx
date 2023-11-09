@@ -13,6 +13,7 @@ import Register from "./routes/register";
 import Root from "./routes/root";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import EditListing from "./components/EditListing";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/createlisting",
         element: <Listing />,
+      },
+      {
+        path: "/editlisting/:id",
+        element: <EditListing />,
       },
       {
         path: "/howitworks",

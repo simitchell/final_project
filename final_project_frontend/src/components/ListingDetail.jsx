@@ -6,8 +6,10 @@ import { CardContainer } from "./GlobalStyles/CardStyle";
 import { DetailCard } from "./GlobalStyles/ListingDetailStyle";
 
 export default function ListingDetail() {
+  const auth = localStorage.getItem("access_token");
   const [listingDetail, setListingDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -20,7 +22,7 @@ export default function ListingDetail() {
       setListingDetail(data);
       //   console.log(data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -29,6 +31,12 @@ export default function ListingDetail() {
   useEffect(() => {
     getIndividualListing();
   }, []);
+
+  useEffect(() => {
+    if (edit === true) {
+      handleEdit();
+    }
+  }, [edit]);
 
   const handleDelete = () => {
     const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
@@ -40,6 +48,19 @@ export default function ListingDetail() {
     });
     setListingDetail(null);
     navigate("/profile", { listingDetail });
+  };
+  // console.log(edit);
+
+  const handleEdit = () => {
+    console.log("inside");
+    // const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+    // const data = fetch(apiUrl, {
+    //   method: "PUT",
+    //   headers: {
+    //     Authorization: `Bearer ${auth}`,
+    //   },
+    // });
+    navigate(`/editlisting/${id}`);
   };
 
   return (
@@ -78,7 +99,7 @@ export default function ListingDetail() {
         </div>
       )}
       <div className="listingOptions">
-        <Button type="button" id="editButton">
+        <Button type="button" id="editButton" onClick={() => setEdit(true)}>
           Edit
         </Button>
         <Button

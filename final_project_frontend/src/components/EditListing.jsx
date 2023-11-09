@@ -4,7 +4,7 @@ import { Button } from "./GlobalStyles/UtilityStyles";
 import { Form } from "./GlobalStyles/UtilityStyles";
 import { CreateListingContainer } from "./GlobalStyles/CreateListingStyle";
 
-export default function ListingForm() {
+export default function EditListing() {
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
@@ -14,9 +14,9 @@ export default function ListingForm() {
     const formData = new FormData(updateForm.current);
     // console.log(formData);
 
-    const url = "http://127.0.0.1:8000/listing/";
+    const url = `http://127.0.0.1:8000/listing/${id}`;
     const data = await fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${auth}`,
       },
@@ -26,23 +26,15 @@ export default function ListingForm() {
     // console.log(data);
     updateForm.current.reset();
     revalidator.revalidate();
-    alert("Listing created successfully");
-    window.location.href = "/profile/";
+    alert("Listing updated successfully");
+    // location.reload();
   };
 
   return (
-    <CreateListingContainer>
-      <div className="createListingWrapper">
-        <div className="createListingIntro">
-          <h2>Got some fox body stuff for sale?</h2>
-          <ul>
-            <li>Fill out the form</li>
-            <li>Put it up for sale</li>
-            <li>Get paid!</li>
-          </ul>
-        </div>
-        <div className="createListingForm">
-          <h2>Create a listing</h2>
+    <>
+      <div>
+        <div className="updateListingForm">
+          <h2>Update Your listing</h2>
           <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
             <label>Listing Title</label>
             <input type="text" name="title" />
@@ -70,6 +62,6 @@ export default function ListingForm() {
           </Form>
         </div>
       </div>
-    </CreateListingContainer>
+    </>
   );
 }
