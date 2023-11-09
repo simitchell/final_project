@@ -38,7 +38,7 @@ export default function ProfileDetail() {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
     console.log(profileDetail);
-    const data = profileDetail.detail != "Not found."
+    const data = profileDetail.detail != "Not "
       ? await handlePut(formData)
       : await handlePost(formData);
     setProfileDetail(data);
@@ -77,21 +77,10 @@ export default function ProfileDetail() {
 
   return (
     <>
-      {profileDetail ? (
-        <div>
-          <p>Address: {profileDetail.address}</p>
-          <p>Birthdate: {profileDetail.birthdate}</p>
-          <p>Bio: {profileDetail.bio}</p>
-        </div>
-      ) : (
-        <div>
-          Profile Information will display here. Please fill out the form.
-        </div>
-      )}
       {isLoading ? (
         <div>Loading...</div>
-      ) : (
-        <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+        ) : (
+          <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
           <label>Address</label>
           <input type="text" name="address" />
           <label>Birthdate</label>
@@ -102,9 +91,21 @@ export default function ProfileDetail() {
             type="hidden"
             name="user"
             value={localStorage.getItem("userId")}
-          />
+            />
           <Button type="submit">Update Profile</Button>
         </Form>
+      )}
+      {profileDetail ? (
+        <div>
+          <p><strong>Current Information</strong></p>
+          <p><strong>Address:</strong> {profileDetail.address}</p>
+          <p><strong>Birthdate:</strong> {profileDetail.birthdate}</p>
+          <p><strong>Bio:</strong> {profileDetail.bio}</p>
+        </div>
+      ) : (
+        <div>
+          Profile Information will display here. Please fill out the form.
+        </div>
       )}
     </>
   );
