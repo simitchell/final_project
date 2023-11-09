@@ -52,7 +52,7 @@ export default function ListingDetail() {
   // console.log(edit);
 
   const handleEdit = () => {
-    console.log("inside");
+    // console.log("inside");
     // const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
     // const data = fetch(apiUrl, {
     //   method: "PUT",

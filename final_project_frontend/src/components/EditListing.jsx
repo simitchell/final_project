@@ -78,7 +78,7 @@ export default function EditListing() {
               name="username"
               value={localStorage.getItem("username")}
             />
-            <Button type="submit">Post Listing</Button>
+            <Button type="submit">Update Listing</Button>
           </Form>
         </div>
       </div>
