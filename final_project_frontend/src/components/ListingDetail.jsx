@@ -1,7 +1,7 @@
-import { Button } from "./GlobalStyles/UtilityStyles";
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import React from "react";
+import { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "./GlobalStyles/UtilityStyles";
 import { CardContainer } from "./GlobalStyles/CardStyle";
 import { DetailCard } from "./GlobalStyles/ListingDetailStyle";
 
@@ -11,7 +11,6 @@ export default function ListingDetail() {
   const navigate = useNavigate();
 
   const { id } = useParams();
-  //   console.log(id);
 
   const getIndividualListing = async () => {
     try {
@@ -32,7 +31,6 @@ export default function ListingDetail() {
   }, []);
 
   const handleDelete = () => {
-    // confirm("Are you sure?  Deleting a listing is permanent.");
     const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
     const data = fetch(apiUrl, {
       method: "DELETE",
@@ -59,10 +57,6 @@ export default function ListingDetail() {
                     <img src={listingDetail.image_url} />
                   </div>
                   <div className="detailInfo">
-                    {/* <span>
-                      <strong>Title: </strong>
-                      {listingDetail.title}
-                    </span> */}
                     <span>
                       <strong>Price: </strong>${listingDetail.price}
                     </span>

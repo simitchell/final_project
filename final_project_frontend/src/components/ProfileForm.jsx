@@ -1,28 +1,28 @@
-import { useRef } from "react";
 import React from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRevalidator, useParams, useNavigate } from "react-router-dom";
 import { Form } from "./GlobalStyles/UtilityStyles";
 import { Button } from "./GlobalStyles/UtilityStyles";
-import { useRevalidator, useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 
-export default function ProfileForm() {
-  const auth = localStorage.getItem("access_token");
-  const revalidator = useRevalidator();
-  const { id } = useParams();
+export default function ProfileDetail() {
   const [profileDetail, setProfileDetail] = useState(null);
-
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const updateForm = useRef(null);
+  const auth = localStorage.getItem("access_token");
+  const revalidator = useRevalidator();
+
+  const { id } = useParams();
 
   const getIndividualProfile = async () => {
     try {
-      // target USER ID!
-      const apiUrl = `http://127.0.0.1:8000/profile/${localStorage.getItem("userId")}/`;
+      const apiUrl = `http://127.0.0.1:8000/profile/${localStorage.getItem(
+        "userId"
+      )}/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setProfileDetail(data);
-      //   console.log(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -37,11 +37,34 @@ export default function ProfileForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
-    console.log(formData);
+    console.log(profileDetail);
+    const data = profileDetail.detail != "Not found."
+      ? await handlePut(formData)
+      : await handlePost(formData);
+    setProfileDetail(data);
+    updateForm.current.reset();
+    revalidator.revalidate();
+    alert("Profile updated successfully");
+    location.reload();
+  };
 
-          // target USER ID!
+  const handlePost = async (formData) => {
+    // const formData = new FormData(updateForm.current);
+    const apiUrl = `http://127.0.0.1:8000/profile/`;
+    const data = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${auth}`,
+      },
+      body: formData,
+    });
+    return data;
+  };
 
-    const apiUrl = `http://127.0.0.1:8000/profile/${localStorage.getItem("userId")}/`;
+  const handlePut = async (formData) => {
+    const apiUrl = `http://127.0.0.1:8000/profile/${localStorage.getItem(
+      "userId"
+    )}/`;
     const data = await fetch(apiUrl, {
       method: "PUT",
       headers: {
@@ -49,33 +72,45 @@ export default function ProfileForm() {
       },
       body: formData,
     });
-    updateForm.current.reset();
-    revalidator.revalidate();
-    alert("Profile updated successfully");
-    location.reload();
+    return data;
   };
 
   return (
     <>
-      <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-        <label>Address</label>
-        <input type="text" name="address" />
-        <label>Birthdate</label>
-        <input type="date" name="birthdate" />
-        <label>Bio</label>
-        <textarea type="text" name="bio" />
-        <input
-          type="hidden"
-          name="user"
-          value={localStorage.getItem("userId")}
-        />
-        <Button type="submit">Update Profile</Button>
-      </Form>
+      {profileDetail ? (
+        <div>
+          <p>Address: {profileDetail.address}</p>
+          <p>Birthdate: {profileDetail.birthdate}</p>
+          <p>Bio: {profileDetail.bio}</p>
+        </div>
+      ) : (
+        <div>
+          Profile Information will display here. Please fill out the form.
+        </div>
+      )}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+          <label>Address</label>
+          <input type="text" name="address" />
+          <label>Birthdate</label>
+          <input type="date" name="birthdate" />
+          <label>Bio</label>
+          <textarea type="text" name="bio" />
+          <input
+            type="hidden"
+            name="user"
+            value={localStorage.getItem("userId")}
+          />
+          <Button type="submit">Update Profile</Button>
+        </Form>
+      )}
     </>
   );
 }
 
-export function DisplayProfile() {}
+// export function DisplayProfile() {}
 
 // A PERFECTLY FUNCTIONING POST METHOD
 
