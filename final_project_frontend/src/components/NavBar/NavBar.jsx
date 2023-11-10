@@ -1,6 +1,6 @@
 import React from "react";
 import { Nav } from "./StyleNav";
-import { Button } from "../GlobalStyles/UtilityStyles";
+import { Button } from "../GlobalStyles/StyleUtility";
 import { Link } from "react-router-dom";
 // import
 

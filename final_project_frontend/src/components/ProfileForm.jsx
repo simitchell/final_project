@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useRevalidator, useParams, useNavigate } from "react-router-dom";
-import { Form } from "./GlobalStyles/UtilityStyles";
-import { Button } from "./GlobalStyles/UtilityStyles";
+import { Form } from "./GlobalStyles/StyleUtility";
+import { Button } from "./GlobalStyles/StyleUtility";
 
 export default function ProfileDetail() {
   const [profileDetail, setProfileDetail] = useState(null);
@@ -38,9 +38,10 @@ export default function ProfileDetail() {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
     console.log(profileDetail);
-    const data = profileDetail.detail != "Not "
-      ? await handlePut(formData)
-      : await handlePost(formData);
+    const data =
+      profileDetail.detail != "Not "
+        ? await handlePut(formData)
+        : await handlePost(formData);
     setProfileDetail(data);
     updateForm.current.reset();
     revalidator.revalidate();
@@ -79,8 +80,8 @@ export default function ProfileDetail() {
     <>
       {isLoading ? (
         <div>Loading...</div>
-        ) : (
-          <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+      ) : (
+        <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
           <label>Address</label>
           <input type="text" name="address" />
           <label>Birthdate</label>
@@ -91,16 +92,24 @@ export default function ProfileDetail() {
             type="hidden"
             name="user"
             value={localStorage.getItem("userId")}
-            />
+          />
           <Button type="submit">Update Profile</Button>
         </Form>
       )}
       {profileDetail ? (
         <div>
-          <p><strong>Current Information</strong></p>
-          <p><strong>Address:</strong> {profileDetail.address}</p>
-          <p><strong>Birthdate:</strong> {profileDetail.birthdate}</p>
-          <p><strong>Bio:</strong> {profileDetail.bio}</p>
+          <p>
+            <strong>Current Information</strong>
+          </p>
+          <p>
+            <strong>Address:</strong> {profileDetail.address}
+          </p>
+          <p>
+            <strong>Birthdate:</strong> {profileDetail.birthdate}
+          </p>
+          <p>
+            <strong>Bio:</strong> {profileDetail.bio}
+          </p>
         </div>
       ) : (
         <div>

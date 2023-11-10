@@ -1,8 +1,8 @@
-import { CardContainer } from "./GlobalStyles/CardStyle";
+import { CardContainer } from "./GlobalStyles/StyleCard";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { DisplayListingsContainer } from "./GlobalStyles/DisplayListingStyle";
+import { DisplayListingsContainer } from "./GlobalStyles/StyleDisplayListing";
 
 export default function DisplayListings() {
   const [listingData, setListingData] = useState([]);

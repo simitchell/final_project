@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "./GlobalStyles/UtilityStyles";
-import { CardContainer } from "./GlobalStyles/CardStyle";
-import { DetailCard } from "./GlobalStyles/ListingDetailStyle";
+import { Button } from "../components/GlobalStyles/StyleUtility";
+import { CardContainer } from "./GlobalStyles/StyleCard";
+import { DetailCard } from "./GlobalStyles/StyleListingDetail";
 
 export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");

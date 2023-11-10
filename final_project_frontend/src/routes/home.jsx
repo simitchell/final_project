@@ -5,7 +5,7 @@ import {
   HomeWelcome,
   HomeLogin,
   HomeWrapper,
-} from "../components/GlobalStyles/HomeStyle";
+} from "../components/GlobalStyles/StyleHome";
 import LoginForm from "../components/LoginForm";
 
 export default function HomePage() {

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useRevalidator } from "react-router-dom";
-import { Button } from "./GlobalStyles/UtilityStyles";
-import { Form } from "./GlobalStyles/UtilityStyles";
-import { CreateListingContainer } from "./GlobalStyles/CreateListingStyle";
+import { Button } from "../components/GlobalStyles/StyleUtility";
+import { Form } from "../components/GlobalStyles/StyleUtility";
+import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
 
 export default function EditListing() {
   const auth = localStorage.getItem("access_token");
@@ -16,8 +16,8 @@ export default function EditListing() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
-        console.log(data);
-        console.log(listingDetail);
+      console.log(data);
+      console.log(listingDetail);
     } catch (error) {
       console.log(error);
     } finally {

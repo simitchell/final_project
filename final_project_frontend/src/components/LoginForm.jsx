@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router";
-import { Button } from "./GlobalStyles/UtilityStyles";
-import { Form } from "./GlobalStyles/UtilityStyles";
+import { Button } from "../components/GlobalStyles/StyleUtility";
+import { Form } from "../components/GlobalStyles/StyleUtility";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
