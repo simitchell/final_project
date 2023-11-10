@@ -20,7 +20,7 @@ export default function ListingDetail() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
-      //   console.log(data);
+        // console.log(data);
     } catch (error) {
       // console.log(error);
     } finally {

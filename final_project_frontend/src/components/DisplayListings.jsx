@@ -15,6 +15,7 @@ export default function DisplayListings() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingData(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
