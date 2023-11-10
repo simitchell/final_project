@@ -19,9 +19,9 @@ export default function EditListing() {
         console.log(data);
         console.log(listingDetail);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     } finally {
-    //   setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -32,8 +32,7 @@ export default function EditListing() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
-    // console.log(formData);
-
+    console.log(formData);
     const url = `http://127.0.0.1:8000/listing/${id}/`;
     const data = await fetch(url, {
       method: "PUT",
@@ -42,6 +41,7 @@ export default function EditListing() {
       },
       body: formData,
     });
+    return data;
     // console.log(formData);
     // console.log(data);
     updateForm.current.reset();
