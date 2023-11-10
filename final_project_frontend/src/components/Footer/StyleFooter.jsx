@@ -16,4 +16,11 @@ export const StyleFooter = styled.footer`
         justify-content: space-evenly;
         
     }
+
+    .row2 {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        line-height: .2rem;
+    }
 `

@@ -35,7 +35,8 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="row">
+        <div className="row2">
+            <p>Contact us at: foxbodyswapmeet@gmail.com</p>
             <p className="col-sm">&copy;{new Date().getFullYear()} FOX BODY SWAP MEET INC | ALL RIGHTS RESERVED | LLC</p>
         </div>
       </div>
