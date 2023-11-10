@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useRevalidator } from "react-router-dom";
+import { useRevalidator, useParams, useNavigate } from "react-router-dom";
 import { Button } from "../components/GlobalStyles/StyleUtility";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
@@ -7,8 +7,11 @@ import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
 export default function EditListing() {
   const auth = localStorage.getItem("access_token");
   const [listingDetail, setListingDetail] = useState(null);
+  const navigate = useNavigate();
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
+
+  const { id } = useParams();
 
   const getIndividualListing = async () => {
     try {
@@ -21,7 +24,7 @@ export default function EditListing() {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
@@ -41,13 +44,13 @@ export default function EditListing() {
       },
       body: formData,
     });
-    return data;
     // console.log(formData);
     // console.log(data);
     updateForm.current.reset();
     revalidator.revalidate();
     alert("Listing updated successfully");
-    // location.reload();
+    navigate("/profile");
+    return data;
   };
 
   return (

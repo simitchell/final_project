@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../";
+import { useAuth } from "../AuthContext";
 
 export default function LogoutPage() {
   const { setIsAuth } = useAuth();

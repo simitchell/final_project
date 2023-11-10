@@ -22,7 +22,7 @@ export default function ProfileDetail() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       setProfileDetail(data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
