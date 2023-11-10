@@ -1,5 +1,6 @@
 import { useLoaderData, Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Footer from "../components/Footer/Footer"
 import MainNav from "../components/NavBar";
 import { StyleRoot } from "../components/GlobalStyles/StyleRoot";
 
@@ -14,6 +15,7 @@ export default function Root() {
       <div>
         <Outlet />
       </div>
+      <Footer />
     </>
   );
 }
