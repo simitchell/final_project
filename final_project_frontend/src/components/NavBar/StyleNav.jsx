@@ -32,7 +32,7 @@ export const Nav = styled.nav`
     }
   }
 
-  .aboutus {
+  .aboutUs {
     margin: 8px;
   }
   .howitworks {

@@ -13,7 +13,11 @@ export const HomeWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const HomeWelcome = styled.div``;
+export const HomeWelcome = styled.div`
+  ul {
+    list-style-type: none;
+  }
+`;
 
 export const HomeLogin = styled.div`
   width: 25%;

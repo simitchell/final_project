@@ -20,11 +20,16 @@ export default function HomePage() {
               '79-'93 Ford Mustangs and the 5.0L legacy. Fox Body Swap Meet is a
               curated buy/sell site for parts.
             </p>
-            <p>
-              Visit our <a href="./aboutus">About Us</a> page for more on who we
-              are and our <a href="./howitworks">How It Works</a> page for more
-              on how it works around here.
-            </p>
+            <ul>
+              <h3>New here?  Visit our...</h3>
+              <li>
+                <a href="./aboutus">About Us</a> page for more on who we are
+              </li>
+              <li>
+                <a href="./howitworks">How It Works</a> page for more on how it
+                works at Fox Body Swap Meet
+              </li>
+            </ul>
           </Text>
         </HomeWelcome>
 

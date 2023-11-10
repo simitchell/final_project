@@ -18,27 +18,18 @@ export default function MainNav() {
         <input type="search"></input>
         <Button type="submit">Search</Button>
       </div>
-      <div className="aboutUs">
-        <Link to="/aboutus">
-          <Button className="aboutus" type="button">
-            About Us
-          </Button>
-        </Link>
-        <Link to="howitworks">
-          <Button className="howitworks" type="button">
-            How It Works
-          </Button>
-        </Link>
-      </div>
       <div className="navLink">
         <ul>
-          <li>{isAuth ? null : <Link to="/">Home</Link>}</li>
           <li>
-            <Link to="/createlisting">Create Listing</Link>
+            <Link to="/aboutus">About Us</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="howitworks">How It Works</Link>
           </li>
+          <li>
+            {isAuth ? <Link to="/createlisting">Create Listing</Link> : null}
+          </li>
+          <li>{isAuth ? <Link to="/cart">Cart</Link> : null}</li>
           <li>
             {isAuth ? (
               <Link to="/profile">{localStorage.getItem("username")}</Link>
