@@ -27,15 +27,14 @@ export default function LogoutPage() {
       if (response.status === 205) {
         localStorage.clear(); // Clear user data and tokens
         setIsAuth(false); // Update the authentication state
-        navigate(`/`); // Redirect to the login page
       } else {
         console.error("ERROR", response.status, response.statusText);
-        navigate(`/`); // Redirect to the login page even if an error occurs
       }
     } catch (error) {
       console.error("ERROR", error);
-      navigate(`/`); // Redirect to the login page in case of an error
     }
+    navigate(`/`);
+    location.reload();
   };
 
   useEffect(() => {
