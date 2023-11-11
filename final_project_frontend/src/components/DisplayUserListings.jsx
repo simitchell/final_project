@@ -40,31 +40,30 @@ export default function DisplayUserListings() {
           {filteredListings.map((listing, index) => (
             <Link to={`/listingdetail/${listing.id}`} key={listing.id}>
               <div key={index} className="card">
-                <h2>{listing.title}</h2>
-                <div className="cardInfo">
-                  <div className="cardImage">
-                    <img src={listing.image_url} />
+                    <h2>{listing.title}</h2>
+                    <div className="cardInfo">
+                      <div className="returnInfo">
+                        {/* <span>
+                          <strong>Title: </strong>
+                          {listing.title}
+                        </span> */}
+                        <span>
+                          <strong>Price: </strong>${listing.price}
+                        </span>
+                        {/* <span>
+                          <strong>Description: </strong>
+                          {listing.description}
+                        </span> */}
+                        <span>
+                          <strong>Seller: </strong>
+                          {listing.username}
+                        </span>
+                      </div>
+                      <div className="cardImage">
+                        <img src={listing.image_url} />
+                      </div>
+                    </div>
                   </div>
-                  <div className="returnInfo">
-                    {/* <span>
-                      <strong>Title: </strong>
-                      {listing.title}
-                    </span> */}
-                    <span>
-                      <strong>Price: </strong>${listing.price}
-                    </span>
-                    <span>
-                      <strong>Description: </strong>
-                      {listing.description}
-                    </span>
-                    <span>
-                      <strong>Seller: </strong>
-                      {listing.username}
-                      {/* This displays the username of user_id=1 */}
-                    </span>
-                  </div>
-                </div>
-              </div>
             </Link>
           ))}
         </CardContainer>

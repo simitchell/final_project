@@ -72,25 +72,25 @@ export default function ListingDetail() {
           {listingDetail ? (
             <div className="detailWrapper">
               <div className="detailCard">
-                <h2>{listingDetail.title}</h2>
                 <div className="detailBody">
                   <div className="detailImage">
                     <img
                       src={listingDetail.image_url}
                       alt={listingDetail.title}
-                    />
+                      />
                   </div>
                   <div className="detailInfo">
+                      <h2>{listingDetail.title}</h2>
                     <span>
                       <strong>Price: </strong>${listingDetail.price}
                     </span>
                     <span>
-                      <strong>Description: </strong>
-                      {listingDetail.description}
-                    </span>
-                    <span>
                       <strong>Seller: </strong>
                       {listingDetail.username}
+                    </span>
+                    <span>
+                      <strong>Description: </strong>
+                      {listingDetail.description}
                     </span>
                   </div>
                 </div>

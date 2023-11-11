@@ -12,9 +12,9 @@ export const DetailCard = styled.div`
 
   .detailCard {
     display: flex;
-    flex-direction: column;
-    max-width: 600px;
-    max-height: 600px;
+    flex-direction: row;
+    max-width: 750px;
+    max-height: 750px;
     border: none;
     background-color: #e2e2e2;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -53,7 +53,7 @@ export const DetailCard = styled.div`
     display: flex;
     flex-direction: column;
     text-align: left;
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding: 1rem;
     width: 50%;
   }
