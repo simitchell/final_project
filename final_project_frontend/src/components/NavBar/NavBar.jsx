@@ -21,6 +21,9 @@ export default function MainNav() {
       <div className="navLink">
         <ul>
           <li>
+            <Link to="/logout">Logout</Link>
+          </li>
+          <li>
             <Link to="/aboutus">About Us</Link>
           </li>
           <li>

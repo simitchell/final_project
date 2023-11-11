@@ -1,75 +1,111 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./AuthContext";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "./index.css";
+
 import AboutUs from "./routes/aboutus";
 import Cart from "./routes/cart";
 import DisplayListingDetail from "./routes/listingdetail";
+import EditListing from "./components/EditListing";
 import HomePage from "./routes/home";
 import HowItWorks from "./routes/howitworks";
 import Listing from "./routes/createlisting";
 import Login from "./routes/login";
-import LogoutPage from "./routes/logout";
+import LogoutPage from "./components/LogOut";
 import Profile from "./routes/profile";
-import React from "react";
-import ReactDOM from "react-dom/client";
 import Register from "./routes/register";
-import Root from "./routes/root";
-import "./index.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import EditListing from "./components/EditListing";
+import Root from "./routes/root"; // Adjust the path based on your project structure
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <Root />,
     children: [
       {
-        path: "/",
+        path: "", // Change this to a different path, e.g., "/home"
         element: <HomePage />,
       },
       {
-        path: "/aboutus",
+        path: "aboutus",
         element: <AboutUs />,
       },
       {
-        path: "/cart",
+        path: "cart",
         element: <Cart />,
       },
       {
-        path: "/createlisting",
+        path: "createlisting",
         element: <Listing />,
       },
       {
-        path: "/editlisting/:id",
+        path: "editlisting/:id",
         element: <EditListing />,
       },
       {
-        path: "/howitworks",
+        path: "howitworks",
         element: <HowItWorks />,
       },
       {
-        path: "/listingdetail/:id",
+        path: "listingdetail/:id",
         element: <DisplayListingDetail />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
-        // path: "/logout",
-        // element: <LogoutPage />,
+        path: "logout",
+        element: <LogoutPage />,
       },
       {
-        path: "/profile",
+        path: "profile",
         element: <Profile />,
       },
       {
-        path: "/register",
+        path: "register",
         element: <Register />,
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const App = () => {
+  return (
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Root>
+                <Route index element={<HomePage />} />
+                <Route path="aboutus" element={<AboutUs />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="createlisting" element={<Listing />} />
+                <Route path="editlisting/:id" element={<EditListing />} />
+                <Route path="howitworks" element={<HowItWorks />} />
+                <Route
+                  path="listingdetail/:id"
+                  element={<DisplayListingDetail />}
+                />
+                <Route path="login" element={<Login />} />
+                <Route path="logout" element={<LogoutPage />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="register" element={<Register />} />
+              </Root>
+            }
+          />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
+};
+
+// Use createRoot and render
+createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <App />
   </React.StrictMode>
 );

@@ -1,10 +1,22 @@
-import StyleRoot from "./GlobalStyles/StyleRoot"
+import StyleRoot from "./GlobalStyles/StyleRoot";
+import { Outlet } from "react-router-dom";
 
-export default function RootComponent() {
+const Root = ({ children }) => {
   return (
-    <StyleRoot>
-      <h1>Fox Body Swap Meet</h1>
-      <h2>For enthusiasts, by enthusiasts</h2>
-    </StyleRoot>
+    <div>
+      <Outlet />
+    </div>
   );
-}
+};
+
+// export default function RootComponent() {
+//   return (
+//     <div>
+//       <StyleRoot>
+//       <h1>Fox Body Swap Meet</h1>
+//       <h2>For enthusiasts, by enthusiasts</h2>
+//     </StyleRoot>
+//     <Outlet />
+//     </div>
+//   );
+// };

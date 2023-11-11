@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import { AuthProvider } from "../AuthContext";
 
 export default function LogoutPage() {
   const { setIsAuth } = useAuth();
   const navigate = useNavigate();
+
+  console.log(setIsAuth());
 
   const performLogout = async () => {
     const url = "http://localhost:8000/logout/";
@@ -36,8 +39,9 @@ export default function LogoutPage() {
   };
 
   useEffect(() => {
-    performLogout(); // Execute the logout logic when the component mounts
+    performLogout();
   }, [navigate, setIsAuth]);
+
   return (
     <div>
       <h1>Logout</h1>
