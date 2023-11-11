@@ -48,8 +48,8 @@ export default function EditListing() {
     // console.log(data);
     updateForm.current.reset();
     revalidator.revalidate();
-    alert("Listing updated successfully");
-    navigate("/profile");
+    // alert("Listing updated successfully");
+    location.reload();
     return data;
   };
 

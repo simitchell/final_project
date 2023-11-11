@@ -51,17 +51,17 @@ export default function ListingDetail() {
   };
   // console.log(edit);
 
-  const handleEdit = () => {
-    // console.log("inside");
-    // const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
-    // const data = fetch(apiUrl, {
-    //   method: "PUT",
-    //   headers: {
-    //     Authorization: `Bearer ${auth}`,
-    //   },
-    // });
-    navigate(`/editlisting/${id}`);
-  };
+  // const handleEdit = () => {
+  //   // console.log("inside");
+  //   // const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+  //   // const data = fetch(apiUrl, {
+  //   //   method: "PUT",
+  //   //   headers: {
+  //   //     Authorization: `Bearer ${auth}`,
+  //   //   },
+  //   // });
+  //   navigate(`/editlisting/${id}`);
+  // };
 
   return (
     <DetailCard>
@@ -77,10 +77,10 @@ export default function ListingDetail() {
                     <img
                       src={listingDetail.image_url}
                       alt={listingDetail.title}
-                      />
+                    />
                   </div>
                   <div className="detailInfo">
-                      <h2>{listingDetail.title}</h2>
+                    <h2>{listingDetail.title}</h2>
                     <span>
                       <strong>Price: </strong>${listingDetail.price}
                     </span>
@@ -99,13 +99,13 @@ export default function ListingDetail() {
                 {listingDetail.username ===
                   localStorage.getItem("username") && (
                   <div className="listingOptions">
-                    <Button
+                    {/* <Button
                       type="button"
                       id="editButton"
                       onClick={() => setEdit(true)}
                     >
                       Edit
-                    </Button>
+                    </Button> */}
                     <Button
                       type="button"
                       id="deleteButton"

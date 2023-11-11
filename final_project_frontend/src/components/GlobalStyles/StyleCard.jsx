@@ -12,7 +12,7 @@ export const CardContainer = styled.div`
   .card {
     display: flex;
     flex-direction: column;
-    width: 325px;
+    width: 300px;
     height: 375px;
     /* max-height: 325px; */
     border: none;
@@ -29,7 +29,7 @@ export const CardContainer = styled.div`
     .cardInfo {
       display: flex;
       flex-direction: column;
-      height: 225px;
+      height: 285px;
       width: inherit;
     }
 
