@@ -43,9 +43,6 @@ export default function DisplayListings() {
                   <div key={index} className="card">
                     <h2>{listing.title}</h2>
                     <div className="cardInfo">
-                      <div className="cardImage">
-                        <img src={listing.image_url} />
-                      </div>
                       <div className="returnInfo">
                         {/* <span>
                           <strong>Title: </strong>
@@ -54,14 +51,17 @@ export default function DisplayListings() {
                         <span>
                           <strong>Price: </strong>${listing.price}
                         </span>
-                        <span>
+                        {/* <span>
                           <strong>Description: </strong>
                           {listing.description}
-                        </span>
+                        </span> */}
                         <span>
                           <strong>Seller: </strong>
                           {listing.username}
                         </span>
+                      </div>
+                      <div className="cardImage">
+                        <img src={listing.image_url} />
                       </div>
                     </div>
                   </div>

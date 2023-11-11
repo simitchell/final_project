@@ -12,7 +12,8 @@ export const CardContainer = styled.div`
   .card {
     display: flex;
     flex-direction: column;
-    max-width: 400px;
+    width: 325px;
+    height: 375px;
     /* max-height: 325px; */
     border: none;
     background-color: #e2e2e2;
@@ -22,12 +23,12 @@ export const CardContainer = styled.div`
     padding: 1rem;
 
     h2 {
-      margin-top: 0;
+      margin: 0;
     }
 
     .cardInfo {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       height: 225px;
       width: inherit;
     }
@@ -35,6 +36,8 @@ export const CardContainer = styled.div`
     .cardImage {
       width: 250px;
       height: 250px;
+      padding: auto;
+      margin: auto;
       /* object-fit: contain; */
 
       img {
@@ -46,10 +49,11 @@ export const CardContainer = styled.div`
 
     .returnInfo {
       display: flex;
-      flex-direction: column;
-      text-align: left;
-      padding: 1rem;
-      width: 50%;
+      /* flex-direction: column; */
+      justify-content: space-between;
+      /* text-align: left;
+      padding: 1rem; */
+      width: 100%;
 
       span {
         margin-bottom: 0.7rem;
