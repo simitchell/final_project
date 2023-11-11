@@ -20,7 +20,7 @@ export default function ListingDetail() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
-        // console.log(data);
+      // console.log(data);
     } catch (error) {
       // console.log(error);
     } finally {
@@ -70,12 +70,15 @@ export default function ListingDetail() {
       ) : (
         <div>
           {listingDetail ? (
-            <div>
+            <div className="detailWrapper">
               <div className="detailCard">
                 <h2>{listingDetail.title}</h2>
                 <div className="detailBody">
                   <div className="detailImage">
-                    <img src={listingDetail.image_url} />
+                    <img
+                      src={listingDetail.image_url}
+                      alt={listingDetail.title}
+                    />
                   </div>
                   <div className="detailInfo">
                     <span>
@@ -92,28 +95,41 @@ export default function ListingDetail() {
                   </div>
                 </div>
               </div>
+              <div className="listingOptions">
+                {listingDetail.username ===
+                  localStorage.getItem("username") && (
+                  <div className="listingOptions">
+                    <Button
+                      type="button"
+                      id="editButton"
+                      onClick={() => setEdit(true)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      type="button"
+                      id="deleteButton"
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Are you sure you wish to delete this item?"
+                          )
+                        ) {
+                          handleDelete();
+                        }
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             <div>No detail found</div>
           )}
         </div>
       )}
-      <div className="listingOptions">
-        <Button type="button" id="editButton" onClick={() => setEdit(true)}>
-          Edit
-        </Button>
-        <Button
-          type="button"
-          id="deleteButton"
-          onClick={() => {
-            if (confirm("Are you sure you wish to delete this item?")) {
-              handleDelete();
-            }
-          }}
-        >
-          Delete
-        </Button>
-      </div>
     </DetailCard>
   );
 }

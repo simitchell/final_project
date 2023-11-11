@@ -46,6 +46,9 @@ export const DetailCard = styled.div`
       }
   }
 
+  .detailWrapper {
+    display: flex;
+  }
   .detailInfo {
     display: flex;
     flex-direction: column;
