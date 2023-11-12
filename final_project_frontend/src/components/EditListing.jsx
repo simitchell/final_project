@@ -20,7 +20,7 @@ export default function EditListing() {
       const data = await response.json();
       setListingDetail(data);
       console.log(data);
-      console.log(listingDetail);
+      // console.log(listingDetail);
     } catch (error) {
       console.log(error);
     } finally {
@@ -56,34 +56,36 @@ export default function EditListing() {
   return (
     <>
       <div>
-        <div className="updateListingForm">
-          <h2>Update Your listing</h2>
-          <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-            <label>Listing Title</label>
-            <input type="text" name="title" />
-            <label>Price</label>
-            <input type="number" name="price" />
-            <label>Description</label>
-            <textarea type="text" name="description" maxLength="250" />
-            <label>Upload Image</label>
-            <input
-              type="file"
-              name="image_url"
-              accept="image/jpeg, image/png, image/gif"
-            />
-            <input
-              type="hidden"
-              name="user"
-              value={localStorage.getItem("userId")}
-            />
-            <input
-              type="hidden"
-              name="username"
-              value={localStorage.getItem("username")}
-            />
-            <Button type="submit">Update Listing</Button>
-          </Form>
-        </div>
+      {listingDetail?.username === localStorage.getItem("username") && (
+          <div className="updateListingForm">
+            <h2>Update Your listing</h2>
+            <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+              <label>Listing Title</label>
+              <input type="text" name="title" />
+              <label>Price</label>
+              <input type="number" name="price" />
+              <label>Description</label>
+              <textarea type="text" name="description" maxLength="250" />
+              <label>Upload Image</label>
+              <input
+                type="file"
+                name="image_url"
+                accept="image/jpeg, image/png, image/gif"
+              />
+              <input
+                type="hidden"
+                name="user"
+                value={localStorage.getItem("userId")}
+              />
+              <input
+                type="hidden"
+                name="username"
+                value={localStorage.getItem("username")}
+              />
+              <Button type="submit">Update Listing</Button>
+            </Form>
+          </div>
+        )} 
       </div>
     </>
   );
