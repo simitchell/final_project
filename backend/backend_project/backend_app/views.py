@@ -13,7 +13,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
 from django.contrib.auth.models import make_password
 from rest_framework import status
-from .models import Listing, Profile
+from .models import Cart, Listing, Profile
 
 from .serializers import (
     ProfileSerializer,
@@ -25,28 +25,26 @@ from .serializers import (
 )
 
 
-
-
-
-
 # Create your views here.
 
-# class CartView(APIView):
-#     permission_classes = [IsAuthenticated]
 
-#     def post(self, request):
-#         try: 
-#            CartSerializer(data=request.data)
-#            if serializer.is_valid():
-#                serializer.save(
-#                    user= request.user
-#                )
-#                return Response(status=status.HTTP_201_CREATED)
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#         except Exception as e:
-#             return Response(status=status.HTTP_400_BAD_REQUEST)
+class CartViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+    lookup_field = "user_id"
 
-
+    def post(self, request):
+        try:
+            serializer = CartSerializer(
+                data=request.data
+            )  # Fix: create a serializer instance
+            if serializer.is_valid():
+                serializer.save(user=request.user)
+                return Response(status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -87,7 +85,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -99,6 +96,3 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-
-
