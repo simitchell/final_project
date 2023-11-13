@@ -13,23 +13,42 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
 from django.contrib.auth.models import make_password
 from rest_framework import status
-from .models import Profile
+from .models import Listing, Profile
 
 from .serializers import (
     ProfileSerializer,
     TokenObtainPairSerializer,
     UserSerializer,
     ListingSerializer,
+    CartSerializer,
+    CustomTokenObtainPairSerializer,
 )
 
 
-# from .forms import ListingForm
-from .models import Listing
-from .serializers import CustomTokenObtainPairSerializer
-from .serializers import ListingSerializer
+
+
 
 
 # Create your views here.
+
+# class CartView(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def post(self, request):
+#         try: 
+#            CartSerializer(data=request.data)
+#            if serializer.is_valid():
+#                serializer.save(
+#                    user= request.user
+#                )
+#                return Response(status=status.HTTP_201_CREATED)
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#         except Exception as e:
+#             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
@@ -68,21 +87,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-# class RedirectView(APIView):
-#     model = Url
-
-#     def get(self, request, short_url):
-#         try:
-#             short_url = self.kwargs.get('short_url')
-#             urlObject = Url.objects.filter(
-#                 short_url=short_url).values('title', 'original_url')
-#             for item in urlObject:
-#                 original_url = item['original_url']
-#             response = redirect(original_url)
-#             return response
-#         except Exception as e:
-#             return Response(status=status.HTTP_400_BAD_REQUEST)
-
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -97,12 +101,4 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# class LogoutAllView(APIView):
-#     permission_classes = (IsAuthenticated,)
 
-#     def post(self, request):
-#         tokens = OutstandingToken.objects.filter(user_id=request.user.id)
-#         for token in tokens:
-#             t, _ = BlacklistedToken.objects.get_or_create(token=token)
-
-#         return Response(status=status.HTTP_205_RESET_CONTENT)

@@ -28,9 +28,13 @@ class Listing(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=35, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
+    address = models.CharField(max_length=50, blank=True)
+    bio = models.TextField(max_length=400, blank=True)
     birthdate = models.DateField(null=True, blank=True)
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cart_item = models.CharField(max_length=100)
 
 
 @receiver(post_save, sender=User)
