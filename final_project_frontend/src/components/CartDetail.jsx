@@ -1,8 +1,58 @@
-// import React from "react";
-// import { useEffect, useRef, useState } from "react";
-// import { useRevalidator, useParams, useNavigate } from "react-router-dom";
-// import { Button } from "../components/GlobalStyles/StyleUtility";
-// import { Form } from "../components/GlobalStyles/StyleUtility";
+import React from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRevalidator, useParams, useNavigate, json } from "react-router-dom";
+import { Button } from "../components/GlobalStyles/StyleUtility";
+import { Form } from "../components/GlobalStyles/StyleUtility";
+
+export default function CartDetail() {
+  const auth = localStorage.getItem("access_token");
+  const revalidator = useRevalidator();
+  const updateForm = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [cartDetail, setCartDetail] = useState(null);
+
+  const getIndividualListing = async () => {
+    try {
+      const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      setCartDetail(data);
+      console.log(data);
+    } catch (error) {
+      // console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getIndividualListing();
+  }, []);
+
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+
+    const url = "http://127.0.0.1:8000/cart/";
+    const data = fetch(url, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${auth}`,
+        },
+        body: json,
+    })
+    setCartDetail(null);
+
+
+  }
+
+  return (
+    <>
+    cart under constructsh.
+    </>
+  )
+
+}
 
 // export default function CartDetail() {
 //   const auth = localStorage.getItem("access_token");
@@ -22,7 +72,7 @@
 //         }
 //     }
 //   }
-  
+
 //   const getIndividualListing = async () => {
 //     try {
 //       const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status, viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.tokens import (
     RefreshToken,
@@ -29,22 +29,23 @@ from .serializers import (
 
 
 class CartViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
-    lookup_field = "user_id"
+    # parser_classes = JSONParser
+    # lookup_field = "user_id"
 
-    def post(self, request):
-        try:
-            serializer = CartSerializer(
-                data=request.data
-            )  # Fix: create a serializer instance
-            if serializer.is_valid():
-                serializer.save(user=request.user)
-                return Response(status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+    # def post(self, request):
+    #     try:
+    #         serializer = CartSerializer(
+    #             data=request.data
+    #         )  # Fix: create a serializer instance
+    #         if serializer.is_valid():
+    #             serializer.save(user=request.user)
+    #             return Response(status=status.HTTP_201_CREATED)
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     except Exception as e:
+    #         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -81,7 +82,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    def perform_udpate(self, serializer):
+    def perform_update(self, serializer):
         serializer.save(user=self.request.user)
 
 

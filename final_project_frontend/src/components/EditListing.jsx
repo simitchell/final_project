@@ -19,7 +19,7 @@ export default function EditListing() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
-      console.log(data);
+      // console.log(data);
       // console.log(listingDetail);
     } catch (error) {
       console.log(error);

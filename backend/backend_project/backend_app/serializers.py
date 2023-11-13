@@ -7,9 +7,11 @@ User = get_user_model()
 
 
 class CartSerializer(serializers.ModelSerializer):
+    # user_id = serializers.ReadOnlyField(source="user.id")
+
     class Meta:
         model = Cart
-        fields = ["cart_item", "id"]
+        fields = ["id", "user_id", "cart_item"]
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
