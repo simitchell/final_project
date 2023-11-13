@@ -96,16 +96,8 @@ export default function ListingDetail() {
                 </div>
               </div>
               <div className="listingOptions">
-                {listingDetail.username ===
-                  localStorage.getItem("username") && (
+                {listingDetail.username === localStorage.getItem("username") ? (
                   <div className="listingOptions">
-                    {/* <Button
-                      type="button"
-                      id="editButton"
-                      onClick={() => setEdit(true)}
-                    >
-                      Edit
-                    </Button> */}
                     <Button
                       type="button"
                       id="deleteButton"
@@ -120,6 +112,18 @@ export default function ListingDetail() {
                       }}
                     >
                       Delete
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="listingOptions">
+                    <Button
+                      type="button"
+                      id="addToCartButton"
+                      onClick={() => {
+                        // Handle the logic for adding to the cart
+                      }}
+                    >
+                      Add to Cart
                     </Button>
                   </div>
                 )}
