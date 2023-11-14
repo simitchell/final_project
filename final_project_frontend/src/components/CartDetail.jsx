@@ -15,7 +15,7 @@ export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
   const [isLoading, setIsLoading] = useState(true);
   const [cartData, setCartData] = useState(null);
-  const [filteredData, setFilteredData] = useState([]);
+  // const [filteredCart, setFilteredCart] = useState([]);
   const location = useLocation();
 
   const getCart = async () => {
@@ -27,8 +27,14 @@ export default function CartDetail() {
           Authorization: `Bearer ${auth}`,
         },
       });
-      const data = await response.json();
-      setCartData(data);
+      // console.log({ response });
+      if (response.ok) {
+        const data = await response.json();
+        const filteredCart = data.filter(
+          (cart) => cart.user_id == localStorage.getItem("userId")
+        );
+        setCartData(filteredCart);
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -37,22 +43,22 @@ export default function CartDetail() {
   };
 
   // cartData is all cart data in the table
-  console.log(cartData);
+  // console.log(cartData);
 
   useEffect(() => {
     getCart();
-  }, [location.pathname, location.state]);
+  }, []);
 
   // Filter cartData according to user_id matching local storage
-  useEffect(() => {
-    if (cartData) {
-      const filteredCart = cartData.filter(
-        (cart) => cart.user_id == localStorage.getItem("userId")
-      );
-      console.log(filteredCart);
-      setFilteredData(filteredCart);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (cartData) {
+  //     const filteredCart = cartData.filter(
+  //       (cart) => cart.user_id == localStorage.getItem("userId")
+  //     );
+  //     console.log(filteredCart);
+  //     setFilteredData(filteredCart);
+  //   }
+  // }, []);
 
   return (
     <CartDiv>
@@ -61,14 +67,14 @@ export default function CartDetail() {
         <div>Loading...</div>
       ) : (
         <CartOuterContainer>
-          <div key={filteredData.id} className="cart-contents">
-            {filteredData.map((cart, index) => {
+          <div className="cart-contents">
+            {cartData?.map((item) => {
               return (
-                <div className="cart-item" key={index}>
+                <div className="cart-item" key={item.id}>
                   <div className="cart-img">
-                    <img src={cart.image_url} />
+                    <img src={item.image_url} />
                   </div>
-                  <div className="col-2">{cart.cart_item}</div>
+                  <div className="col-2">{item.cart_item}</div>
                   <div className="col-3">Item Price</div>
                 </div>
               );
