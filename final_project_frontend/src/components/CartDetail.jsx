@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { Button } from "../components/GlobalStyles/StyleUtility";
 import { Form } from "../components/GlobalStyles/StyleUtility";
-import { CartOuterContainer } from "./GlobalStyles/StyleCart";
+import { CartDiv, CartOuterContainer } from "./GlobalStyles/StyleCart";
 
 export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
@@ -49,25 +49,25 @@ export default function CartDetail() {
       const filteredCart = cartData.filter(
         (cart) => cart.user_id == localStorage.getItem("userId")
       );
-      setFilteredData(filteredCart);
       console.log(filteredCart);
+      setFilteredData(filteredCart);
     }
   }, []);
 
   return (
-    <div>
+    <CartDiv>
+      <h3>My Cart</h3>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <CartOuterContainer>
-          <h3>My Cart</h3>
           <div key={filteredData.id} className="cart-contents">
             {filteredData.map((cart, index) => {
               return (
                 <div className="cart-item" key={index}>
-                  <div className="col-1">
+                  <div className="cart-img">
                     <img src={cart.image_url} />
-                    </div>
+                  </div>
                   <div className="col-2">{cart.cart_item}</div>
                   <div className="col-3">Item Price</div>
                 </div>
@@ -84,6 +84,6 @@ export default function CartDetail() {
           </div>
         </CartOuterContainer>
       )}
-    </div>
+    </CartDiv>
   );
 }
