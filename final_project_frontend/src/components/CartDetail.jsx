@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRevalidator, useParams, useNavigate, json } from "react-router-dom";
 import { Button } from "../components/GlobalStyles/StyleUtility";
 import { Form } from "../components/GlobalStyles/StyleUtility";
+import { CartOuterContainer } from "./GlobalStyles/StyleCart";
 
 export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
@@ -11,49 +12,61 @@ export default function CartDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const [cartDetail, setCartDetail] = useState(null);
 
-  const getIndividualListing = async () => {
-    try {
-      const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      setCartDetail(data);
-      console.log(data);
-    } catch (error) {
-      // console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getIndividualListing();
-  }, []);
-
-
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-
-    const url = "http://127.0.0.1:8000/cart/";
-    const data = fetch(url, {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${auth}`,
-        },
-        body: json,
-    })
-    setCartDetail(null);
-
-
-  }
-
   return (
-    <>
-    cart under constructsh.
-    </>
-  )
+    <CartOuterContainer>
+      <div className="cart-contents">
+        <h3>My Cart</h3>
+        <div className="cart-item">
+          <div className="col-1">Column 1</div>
+          <div className="col-2">Column 2</div>
+          <div className="col-3">Column 3</div>
+        </div>
+      </div>
 
+      <div className="cart-total">
+        <h3>Total</h3>
+        <div className="row-items">Items row</div>
+        <div className="row-taxes">Taxes row</div>
+        <div className="row-sh">Shipping row</div>
+        <div className="row-total">Total row</div>
+
+      </div>
+    </CartOuterContainer>
+  );
 }
 
+// const getIndividualListing = async () => {
+//   try {
+//     const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+//     const response = await fetch(apiUrl);
+//     const data = await response.json();
+//     setCartDetail(data);
+//     console.log(data);
+//   } catch (error) {
+//     // console.log(error);
+//   } finally {
+//     setIsLoading(false);
+//   }
+// };
+
+// useEffect(() => {
+//   getIndividualListing();
+// }, []);
+
+// const handleAddToCart = (e) => {
+//   e.preventDefault();
+
+//   const url = "http://127.0.0.1:8000/cart/";
+//   const data = fetch(url, {
+//       method: "POST",
+//       headers: {
+//           Authorization: `Bearer ${auth}`,
+//       },
+//       body: json,
+//   })
+//   setCartDetail(null);
+
+// }
 // export default function CartDetail() {
 //   const auth = localStorage.getItem("access_token");
 //   const [listingDetail, setListingDetail] = useState(null);

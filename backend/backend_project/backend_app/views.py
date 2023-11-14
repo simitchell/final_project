@@ -29,23 +29,11 @@ from .serializers import (
 
 
 class CartViewSet(viewsets.ModelViewSet):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+    lookup_field = "user_id"
     # parser_classes = JSONParser
-    # lookup_field = "user_id"
-
-    # def post(self, request):
-    #     try:
-    #         serializer = CartSerializer(
-    #             data=request.data
-    #         )  # Fix: create a serializer instance
-    #         if serializer.is_valid():
-    #             serializer.save(user=request.user)
-    #             return Response(status=status.HTTP_201_CREATED)
-    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #     except Exception as e:
-    #         return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
