@@ -1,40 +1,80 @@
-import React from "react";
-import { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useRevalidator, useParams, useNavigate, json } from "react-router-dom";
 import { Button } from "../components/GlobalStyles/StyleUtility";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CartOuterContainer } from "./GlobalStyles/StyleCart";
 
+
 export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
-  const revalidator = useRevalidator();
-  const updateForm = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [cartDetail, setCartDetail] = useState(null);
+  const [cartData, setCartData] = useState(null);
+  const [filteredData, setFilteredData] = useState([]);
+
+  const getCart = async () => {
+    try {
+      const apiUrl = "http://127.0.0.1:8000/cart/";
+      const response = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+      });
+      const data = await response.json();
+      setCartData(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getCart();
+  }, [location.pathname, location.state]);
+
+  useEffect(() => {
+    // Ensure that cartData has been updated before filtering
+    if (cartData) {
+      // Filter listings based on user ID
+      const filteredData = cartData.filter(
+        (listing) => listing.user === localStorage.getItem("userId")
+      );
+
+      // Now, 'filteredData' contains only items matching the logged-in user's ID
+      setFilteredData(filteredData);
+    }
+  }, [cartData]);
 
   return (
-    <CartOuterContainer>
-      <div className="cart-contents">
-        <h3>My Cart</h3>
-        <div className="cart-item">
-          <div className="col-1">Column 1</div>
-          <div className="col-2">Column 2</div>
-          <div className="col-3">Column 3</div>
-        </div>
-      </div>
+    <div>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <CartOuterContainer>
+          {filteredData.map((data, index) => (
+            <div key={data.id} className="cart-contents">
+              <h3>My Cart</h3>
+              <div className="cart-item">
+                <div className="col-1">Column 1</div>
+                <div className="col-2">Column 2</div>
+                <div className="col-3">Column 3</div>
+              </div>
+            </div>
+          ))}
 
-      <div className="cart-total">
-        <h3>Total</h3>
-        <div className="row-items">Items row</div>
-        <div className="row-taxes">Taxes row</div>
-        <div className="row-sh">Shipping row</div>
-        <div className="row-total">Total row</div>
-
-      </div>
-    </CartOuterContainer>
+          <div className="cart-total">
+            <h3>Total</h3>
+            <div className="row-items">Items row</div>
+            <div className="row-taxes">Taxes row</div>
+            <div className="row-sh">Shipping row</div>
+            <div className="row-total">Total row</div>
+          </div>
+        </CartOuterContainer>
+      )}
+    </div>
   );
 }
-
 // const getIndividualListing = async () => {
 //   try {
 //     const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;

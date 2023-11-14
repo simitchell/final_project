@@ -13,8 +13,13 @@ def upload_to(instance, filename):
 
 # Create your models here.
 class Cart(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True
+    )
     cart_item = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.cart_item
 
 
 class Listing(models.Model):
