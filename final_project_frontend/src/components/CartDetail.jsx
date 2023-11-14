@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { useRevalidator, useParams, useNavigate, json } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import {
+  Link,
+  useLocation,
+  useRevalidator,
+  useParams,
+  useNavigate,
+  json,
+} from "react-router-dom";
 import { Button } from "../components/GlobalStyles/StyleUtility";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CartOuterContainer } from "./GlobalStyles/StyleCart";
-
 
 export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
   const [isLoading, setIsLoading] = useState(true);
   const [cartData, setCartData] = useState(null);
   const [filteredData, setFilteredData] = useState([]);
+  const location = useLocation();
 
   const getCart = async () => {
     try {
@@ -28,23 +35,31 @@ export default function CartDetail() {
       setIsLoading(false);
     }
   };
+  // cartData is all cart data in the table
+  console.log(cartData);
 
   useEffect(() => {
     getCart();
   }, [location.pathname, location.state]);
 
+  // Filter cartData according to user_id matching local storage
   useEffect(() => {
-    // Ensure that cartData has been updated before filtering
     if (cartData) {
-      // Filter listings based on user ID
-      const filteredData = cartData.filter(
-        (listing) => listing.user === localStorage.getItem("userId")
+      const filteredCart = cartData.filter(
+        (cart) => cart.user_id == localStorage.getItem("userId")
       );
-
-      // Now, 'filteredData' contains only items matching the logged-in user's ID
-      setFilteredData(filteredData);
+      console.log(filteredCart);
     }
-  }, [cartData]);
+    
+  });
+
+  //     // Now, 'filteredData' contains only items matching the logged-in user's ID
+  //     setFilteredData(filteredData);
+  //     // console.log(filteredData);
+  //     // console.log(data);
+  //     console.log(filteredData);
+  //   }
+  // }, [cartData]);
 
   return (
     <div>
@@ -52,16 +67,16 @@ export default function CartDetail() {
         <div>Loading...</div>
       ) : (
         <CartOuterContainer>
-          {filteredData.map((data, index) => (
-            <div key={data.id} className="cart-contents">
-              <h3>My Cart</h3>
-              <div className="cart-item">
+          <h3>My Cart</h3>
+          <div key={filteredData.id} className="cart-contents">
+            {filteredData.map((data, index) => (
+              <div className="cart-item" key={index}>
                 <div className="col-1">Column 1</div>
                 <div className="col-2">Column 2</div>
                 <div className="col-3">Column 3</div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
 
           <div className="cart-total">
             <h3>Total</h3>

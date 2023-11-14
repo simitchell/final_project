@@ -31,6 +31,8 @@ export default function DisplayUserListings() {
     (listing) => listing.username === localStorage.getItem("username")
   );
 
+  // console.log(filteredListings);
+
   return (
     <div>
       {isLoading ? (
