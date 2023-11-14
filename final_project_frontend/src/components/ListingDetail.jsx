@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "../components/GlobalStyles/StyleUtility";
 import { DetailCard } from "./GlobalStyles/StyleListingDetail";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");
@@ -84,7 +85,7 @@ export default function ListingDetail() {
   return (
     <DetailCard>
       {isLoading ? (
-        <div>Loading...</div>
+        <CircularProgress />
       ) : (
         <div>
           {listingDetail ? (
