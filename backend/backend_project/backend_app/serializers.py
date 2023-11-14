@@ -1,4 +1,4 @@
-from .models import Listing, Profile, User
+from .models import Cart, Listing, Profile, User
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import get_user_model
@@ -6,12 +6,22 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class UserSerializer(serializers.ModelSerializer):
-    # profile = ProfileSerializer()
+class CartSerializer(serializers.ModelSerializer):
+    # user_id = serializers.ReadOnlyField(source="user.id")
+    # image_url = serializers.ImageField(required=True)
 
     class Meta:
-        model = User
-        fields = ["id", "email", "username", "password"]
+        model = Cart
+        fields = ["id", "user_id", "cart_item", "image_url"]
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        data["userId"] = self.user.id
+        data["username"] = self.user.username
+        data["name"] = self.user.first_name + " " + self.user.last_name
+        return data
 
 
 class ListingSerializer(serializers.ModelSerializer):
@@ -43,15 +53,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     #     return Response(serializer.data)
 
 
+class UserSerializer(serializers.ModelSerializer):
+    # profile = ProfileSerializer()
+
+    class Meta:
+        model = User
+        fields = ["id", "email", "username", "password"]
+
+
 # class RegisterSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model =
-
-
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        data = super().validate(attrs)
-        data["userId"] = self.user.id
-        data["username"] = self.user.username
-        data["name"] = self.user.first_name + " " + self.user.last_name
-        return data

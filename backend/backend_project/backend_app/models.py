@@ -12,6 +12,17 @@ def upload_to(instance, filename):
 
 
 # Create your models here.
+class Cart(models.Model):
+    user_id = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True
+    )
+    cart_item = models.CharField(max_length=100)
+    image_url = models.CharField(blank=True, null=True)
+
+    def __str__(self) -> str:
+        return self.cart_item
+
+
 class Listing(models.Model):
     username = models.CharField(null=True)
     user = models.ForeignKey(
@@ -28,8 +39,8 @@ class Listing(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=35, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
+    address = models.CharField(max_length=50, blank=True)
+    bio = models.TextField(max_length=400, blank=True)
     birthdate = models.DateField(null=True, blank=True)
 
 

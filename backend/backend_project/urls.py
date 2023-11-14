@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework import routers
 from backend_project.backend_app.views import CustomTokenObtainPairView
-# from backend_project.backend_app.views import LogoutView
+from backend_project.backend_app.views import LogoutView
 from backend_project.backend_app import views
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
@@ -29,6 +29,7 @@ from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
 router = routers.DefaultRouter()
 # router.register()
+router.register(r"cart", views.CartViewSet),
 router.register(r"listing", views.ListingViewSet)
 router.register(r"profile", views.ProfileViewSet)
 # router.register(r"logout", views.LogoutView)

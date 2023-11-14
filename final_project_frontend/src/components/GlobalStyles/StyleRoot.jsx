@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const StyleRoot = styled.div`
-  max-width: 65vw;
+  /* background-color: blue; */
+  width: 500px;
+  max-width: 80%;
   margin: auto;
   padding: 2rem;
   h2 {

@@ -1,15 +1,13 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "../components/GlobalStyles/StyleUtility";
-import { CardContainer } from "./GlobalStyles/StyleCard";
 import { DetailCard } from "./GlobalStyles/StyleListingDetail";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");
   const [listingDetail, setListingDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -19,54 +17,75 @@ export default function ListingDetail() {
       const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
-      setListingDetail(data);
       // console.log(data);
+      setListingDetail(data);
     } catch (error) {
-      // console.log(error);
+      console.error("Error fetching listing:", error);
     } finally {
       setIsLoading(false);
     }
+    // console.log(listingDetail);
   };
 
   useEffect(() => {
     getIndividualListing();
   }, []);
 
-  useEffect(() => {
-    if (edit === true) {
-      handleEdit();
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+
+    const url = `http://127.0.0.1:8000/cart/`;
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${auth}`,
+          "Content-Type": "application/json",
+          // "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          user_id: parseInt(localStorage.getItem("userId")),
+          cart_item: listingDetail.title,
+          image_url: listingDetail.image_url,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Added to cart successfully!");
+        setListingDetail(null);
+      } else {
+        console.error("Failed to add to cart");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  }, [edit]);
-
-  const handleDelete = () => {
-    const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
-    const data = fetch(apiUrl, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${auth}`,
-      },
-    });
-    setListingDetail(null);
-    navigate("/profile", { listingDetail });
   };
-  // console.log(edit);
 
-  // const handleEdit = () => {
-  //   // console.log("inside");
-  //   // const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
-  //   // const data = fetch(apiUrl, {
-  //   //   method: "PUT",
-  //   //   headers: {
-  //   //     Authorization: `Bearer ${auth}`,
-  //   //   },
-  //   // });
-  //   navigate(`/editlisting/${id}`);
-  // };
+  const handleDelete = async () => {
+    const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+    try {
+      const response = await fetch(apiUrl, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+      });
+
+      if (response.ok) {
+        setListingDetail(null);
+        navigate("/profile");
+      } else {
+        console.error("Failed to delete listing");
+      }
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+    }
+  };
 
   return (
     <DetailCard>
       {isLoading ? (
-        <div>Loading...</div>
+        <CircularProgress />
       ) : (
         <div>
           {listingDetail ? (
@@ -96,16 +115,8 @@ export default function ListingDetail() {
                 </div>
               </div>
               <div className="listingOptions">
-                {listingDetail.username ===
-                  localStorage.getItem("username") && (
+                {listingDetail.username === localStorage.getItem("username") ? (
                   <div className="listingOptions">
-                    {/* <Button
-                      type="button"
-                      id="editButton"
-                      onClick={() => setEdit(true)}
-                    >
-                      Edit
-                    </Button> */}
                     <Button
                       type="button"
                       id="deleteButton"
@@ -120,6 +131,16 @@ export default function ListingDetail() {
                       }}
                     >
                       Delete
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="listingOptions">
+                    <Button
+                      type="button"
+                      id="addToCartButton"
+                      onClick={handleAddToCart}
+                    >
+                      Add to Cart
                     </Button>
                   </div>
                 )}
