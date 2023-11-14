@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router";
-import { Button } from "../components/GlobalStyles/StyleUtility";
+// import { Button } from "../components/GlobalStyles/StyleUtility";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import { Form } from "../components/GlobalStyles/StyleUtility";
 
 export default function LoginForm() {
@@ -65,7 +67,7 @@ export default function LoginForm() {
           value={password}
           onChange={handleChangePassword}
         />
-        <Button type="submit">Login</Button>
+        <Button variant="contained" type="submit">Login</Button>
       </Form>
       <p>
         <a href="./register">Register</a> as a new user

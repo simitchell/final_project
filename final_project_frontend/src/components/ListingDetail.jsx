@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "../components/GlobalStyles/StyleUtility";
+// import { Button } from "../components/GlobalStyles/StyleUtility";
+import Button from "@mui/material/Button";
+// import DeleteIcon from '@mui/icons-material/Delete';
+// import Stack from '@mui/material/Stack';
+
 import { DetailCard } from "./GlobalStyles/StyleListingDetail";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");
@@ -118,6 +122,8 @@ export default function ListingDetail() {
                 {listingDetail.username === localStorage.getItem("username") ? (
                   <div className="listingOptions">
                     <Button
+                      variant="contained"
+                      // startIcon={<DeleteIcon />}
                       type="button"
                       id="deleteButton"
                       onClick={() => {
@@ -136,6 +142,7 @@ export default function ListingDetail() {
                 ) : (
                   <div className="listingOptions">
                     <Button
+                      variant="contained"
                       type="button"
                       id="addToCartButton"
                       onClick={handleAddToCart}

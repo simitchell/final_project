@@ -8,7 +8,7 @@ export const Nav = styled.nav`
   z-index: 9999;
   width: 100%;
   height: 50px;
-  background-color: #d3d3d3;
+  background-color: #ffd400;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -40,18 +40,35 @@ export const Nav = styled.nav`
   }
 
   .navLink {
-    ul {
-      display: flex;
-      list-style: none;
-      margin: auto;
-      font-size: 1rem;
-      padding: 3px 10px;
-      vertical-align: baseline;
-      width: 100%;
-    }
+  }
+`;
 
-    ul li {
-      padding: 8px;
-    }
+export const NavLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 50%;
+`;
+
+export const NavRight = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 50%;
+  /* text-align: right; */
+
+  ul {
+    display: flex;
+    list-style: none;
+    margin: auto;
+    font-size: 1rem;
+    padding: 3px 10px;
+    vertical-align: baseline;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  ul li {
+    padding: 8px;
   }
 `;

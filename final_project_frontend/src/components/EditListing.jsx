@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRevalidator, useParams, useNavigate } from "react-router-dom";
-import { Button } from "../components/GlobalStyles/StyleUtility";
+// import { Button } from "../components/GlobalStyles/StyleUtility";
+import Button from '@mui/material/Button';
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
 
@@ -82,7 +83,7 @@ export default function EditListing() {
                 name="username"
                 value={localStorage.getItem("username")}
               />
-              <Button type="submit">Update Listing</Button>
+              <Button variant="contained" type="submit">Update Listing</Button>
             </Form>
           </div>
         )} 

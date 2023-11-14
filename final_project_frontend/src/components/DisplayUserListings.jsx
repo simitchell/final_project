@@ -1,6 +1,7 @@
 import { CardContainer } from "./GlobalStyles/StyleCard";
 import { useState, useEffect } from "react";
 import React from "react";
+import CircularProgress from '@mui/material/CircularProgress';
 import { Link, useLocation } from "react-router-dom";
 
 export default function DisplayUserListings() {
@@ -36,8 +37,7 @@ export default function DisplayUserListings() {
   return (
     <div>
       {isLoading ? (
-        <div>Loading...</div>
-      ) : (
+        <CircularProgress />      ) : (
         <CardContainer>
           {filteredListings.map((listing, index) => (
             <Link to={`/listingdetail/${listing.id}`} key={listing.id}>

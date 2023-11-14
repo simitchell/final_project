@@ -7,20 +7,21 @@ export const CardContainer = styled.div`
   max-width: 1400px;
   margin: auto;
   padding: auto;
-  justify-content: space-evenly;
+  justify-content: center;
 
   .card {
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 375px;
+    width: 400px;
+    height: 400px;
     /* max-height: 325px; */
     border: none;
-    background-color: #e2e2e2;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white;
     border-radius: 25px;
     margin: 1rem;
     padding: 1rem;
+
+    
 
     h2 {
       margin: 0;
@@ -29,21 +30,24 @@ export const CardContainer = styled.div`
     .cardInfo {
       display: flex;
       flex-direction: column;
-      height: 285px;
+      height: 400px;
+      width: 400px;
       width: inherit;
+      margin-bottom: 0;
     }
 
     .cardImage {
-      width: 250px;
-      height: 250px;
+      width: 400px;
+      height: 325px;
       padding: auto;
       margin: auto;
       /* object-fit: contain; */
-
+      
       img {
-        object-fit: contain;
+        object-fit: cover;
         width: 100%;
         height: 100%;
+        border-radius: 10px;
       }
     }
 
@@ -60,4 +64,7 @@ export const CardContainer = styled.div`
       }
     }
   }
+  .card:hover {
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
 `;

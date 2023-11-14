@@ -1,5 +1,5 @@
 import React from "react";
-import { Nav } from "./StyleNav";
+import { Nav, NavLeft, NavRight } from "./StyleNav";
 import { Button } from "../GlobalStyles/StyleUtility";
 import { Link } from "react-router-dom";
 // import
@@ -9,20 +9,19 @@ export default function MainNav() {
 
   return (
     <Nav>
-      <div className="navCompanyName">
-        <Link to="/">
-          <p>Fox Body Swap Meet</p>
-        </Link>
-      </div>
-      <div className="searchBar">
-        <input type="search"></input>
-        <Button type="submit">Search</Button>
-      </div>
-      <div className="navLink">
+      <NavLeft>
+        <div className="navCompanyName">
+          <Link to="/">
+            <p>Fox Body Swap Meet</p>
+          </Link>
+        </div>
+        <div className="searchBar">
+          <input type="search"></input>
+          <Button type="submit">Search</Button>
+        </div>
+      </NavLeft>
+      <NavRight>
         <ul>
-          <li>
-            <Link to="/logout">Logout</Link>
-          </li>
           <li>
             <Link to="/aboutus">About Us</Link>
           </li>
@@ -40,8 +39,11 @@ export default function MainNav() {
               <Link to="/login">Log In or Register</Link>
             )}
           </li>
+          <li>
+            <Link to="/logout">Logout</Link>
+          </li>
         </ul>
-      </div>
+      </NavRight>
     </Nav>
   );
 }
