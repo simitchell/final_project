@@ -45,6 +45,7 @@ export default function ListingDetail() {
         body: JSON.stringify({
           user_id: parseInt(localStorage.getItem("userId")),
           cart_item: listingDetail.title,
+          image_url: listingDetail.image_url,
         }),
       });
 

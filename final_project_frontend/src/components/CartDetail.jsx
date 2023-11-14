@@ -65,8 +65,10 @@ export default function CartDetail() {
             {filteredData.map((cart, index) => {
               return (
                 <div className="cart-item" key={index}>
-                  <div className="col-1">{cart.cart_item}</div>
-                  <div className="col-2">Item cart item</div>
+                  <div className="col-1">
+                    <img src={cart.image_url} />
+                    </div>
+                  <div className="col-2">{cart.cart_item}</div>
                   <div className="col-3">Item Price</div>
                 </div>
               );

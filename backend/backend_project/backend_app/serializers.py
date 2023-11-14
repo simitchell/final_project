@@ -8,10 +8,11 @@ User = get_user_model()
 
 class CartSerializer(serializers.ModelSerializer):
     # user_id = serializers.ReadOnlyField(source="user.id")
+    # image_url = serializers.ImageField(required=True)
 
     class Meta:
         model = Cart
-        fields = ["id", "user_id", "cart_item"]
+        fields = ["id", "user_id", "cart_item", "image_url"]
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
