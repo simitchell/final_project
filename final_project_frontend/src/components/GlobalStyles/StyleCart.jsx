@@ -1,21 +1,29 @@
 import styled from "styled-components";
 
 export const CartDiv = styled.div`
-  width: 65vw;
-  max-width: 1200px;
-  width: 1000px;
+  width: 100vw;
+  /* max-width: 1200px; */
+  /* width: 1000px; */
+  h3 {
+    max-width: 65ch;
+    justify-content: space-around;
+    margin: auto auto 3rem auto;
+  }
 `;
 
 export const CartOuterContainer = styled.div`
   display: flex;
   /* flex-direction: column; */
-  width: 100%;
+  width: 55%;
+  margin: auto;
+  padding: auto;
   /* background-color: blue; */
 `;
 
 export const CartContents = styled.div`
-  width: 70%;
+  width: 60%;
   text-align: left;
+  margin: auto;
 `;
 
 export const CartImg = styled.div`
@@ -51,7 +59,7 @@ export const CartItemPrice = styled.div`
 `;
 
 export const CartTotal = styled.div`
-  width: 20%;
+  width: 25%;
   text-align: right;
 `;
 
