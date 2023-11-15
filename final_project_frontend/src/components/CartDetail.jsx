@@ -7,15 +7,27 @@ import {
   useNavigate,
   json,
 } from "react-router-dom";
-import { Button } from "../components/GlobalStyles/StyleUtility";
-import { Form } from "../components/GlobalStyles/StyleUtility";
-import { CartDiv, CartOuterContainer } from "./GlobalStyles/StyleCart";
+// import { Button } from "../components/GlobalStyles/StyleUtility";
+import Button from "@mui/material/Button";
+import {
+  CartContents,
+  CartDiv,
+  CartItem,
+  CartItemDesc,
+  CartItemPrice,
+  CartImg,
+  CartOuterContainer,
+  CartTotal,
+  RowItems,
+  RowTaxes,
+  RowShipping,
+  RowTotal
+} from "./GlobalStyles/StyleCart";
 
 export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
   const [isLoading, setIsLoading] = useState(true);
   const [cartData, setCartData] = useState(null);
-  // const [filteredCart, setFilteredCart] = useState([]);
   const location = useLocation();
 
   const getCart = async () => {
@@ -49,17 +61,6 @@ export default function CartDetail() {
     getCart();
   }, []);
 
-  // Filter cartData according to user_id matching local storage
-  // useEffect(() => {
-  //   if (cartData) {
-  //     const filteredCart = cartData.filter(
-  //       (cart) => cart.user_id == localStorage.getItem("userId")
-  //     );
-  //     console.log(filteredCart);
-  //     setFilteredData(filteredCart);
-  //   }
-  // }, []);
-
   return (
     <CartDiv>
       <h3>My Cart</h3>
@@ -67,27 +68,27 @@ export default function CartDetail() {
         <div>Loading...</div>
       ) : (
         <CartOuterContainer>
-          <div className="cart-contents">
+          <CartContents>
             {cartData?.map((item) => {
               return (
-                <div className="cart-item" key={item.id}>
-                  <div className="cart-img">
+                <CartItem key={item.id}>
+                  <CartImg>
                     <img src={item.image_url} />
-                  </div>
-                  <div className="col-2">{item.cart_item}</div>
-                  <div className="col-3">Item Price</div>
-                </div>
+                  </CartImg>
+                  <CartItemDesc>{item.cart_item}</CartItemDesc>
+                  <CartItemPrice>Item Price</CartItemPrice>
+                </CartItem>
               );
             })}
-          </div>
+          </CartContents>
 
-          <div className="cart-total">
+          <CartTotal>
             <h3>Total</h3>
-            <div className="row-items">Items row</div>
-            <div className="row-taxes">Taxes row</div>
-            <div className="row-sh">Shipping row</div>
-            <div className="row-total">Total row</div>
-          </div>
+            <RowItems>Items row</RowItems>
+            <RowTaxes>Taxes row</RowTaxes>
+            <RowShipping>Shipping row</RowShipping>
+            <RowTotal>Total row</RowTotal>
+          </CartTotal>
         </CartOuterContainer>
       )}
     </CartDiv>

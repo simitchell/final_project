@@ -1,6 +1,7 @@
 import React from "react";
 import { Nav, NavLeft, NavRight } from "./StyleNav";
-import { Button } from "../GlobalStyles/StyleUtility";
+// import { Button } from "../GlobalStyles/StyleUtility";
+import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 // import
 
@@ -12,12 +13,13 @@ export default function MainNav() {
       <NavLeft>
         <div className="navCompanyName">
           <Link to="/">
+            {/* <img src="mediafiles/images/logo.svg" /> */}
             <p>Fox Body Swap Meet</p>
           </Link>
         </div>
         <div className="searchBar">
           <input type="search"></input>
-          <Button type="submit">Search</Button>
+          <Button variant="contained" size="small" type="submit">Search</Button>
         </div>
       </NavLeft>
       <NavRight>

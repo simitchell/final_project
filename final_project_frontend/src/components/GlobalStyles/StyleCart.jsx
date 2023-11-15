@@ -1,46 +1,73 @@
 import styled from "styled-components";
 
 export const CartDiv = styled.div`
-    width: 65vw;
-    max-width: 1200px;
-`
+  width: 65vw;
+  max-width: 1200px;
+  width: 1000px;
+`;
 
 export const CartOuterContainer = styled.div`
   display: flex;
   /* flex-direction: column; */
   width: 100%;
   /* background-color: blue; */
+`;
 
-.cart-div {
-    width: 1000px;
-}
+export const CartContents = styled.div`
+  width: 70%;
+  text-align: left;
+`;
 
-.cart-contents {
-    width: 70%;
-    text-align: left;
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      border: solid 1px black;
-      height: 150px;
-    }
-    .cart-img {
-      width: 125px;
-      height: 125px;
-      padding: 0;
-      margin: 0;
-
-      img {
-        object-fit: contain;
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  .cart-total {
-    width: 30%;
-    text-align: right;
+export const CartImg = styled.div`
+  width: 125px;
+  height: 125px;
+  padding: 0;
+  margin: 0;
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
   }
 `;
+
+export const CartItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  /* border: solid 1px black; */
+  height: 120px;
+  /* width: 20%; */
+`;
+
+export const CartItemDesc = styled.div`
+  margin: auto;
+  width: 40%;
+  font-weight: bold;
+`
+
+export const CartItemPrice = styled.div`
+  margin: auto;
+  width: 20%;
+  font-weight: bold;
+
+`
+
+export const CartTotal = styled.div`
+  width: 20%;
+  text-align: right;
+`;
+
+export const RowItems = styled.div`
+  
+`
+
+export const RowTaxes = styled.div`
+  
+`
+
+export const RowShipping = styled.div`
+  
+`
+
+export const RowTotal = styled.div`
+  
+`

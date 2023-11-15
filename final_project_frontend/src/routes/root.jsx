@@ -7,16 +7,14 @@ import { AuthProvider } from "../AuthContext";
 
 export default function Root() {
   return (
-    <>
-      <AuthProvider>
+    <AuthProvider>
       <MainNav />
       <StyleRoot>
         <h1>Fox Body Swap Meet</h1>
         <h2>For enthusiasts, by enthusiasts</h2>
       </StyleRoot>
-        <Outlet />
+      <Outlet />
       <Footer />
-      </AuthProvider>
-    </>
+    </AuthProvider>
   );
 }

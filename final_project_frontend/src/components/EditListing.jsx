@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRevalidator, useParams, useNavigate } from "react-router-dom";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
 
@@ -57,7 +57,7 @@ export default function EditListing() {
   return (
     <>
       <div>
-      {listingDetail?.username === localStorage.getItem("username") && (
+        {listingDetail?.username === localStorage.getItem("username") && (
           <div className="updateListingForm">
             <h2>Update Your listing</h2>
             <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
@@ -83,10 +83,16 @@ export default function EditListing() {
                 name="username"
                 value={localStorage.getItem("username")}
               />
-              <Button variant="contained" type="submit">Update Listing</Button>
+              <Button
+                variant="contained"
+                sx={{ width: 200, padding: 1, margin: 3 }}
+                type="submit"
+              >
+                Update Listing
+              </Button>
             </Form>
           </div>
-        )} 
+        )}
       </div>
     </>
   );
