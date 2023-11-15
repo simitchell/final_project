@@ -12,7 +12,7 @@ class CartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cart
-        fields = ["id", "user_id", "cart_item", "image_url"]
+        fields = ["id", "user_id", "cart_item", "image_url", "price"]
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

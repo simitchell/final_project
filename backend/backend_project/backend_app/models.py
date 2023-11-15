@@ -18,6 +18,8 @@ class Cart(models.Model):
     )
     cart_item = models.CharField(max_length=100)
     image_url = models.CharField(blank=True, null=True)
+    price = models.IntegerField(null=True)
+
 
     def __str__(self) -> str:
         return self.cart_item

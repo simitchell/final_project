@@ -21,7 +21,7 @@ import {
   RowItems,
   RowTaxes,
   RowShipping,
-  RowTotal
+  RowTotal,
 } from "./GlobalStyles/StyleCart";
 
 export default function CartDetail() {
@@ -76,18 +76,30 @@ export default function CartDetail() {
                     <img src={item.image_url} />
                   </CartImg>
                   <CartItemDesc>{item.cart_item}</CartItemDesc>
-                  <CartItemPrice>Item Price</CartItemPrice>
+                  <CartItemPrice>${item.price}</CartItemPrice>
                 </CartItem>
               );
             })}
           </CartContents>
 
           <CartTotal>
-            <h3>Total</h3>
-            <RowItems>Items row</RowItems>
-            <RowTaxes>Taxes row</RowTaxes>
-            <RowShipping>Shipping row</RowShipping>
-            <RowTotal>Total row</RowTotal>
+            <h3>Checkout</h3>
+            <RowItems>
+              <p>Items</p>
+              <p>$ number</p>
+            </RowItems>
+            <RowTaxes>
+              <p>Taxes</p>
+              <p>$ number</p>
+            </RowTaxes>
+            <RowShipping>
+              <p>Shipping</p>
+              <p>$ number</p>
+            </RowShipping>
+            <RowTotal>
+              <p>Total</p>
+              <p>$ number</p>
+            </RowTotal>
           </CartTotal>
         </CartOuterContainer>
       )}

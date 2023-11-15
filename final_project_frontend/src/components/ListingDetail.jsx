@@ -51,12 +51,14 @@ export default function ListingDetail() {
           user_id: parseInt(localStorage.getItem("userId")),
           cart_item: listingDetail.title,
           image_url: listingDetail.image_url,
+          price: listingDetail.price,
         }),
       });
 
       if (response.ok) {
         console.log("Added to cart successfully!");
         setListingDetail(null);
+        navigate("/cart");
       } else {
         console.error("Failed to add to cart");
       }

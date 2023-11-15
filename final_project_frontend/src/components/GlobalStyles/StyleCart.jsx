@@ -40,16 +40,15 @@ export const CartItem = styled.div`
 
 export const CartItemDesc = styled.div`
   margin: auto;
-  width: 40%;
+  width: 30%;
   font-weight: bold;
-`
+`;
 
 export const CartItemPrice = styled.div`
   margin: auto;
-  width: 20%;
+  width: 10%;
   font-weight: bold;
-
-`
+`;
 
 export const CartTotal = styled.div`
   width: 20%;
@@ -57,17 +56,28 @@ export const CartTotal = styled.div`
 `;
 
 export const RowItems = styled.div`
-  
-`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 export const RowTaxes = styled.div`
-  
-`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 export const RowShipping = styled.div`
-  
-`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 export const RowTotal = styled.div`
-  
-`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-top: 1px solid black;
+  font-weight: bold;
+
+`;
