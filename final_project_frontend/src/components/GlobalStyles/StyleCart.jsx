@@ -14,17 +14,23 @@ export const CartDiv = styled.div`
 export const CartOuterContainer = styled.div`
   display: flex;
   /* flex-direction: column; */
-  width: 55%;
+  width: 65%;
+  max-width: 1000px;
   margin: auto;
   padding: auto;
   /* background-color: blue; */
 `;
 
 export const CartContents = styled.div`
-  width: 60%;
+  width: 100%;
   text-align: left;
   margin: auto;
 `;
+
+export const CartButton = styled.div`
+  margin: auto;
+  padding: auto;
+`
 
 export const CartImg = styled.div`
   width: 125px;

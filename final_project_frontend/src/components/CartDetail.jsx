@@ -10,6 +10,7 @@ import {
 // import { Button } from "../components/GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import {
+  CartButton,
   CartContents,
   CartDiv,
   CartItem,
@@ -54,6 +55,27 @@ export default function CartDetail() {
     }
   };
 
+  const handleDelete = async () => {
+    const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+    try {
+      const response = await fetch(apiUrl, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+      });
+
+      if (response.ok) {
+        setListingDetail(null);
+        navigate("/profile");
+      } else {
+        console.error("Failed to delete listing");
+      }
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+    }
+  };
+
   // cartData is all cart data in the table
   // console.log(cartData);
 
@@ -69,19 +91,31 @@ export default function CartDetail() {
       ) : (
         <CartOuterContainer>
           <CartContents>
-            {cartData?.map((item) => {
-              return (
-                <CartItem key={item.id}>
+            {cartData?.map((item) => (
+              <div key={item.id}>
+                <CartItem>
+                  <CartButton>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      type="button"
+                      id="deleteButton"
+                      onClick={() => {
+                        handleDelete(item.id); // Pass the item id to handleDelete
+                      }}
+                    >
+                      Remove
+                    </Button>
+                  </CartButton>
                   <CartImg>
-                    <img src={item.image_url} />
+                    <img src={item.image_url} alt={item.cart_item} />
                   </CartImg>
                   <CartItemDesc>{item.cart_item}</CartItemDesc>
                   <CartItemPrice>${item.price}</CartItemPrice>
                 </CartItem>
-              );
-            })}
+              </div>
+            ))}
           </CartContents>
-
           <CartTotal>
             <h3>Checkout</h3>
             <RowItems>
