@@ -44,17 +44,9 @@ export default function DisplayListings() {
                     <h2>{listing.title}</h2>
                     <div className="cardInfo">
                       <div className="returnInfo">
-                        {/* <span>
-                          <strong>Title: </strong>
-                          {listing.title}
-                        </span> */}
                         <span>
                           <strong>Price: </strong>${listing.price}
                         </span>
-                        {/* <span>
-                          <strong>Description: </strong>
-                          {listing.description}
-                        </span> */}
                         <span>
                           <strong>Seller: </strong>
                           {listing.username}
