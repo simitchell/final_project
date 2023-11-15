@@ -1,12 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { ProfileDiv } from "./GlobalStyles/StyleProfile";
 
 export default function ProfileComponent() {
   return (
     <ProfileDiv>
-      <Button variant="contained">Cart</Button>
-      <Button variant="contained">Create A Listing</Button>
+      <Link to="/cart">
+        <Button variant="contained">Cart</Button>
+      </Link>
+      <Link to="/createlisting">
+        <Button variant="contained">Create A Listing</Button>
+      </Link>
     </ProfileDiv>
   );
 }

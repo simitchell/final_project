@@ -36,6 +36,7 @@ export default function ListingForm() {
       <div className="createListingWrapper">
         <div className="createListingIntro">
           <h2>Got some fox body stuff for sale?</h2>
+          <h3>Get started liquidating that stockpile today!</h3>
           <ul>
             <li>Fill out the form</li>
             <li>Put it up for sale</li>
@@ -67,7 +68,7 @@ export default function ListingForm() {
               name="username"
               value={localStorage.getItem("username")}
             />
-            <Button type="submit">Post Listing</Button>
+            <Button variant="contained" type="submit">Post Listing</Button>
           </Form>
         </div>
       </div>
