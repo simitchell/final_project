@@ -54,6 +54,27 @@ export default function EditListing() {
     return data;
   };
 
+  const handleDelete = async () => {
+    const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+    try {
+      const response = await fetch(apiUrl, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+      });
+
+      if (response.ok) {
+        setListingDetail(null);
+        navigate("/profile");
+      } else {
+        console.error("Failed to delete listing");
+      }
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+    }
+  };
+
   return (
     <>
       <div>
@@ -91,9 +112,35 @@ export default function EditListing() {
                 Update Listing
               </Button>
             </Form>
+            {listingDetail ? (
+              listingDetail.username === localStorage.getItem("username") && (
+                <div className="listingOptions">
+                  <Button
+                    variant="contained"
+                    color="error"
+                    type="button"
+                    id="deleteButton"
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          "Are you sure you wish to delete this item?"
+                        )
+                      ) {
+                        handleDelete();
+                      }
+                    }}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              )
+            ) : (
+              <div>No detail found</div>
+            )}
           </div>
         )}
       </div>
     </>
   );
+  
 }

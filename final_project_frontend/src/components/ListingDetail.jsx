@@ -5,8 +5,17 @@ import Button from "@mui/material/Button";
 // import DeleteIcon from '@mui/icons-material/Delete';
 // import Stack from '@mui/material/Stack';
 
-import { DetailCard } from "./GlobalStyles/StyleListingDetail";
+import {
+  DetailCard,
+  DetailDescription,
+  DetailImage,
+  DetailLeft,
+  DetailPrice,
+  DetailRight,
+  DetailWrapper,
+} from "./GlobalStyles/StyleListingDetail";
 import CircularProgress from "@mui/material/CircularProgress";
+import EditListing from "./EditListing";
 
 export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");
@@ -23,6 +32,7 @@ export default function ListingDetail() {
       const data = await response.json();
       // console.log(data);
       setListingDetail(data);
+      // console.log(listingDetail);
     } catch (error) {
       console.error("Error fetching listing:", error);
     } finally {
@@ -67,100 +77,133 @@ export default function ListingDetail() {
     }
   };
 
-  const handleDelete = async () => {
-    const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
-    try {
-      const response = await fetch(apiUrl, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${auth}`,
-        },
-      });
+  // const handleDelete = async () => {
+  //   const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+  //   try {
+  //     const response = await fetch(apiUrl, {
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: `Bearer ${auth}`,
+  //       },
+  //     });
 
-      if (response.ok) {
-        setListingDetail(null);
-        navigate("/profile");
-      } else {
-        console.error("Failed to delete listing");
-      }
-    } catch (error) {
-      console.error("Error deleting listing:", error);
-    }
-  };
+  //     if (response.ok) {
+  //       setListingDetail(null);
+  //       navigate("/profile");
+  //     } else {
+  //       console.error("Failed to delete listing");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error deleting listing:", error);
+  //   }
+  // };
 
   return (
-    <DetailCard>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <div>
-          {listingDetail ? (
-            <div className="detailWrapper">
-              <div className="detailCard">
-                <div className="detailBody">
-                  <div className="detailImage">
-                    <img
-                      src={listingDetail.image_url}
-                      alt={listingDetail.title}
-                    />
-                  </div>
-                  <div className="detailInfo">
-                    <h2>{listingDetail.title}</h2>
-                    <span>
-                      <strong>Price: </strong>${listingDetail.price}
-                    </span>
-                    <span>
-                      <strong>Seller: </strong>
-                      {listingDetail.username}
-                    </span>
-                    <span>
-                      <strong>Description: </strong>
-                      {listingDetail.description}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="listingOptions">
-                {listingDetail.username === localStorage.getItem("username") ? (
-                  <div className="listingOptions">
-                    <Button
-                      variant="contained"
-                      color="error"
-                      // startIcon={<DeleteIcon />}
-                      type="button"
-                      id="deleteButton"
-                      onClick={() => {
-                        if (
-                          window.confirm(
-                            "Are you sure you wish to delete this item?"
-                          )
-                        ) {
-                          handleDelete();
-                        }
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="listingOptions">
-                    <Button
-                      variant="contained"
-                      type="button"
-                      id="addToCartButton"
-                      onClick={handleAddToCart}
-                    >
-                      Add to Cart
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            <div>No detail found</div>
-          )}
-        </div>
-      )}
-    </DetailCard>
+    <DetailWrapper>
+      <DetailLeft>
+        {listingDetail ? (
+          <>
+            <h2>{listingDetail.title}</h2>
+            <DetailImage>
+              <img src={listingDetail.image_url} alt={listingDetail.title} />
+            </DetailImage>
+          </>
+        ) : (
+          <div>No detail found</div>
+        )}
+      </DetailLeft>
+      <DetailRight>
+        {listingDetail ? (
+          <>
+            <DetailDescription>
+              <h3>Description</h3>
+              <p>{listingDetail.description}</p>
+            </DetailDescription>
+            <DetailPrice>
+              <p>${listingDetail.price}</p>
+            </DetailPrice>
+          </>
+        ) : (
+          <div>No detail found</div>
+        )}
+      </DetailRight>
+    </DetailWrapper>
   );
+  
 }
+
+// return (
+//   <DetailCard>
+//     {isLoading ? (
+//       <CircularProgress />
+//     ) : (
+//       <div>
+//         {listingDetail ? (
+//           <div className="detailWrapper">
+//             <div className="detailCard">
+//               <div className="detailBody">
+//                 <div className="detailImage">
+//                   <img
+//                     src={listingDetail.image_url}
+//                     alt={listingDetail.title}
+//                   />
+//                 </div>
+//                 <div className="detailInfo">
+//                   <h2>{listingDetail.title}</h2>
+//                   <span>
+//                     <strong>Price: </strong>${listingDetail.price}
+//                   </span>
+//                   <span>
+//                     <strong>Seller: </strong>
+//                     {listingDetail.username}
+//                   </span>
+//                   <span>
+//                     <strong>Description: </strong>
+//                     {listingDetail.description}
+//                   </span>
+//                 </div>
+//               </div>
+//             </div>
+//             <div className="listingOptions">
+//               {listingDetail.username === localStorage.getItem("username") ? (
+//                 <div className="listingOptions">
+//                   <Button
+//                     variant="contained"
+//                     color="error"
+//                     // startIcon={<DeleteIcon />}
+//                     type="button"
+//                     id="deleteButton"
+//                     onClick={() => {
+//                       if (
+//                         window.confirm(
+//                           "Are you sure you wish to delete this item?"
+//                         )
+//                       ) {
+//                         handleDelete();
+//                       }
+//                     }}
+//                   >
+//                     Delete
+//                   </Button>
+//                 </div>
+//               ) : (
+//                 <div className="listingOptions">
+//                   <Button
+//                     variant="contained"
+//                     type="button"
+//                     id="addToCartButton"
+//                     onClick={handleAddToCart}
+//                   >
+//                     Add to Cart
+//                   </Button>
+//                 </div>
+//               )}
+//             </div>
+//           </div>
+//         ) : (
+//           <div>No detail found</div>
+//         )}
+//       </div>
+//     )}
+//   </DetailCard>
+// );

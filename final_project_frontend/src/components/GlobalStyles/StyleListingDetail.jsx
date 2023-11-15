@@ -34,7 +34,7 @@ export const DetailCard = styled.div`
     width: 600px;
   }
 
-  .detailImage {
+  /* .detailImage {
     object-fit: contain;
     width: 100%;
     height: 100%;
@@ -44,7 +44,7 @@ export const DetailCard = styled.div`
         width: 100%;
         height: 100%;
       }
-  }
+  } */
 
   .detailWrapper {
     display: flex;
@@ -61,6 +61,52 @@ export const DetailCard = styled.div`
   .listingOptions {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly
+    justify-content: space-evenly;
   }
+`;
+
+export const DetailWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  max-width: 1200px;
+`;
+
+export const DetailLeft = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  h2 {
+    justify-content: center;
+  }
+`;
+
+export const DetailImage = styled.div`
+  display: flex;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+
+  img {
+    object-fit: contain;
+    width: 600px;
+    height: 600px;
+    padding: auto;
+    margin: auto;
+  }
+`;
+
+export const DetailRight = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
+export const DetailDescription = styled.div`
+  /* color: pink; */
+`;
+
+export const DetailPrice = styled.div`
+  /* color: blue; */
 `;
