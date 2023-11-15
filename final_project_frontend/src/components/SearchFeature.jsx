@@ -3,9 +3,12 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { SearchHeader } from "./GlobalStyles/StyleSearch";
 import { CardContainer } from "./GlobalStyles/StyleCard";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 export default function Search() {
   const params = useParams();
+  const [isLoading, setIsLoading] = useState(true);
   const [listingSearch, setListingSearch] = useState();
   const [search, setSearch] = useState("");
   const [lastSearch, setLastSearch] = useState("");
@@ -21,6 +24,8 @@ export default function Search() {
       return result;
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   }
   useEffect(() => {
@@ -31,8 +36,11 @@ export default function Search() {
     <div>
       <SearchHeader>
         <h2>Search Results</h2>
+        <h3>Results matching "{params.search}"</h3>
       </SearchHeader>
-      {listingSearch ? (
+      {isLoading ? (
+        <CircularProgress />
+      ) : listingSearch ? (
         <CardContainer>
           {listingSearch.map((listing, index) => (
             <Link to={`/listingdetail/${listing.id}`} key={listing.id}>
@@ -49,7 +57,7 @@ export default function Search() {
                     </span>
                   </div>
                   <div className="cardImage">
-                    <img src={listing.image_url} />
+                    <img src={listing.image_url} alt={listing.title} />
                   </div>
                 </div>
               </div>
@@ -59,6 +67,10 @@ export default function Search() {
       ) : (
         <div>No items matching search parameters</div>
       )}
+      {!isLoading && listingSearch.length === 0 && (
+        <div>No data found</div>
+      )}
     </div>
   );
+  
 }
