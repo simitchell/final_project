@@ -13,6 +13,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
 from django.contrib.auth.models import make_password
 from rest_framework import status
+from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Cart, Listing, Profile
 
 from .serializers import (
@@ -45,6 +46,9 @@ class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
     parser_classes = (MultiPartParser, FormParser)
+    search_fields = ['title']
+    filter_backends = [SearchFilter, OrderingFilter]
+
 
     # def perform_create(self, serializer):
     #     serializer.save(creator=self.request.user)

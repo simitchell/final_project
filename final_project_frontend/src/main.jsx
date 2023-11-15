@@ -70,7 +70,7 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "search/",
+        path: "search/:search",
         element: <Search />,
       },
     ],
