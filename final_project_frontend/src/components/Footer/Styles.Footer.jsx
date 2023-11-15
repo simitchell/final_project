@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const StyleFooter = styled.footer`
-  color: white;
-  background-color: #E6360F;
+  color: #f5f5f5;
+  background-color: #f2502c;
   padding-top: 2rem;
   position: relative;
   bottom: 0;

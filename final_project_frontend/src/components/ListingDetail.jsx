@@ -125,6 +125,7 @@ export default function ListingDetail() {
                   <div className="listingOptions">
                     <Button
                       variant="contained"
+                      color="error"
                       // startIcon={<DeleteIcon />}
                       type="button"
                       id="deleteButton"

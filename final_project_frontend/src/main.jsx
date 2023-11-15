@@ -17,7 +17,8 @@ import Login from "./routes/login";
 import LogoutPage from "./components/LogOut";
 import Profile from "./routes/profile";
 import Register from "./routes/register";
-import Root from "./routes/root"; // Adjust the path based on your project structure
+import Root from "./routes/root";
+import Search from "./components/SearchFeature";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
         path: "register/",
         element: <Register />,
       },
+      {
+        path: "search/",
+        element: <Search />,
+      },
     ],
   },
 ]);
@@ -105,7 +110,7 @@ const router = createBrowserRouter([
 // };
 
 // Use createRoot and render
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
