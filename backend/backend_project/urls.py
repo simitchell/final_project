@@ -43,7 +43,6 @@ urlpatterns = [
     path("register/", views.RegisterView.as_view(), name="register"),
     path("token/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    # path("logout/", LogoutView.as_view(), name="logout"),
     # path("logout_all/", LogoutAllView.as_view(), name="auth_logout_all"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

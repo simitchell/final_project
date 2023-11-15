@@ -23,12 +23,8 @@ export default function LogoutPage() {
         body: JSON.stringify({ refresh_token }),
       });
 
-      if (response.status === 205) {
-        localStorage.clear(); // Clear user data and tokens
-        setIsAuth(false); // Update the authentication state
-      } else {
-        console.error("ERROR", response.status, response.statusText);
-      }
+      localStorage.clear();
+      setIsAuth(false);
     } catch (error) {
       console.error("ERROR", error);
     }

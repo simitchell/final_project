@@ -98,9 +98,10 @@ export const DetailImage = styled.div`
 
 export const DetailRight = styled.div`
   width: 30%;
+  padding-top: 15%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: justify;
 `;
 
 export const DetailDescription = styled.div`

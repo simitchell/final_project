@@ -115,11 +115,22 @@ export default function ListingDetail() {
       <DetailRight>
         {listingDetail ? (
           <>
+            {listingDetail.username ===! localStorage.getItem("username") ? (
+              <Button
+                variant="contained"
+                type="button"
+                id="addToCartButton"
+                onClick={handleAddToCart}
+              >
+                Add to Cart
+              </Button>
+            ) : null}
             <DetailDescription>
               <h3>Description</h3>
               <p>{listingDetail.description}</p>
             </DetailDescription>
             <DetailPrice>
+              <h3>Price</h3>
               <p>${listingDetail.price}</p>
             </DetailPrice>
           </>
@@ -129,7 +140,6 @@ export default function ListingDetail() {
       </DetailRight>
     </DetailWrapper>
   );
-  
 }
 
 // return (
