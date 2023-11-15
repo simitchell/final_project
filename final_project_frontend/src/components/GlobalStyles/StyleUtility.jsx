@@ -6,12 +6,7 @@ export const Form = styled.form`
   max-width: 45ch;
   display: flex;
   flex-direction: column;
+  button {
+    margin-top: 1rem;
+  }
 `;
-
-
-
-export const StyleOutput = styled.div`
-    h2 {
-        
-    }
-`

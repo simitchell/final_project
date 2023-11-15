@@ -1,7 +1,7 @@
 import React from "react";
 import { Nav, NavLeft, NavRight } from "./StyleNav";
 // import { Button } from "../GlobalStyles/StyleUtility";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 // import
 
@@ -19,7 +19,9 @@ export default function MainNav() {
         </div>
         <div className="searchBar">
           <input type="search"></input>
-          <Button variant="contained" size="small" type="submit">Search</Button>
+          <Button variant="contained" size="small" type="submit">
+            Search
+          </Button>
         </div>
       </NavLeft>
       <NavRight>
@@ -30,10 +32,6 @@ export default function MainNav() {
           <li>
             <Link to="howitworks">How It Works</Link>
           </li>
-          <li>
-            {isAuth ? <Link to="/createlisting">Create Listing</Link> : null}
-          </li>
-          <li>{isAuth ? <Link to="/cart">Cart</Link> : null}</li>
           <li>
             {isAuth ? (
               <Link to="/profile">{localStorage.getItem("username")}</Link>

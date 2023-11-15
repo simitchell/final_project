@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRevalidator, useParams, useNavigate } from "react-router-dom";
 import { Form } from "./GlobalStyles/StyleUtility";
 // import { Button } from "./GlobalStyles/StyleUtility";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function ProfileDetail() {
@@ -80,29 +80,9 @@ export default function ProfileDetail() {
 
   return (
     <>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
-        <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-          <label>Address</label>
-          <input type="text" name="address" />
-          <label>Birthdate</label>
-          <input type="date" name="birthdate" />
-          <label>Bio</label>
-          <textarea type="text" name="bio" />
-          <input
-            type="hidden"
-            name="user"
-            value={localStorage.getItem("userId")}
-          />
-          <Button variant="contained" type="submit">Update Profile</Button>
-        </Form>
-      )}
       {profileDetail ? (
         <div>
-          <p>
-            <strong>Current Information</strong>
-          </p>
+          <h3>Current Information</h3>
           <p>
             <strong>Address:</strong> {profileDetail.address}
           </p>
@@ -117,6 +97,27 @@ export default function ProfileDetail() {
         <div>
           Profile Information will display here. Please fill out the form.
         </div>
+      )}
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+          <h4>Update your profile information</h4>
+          <label>Address</label>
+          <input type="text" name="address" />
+          <label>Birthdate</label>
+          <input type="date" name="birthdate" />
+          <label>Bio</label>
+          <textarea type="text" name="bio" />
+          <input
+            type="hidden"
+            name="user"
+            value={localStorage.getItem("userId")}
+          />
+          <Button variant="contained" type="submit">
+            Update Profile
+          </Button>
+        </Form>
       )}
     </>
   );

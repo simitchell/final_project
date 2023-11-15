@@ -17,11 +17,10 @@ export default function HomePage() {
             <h2>Welcome to Fox Body Swap Meet</h2>
             <p>
               We are a community of automotive enthusiasts, passionate about
-              '79-'93 Ford Mustangs and the 5.0L legacy. Fox Body Swap Meet is a
-              curated buy/sell site for parts.
+              '79-'93 Ford Mustangs and the 5.0L legacy. Fox Body Swap Meet is the online destination for buying and selling new and used parts for Fox Body Mustangs.  Get started today and start looking for what you need for your project!
             </p>
             <ul>
-              <h3>New here?  Visit our...</h3>
+              <h3>New here? Visit our...</h3>
               <li>
                 <a href="./aboutus">About Us</a> page for more on who we are
               </li>
@@ -32,7 +31,6 @@ export default function HomePage() {
             </ul>
           </Text>
         </HomeWelcome>
-
         <HomeLogin>
           <LoginForm />
         </HomeLogin>

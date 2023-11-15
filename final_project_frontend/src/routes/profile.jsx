@@ -1,4 +1,5 @@
 import ProfileForm from "../components/ProfileForm";
+import ProfileComponent from "../components/Profile";
 import DisplayUserListings from "../components/DisplayUserListings";
 import { ProfileContainer } from "../components/GlobalStyles/StyleProfile";
 
@@ -14,6 +15,10 @@ export default function Profile() {
           </h3>
           <ul>
             <li>
+              <a href="../">Home</a> to browse Fox Body Mustang parts currently
+              listed for sale
+            </li>
+            <li>
               <a href="../howitworks">How it Works</a> is recommended reading on
               how to become a great seller and buyer on Fox Body Swap Meet
             </li>
@@ -21,18 +26,11 @@ export default function Profile() {
               <a href="../aboutus">About Us</a> for more about who we are and
               what we do here at Fox Body Swap Meet
             </li>
-            <li>
-              <a href="../createlisting">Create a listing</a> and get started
-              selling!
-            </li>
-            <li>
-              <a href="../">Home</a> to browse Fox Body Mustang parts currently
-              listed for sale
-            </li>
           </ul>
+          <ProfileComponent />
         </div>
+
         <div className="profileUpdate">
-          <h3>Update your profile information</h3>
           <ProfileForm />
         </div>
       </div>

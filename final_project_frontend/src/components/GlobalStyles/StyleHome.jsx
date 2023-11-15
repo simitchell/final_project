@@ -16,6 +16,9 @@ export const HomeWrapper = styled.div`
 export const HomeWelcome = styled.div`
   ul {
     list-style-type: none;
+    li {
+      margin-bottom: 1rem;
+    }
   }
 `;
 
