@@ -55,8 +55,8 @@ export default function CartDetail() {
     }
   };
 
-  const handleDelete = async () => {
-    const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+  const handleDelete = async (id) => {
+    const apiUrl = `http://127.0.0.1:8000/cart/item/${id}/`;
     try {
       const response = await fetch(apiUrl, {
         method: "DELETE",
@@ -66,8 +66,9 @@ export default function CartDetail() {
       });
 
       if (response.ok) {
-        setListingDetail(null);
-        navigate("/profile");
+        // setListingDetail(null);
+        getCart();
+        // navigate("/profile");
       } else {
         console.error("Failed to delete listing");
       }

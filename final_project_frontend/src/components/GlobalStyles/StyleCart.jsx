@@ -30,7 +30,7 @@ export const CartContents = styled.div`
 export const CartButton = styled.div`
   margin: auto;
   padding: auto;
-`
+`;
 
 export const CartImg = styled.div`
   width: 125px;
@@ -93,5 +93,4 @@ export const RowTotal = styled.div`
   justify-content: space-between;
   border-top: 1px solid black;
   font-weight: bold;
-
 `;

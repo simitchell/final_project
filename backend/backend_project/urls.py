@@ -25,6 +25,7 @@ from backend_project.backend_app.views import LogoutView
 from backend_project.backend_app import views
 from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
+from backend_project.backend_app.views import CartDeleteViewSet
 
 
 router = routers.DefaultRouter()
@@ -39,6 +40,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # path("api/users/", include("users.urls")),
     # path("api/", include("commerce.urls")),
+    path("cart/item/<int:pk>/", CartDeleteViewSet.as_view(), name="cart-delete"),
     path("logout/", views.LogoutView.as_view(), name="logout"),
     path("register/", views.RegisterView.as_view(), name="register"),
     path("token/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),

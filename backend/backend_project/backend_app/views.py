@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework import generics
 from rest_framework import status, viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -36,6 +37,11 @@ class CartViewSet(viewsets.ModelViewSet):
     lookup_field = "user_id"
     # parser_classes = JSONParser
 
+class CartDeleteViewSet(generics.DestroyAPIView):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer
+
+
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
@@ -46,9 +52,8 @@ class ListingViewSet(viewsets.ModelViewSet):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
     parser_classes = (MultiPartParser, FormParser)
-    search_fields = ['title']
+    search_fields = ["title"]
     filter_backends = [SearchFilter, OrderingFilter]
-
 
     # def perform_create(self, serializer):
     #     serializer.save(creator=self.request.user)
