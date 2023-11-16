@@ -19,6 +19,7 @@ import Profile from "./routes/profile";
 import Register from "./routes/register";
 import Root from "./routes/root";
 import Search from "./components/SearchFeature";
+import Footer from "./components/Footer/Footer";
 
 const router = createBrowserRouter([
   {

@@ -10,7 +10,7 @@ export const HomeContainer = styled.div`
 export const HomeWrapper = styled.div`
   display: flex;
   margin: 0 10%;
-  justify-content: space-between;
+  ${(justifyContent) => justifyContent};
 `;
 
 export const HomeWelcome = styled.div`

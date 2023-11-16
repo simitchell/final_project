@@ -9,6 +9,14 @@ export const CardContainer = styled.div`
   padding: auto;
   justify-content: center;
 
+  a {
+    color: black;
+  }
+
+  a:hover {
+      color: #f2502c;
+    }
+
   .card {
     display: flex;
     flex-direction: column;
@@ -21,7 +29,7 @@ export const CardContainer = styled.div`
     margin: 1rem;
     padding: 1rem;
 
-    
+   
 
     h2 {
       margin: 0;
@@ -42,7 +50,7 @@ export const CardContainer = styled.div`
       padding: auto;
       margin: auto;
       /* object-fit: contain; */
-      
+
       img {
         object-fit: cover;
         width: 100%;
@@ -65,6 +73,6 @@ export const CardContainer = styled.div`
     }
   }
   .card:hover {
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    }
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
 `;

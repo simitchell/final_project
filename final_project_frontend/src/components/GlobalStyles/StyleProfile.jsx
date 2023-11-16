@@ -29,4 +29,4 @@ export const ProfileDiv = styled.div`
   justify-content: space-evenly;
   max-width: 300px;
   margin: auto;
-`
+`;
