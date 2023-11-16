@@ -6,7 +6,7 @@ export default function RootComponent() {
   return (
     <div>
       <StyleRoot>
-        <Outlet />
+        {/* <Outlet /> */}
       </StyleRoot>
     </div>
   );

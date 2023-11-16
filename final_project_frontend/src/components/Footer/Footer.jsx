@@ -4,10 +4,10 @@ import { BottomRow, StyleFooter, TopRow } from "./Styles.Footer";
 export default function Footer() {
   return (
     <StyleFooter>
+            <h4>FOX BODY SWAP MEET</h4>
         <TopRow>
           {/* Column 1 */}
           <div className="col">
-            <h4>FOX BODY SWAP MEET</h4>
             <ul className="list-unstyled">
               <li>Greenville, SC</li>
               <li>(555)-555-5555</li>
@@ -16,7 +16,7 @@ export default function Footer() {
           </div>
           {/* Column 2 */}
           <div className="col">
-            <h4>5.0L</h4>
+            {/* <h4>5.0L</h4> */}
             <ul className="list-unstyled">
               <li>Windsor Engines</li>
               <li>T-5 Transmissions</li>

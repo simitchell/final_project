@@ -8,6 +8,11 @@ export const ProfileContainer = styled.div`
     }
   }
 
+  .listingHeader {
+    text-align: center;
+    margin: 3rem;
+  }
+  
   .profileWrapper {
     display: flex;
     margin: 0 10%;

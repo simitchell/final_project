@@ -5,20 +5,21 @@ import Footer from "../components/Footer/Footer";
 import MainNav from "../components/NavBar";
 import { Logo, StyleRoot } from "../components/GlobalStyles/StyleRoot";
 import { AuthProvider } from "../AuthContext";
+import { Main } from "../components/GlobalStyles/StyleMain";
 
 export default function Root() {
   return (
-    <>
-      <AuthProvider>
-        <MainNav />
-        <StyleRoot>
-          <Link to="/">
-            <Logo>{LogoSVGTagline}</Logo>
-          </Link>
-        </StyleRoot>
+    <AuthProvider>
+      <MainNav />
+      <StyleRoot>
+        <Link to="/">
+          <Logo>{LogoSVGTagline}</Logo>
+        </Link>
+      </StyleRoot>
+      <Main>
         <Outlet />
-        <Footer />
-      </AuthProvider>
-    </>
+      </Main>
+      <Footer />
+    </AuthProvider>
   );
 }

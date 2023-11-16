@@ -3,14 +3,25 @@ import styled from "styled-components";
 export const StyleFooter = styled.footer`
   color: #f5f5f5;
   background-color: #f2502c;
-  padding-top: 2rem;
-  z-index: 9999;
+  padding-top: 1rem;
   position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
+  min-width: 100vw;
+
+  h4 {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    margin: 0;
+    margin-top: 1rem;
+  }
+
+  ul {
+    margin: 0;
+  }
 `;
+
+
+
 export const TopRow = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -22,3 +33,4 @@ export const BottomRow = styled.div`
   text-align: center;
   line-height: 0.2rem;
 `;
+
