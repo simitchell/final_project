@@ -25,6 +25,11 @@ export const CartContents = styled.div`
   width: 100%;
   text-align: left;
   margin: auto;
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+  }
 `;
 
 export const CartButton = styled.div`
@@ -39,8 +44,8 @@ export const CartImg = styled.div`
   margin: 0;
   img {
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
   }
 `;
 
@@ -67,6 +72,11 @@ export const CartItemPrice = styled.div`
 export const CartTotal = styled.div`
   width: 25%;
   text-align: right;
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+  }
 `;
 
 export const RowItems = styled.div`

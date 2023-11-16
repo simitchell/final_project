@@ -26,7 +26,6 @@ import {
 } from "./GlobalStyles/StyleCart";
 import CircularProgress from "@mui/material/CircularProgress";
 
-
 export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
   const [isLoading, setIsLoading] = useState(true);
@@ -88,12 +87,12 @@ export default function CartDetail() {
 
   return (
     <CartDiv>
-      <h3>My Cart</h3>
       {isLoading ? (
         <CircularProgress />
       ) : (
         <CartOuterContainer>
           <CartContents>
+            <h2>My Cart</h2>
             {cartData?.map((item) => (
               <div key={item.id}>
                 <CartItem>
@@ -120,7 +119,7 @@ export default function CartDetail() {
             ))}
           </CartContents>
           <CartTotal>
-            <h3>Checkout</h3>
+            <h2>Checkout</h2>
             <RowItems>
               <p>Items</p>
               <p>$ number</p>

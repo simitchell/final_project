@@ -5,6 +5,7 @@ import { Form } from "./GlobalStyles/StyleUtility";
 // import { Button } from "./GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
 
 export default function ProfileDetail() {
   const [profileDetail, setProfileDetail] = useState(null);
@@ -13,6 +14,8 @@ export default function ProfileDetail() {
   const updateForm = useRef(null);
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
+  const [alert, setAlert] = useState(false);
+  // const [alertContent, setAlertContent] = useState('');
 
   const { id } = useParams();
 
@@ -47,8 +50,9 @@ export default function ProfileDetail() {
     setProfileDetail(data);
     updateForm.current.reset();
     revalidator.revalidate();
-    alert("Profile updated successfully");
-    location.reload();
+    // alert("Profile updated successfully");
+    setAlert(true);
+    // location.reload();
   };
 
   const handlePost = async (formData) => {
@@ -80,6 +84,13 @@ export default function ProfileDetail() {
 
   return (
     <>
+      {alert ? (
+        <Alert severity="success">
+          Profile information updated successfully!
+        </Alert>
+      ) : (
+        <></>
+      )}
       {profileDetail ? (
         <div>
           <h3>Current Information</h3>

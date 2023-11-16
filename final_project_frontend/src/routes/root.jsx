@@ -12,7 +12,7 @@ export default function Root() {
       <StyleRoot>
         <h1>Fox Body Swap Meet</h1>
         <h2>For enthusiasts, by enthusiasts</h2>
-        <img src="" />
+        {/* <img src="final_project_frontend/public/FoxBodySwapMeetLogo.svg" /> */}
       </StyleRoot>
       <Outlet />
       <Footer />
