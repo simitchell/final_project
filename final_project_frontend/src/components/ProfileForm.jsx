@@ -37,7 +37,7 @@ export default function ProfileDetail() {
 
   useEffect(() => {
     getIndividualProfile();
-  }, []);
+  }, [profileDetail]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,13 +84,6 @@ export default function ProfileDetail() {
 
   return (
     <>
-      {alert ? (
-        <Alert severity="success">
-          Profile information updated successfully!
-        </Alert>
-      ) : (
-        <></>
-      )}
       {profileDetail ? (
         <div>
           <h3>Current Information</h3>
@@ -112,24 +105,33 @@ export default function ProfileDetail() {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-          <h4>Update your profile information</h4>
-          <label>Address</label>
-          <input type="text" name="address" />
-          <label>Birthdate</label>
-          <input type="date" name="birthdate" />
-          <label>Bio</label>
-          <textarea type="text" name="bio" />
-          <input
-            type="hidden"
-            name="user"
-            value={localStorage.getItem("userId")}
-          />
-          <Button variant="contained" type="submit">
-            Update Profile
-          </Button>
-        </Form>
+        alert ? (
+          <Alert severity="success">
+            Profile information updated successfully!
+          </Alert>
+        ) : (
+          <>
+            <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+              <h4>Update your profile information</h4>
+              <label>Address</label>
+              <input type="text" name="address" />
+              <label>Birthdate</label>
+              <input type="date" name="birthdate" />
+              <label>Bio</label>
+              <textarea type="text" name="bio" />
+              <input
+                type="hidden"
+                name="user"
+                value={localStorage.getItem("userId")}
+              />
+              <Button variant="contained" type="submit">
+                Update Profile
+              </Button>
+            </Form>
+          </>
+        )
       )}
     </>
   );
+  
 }
