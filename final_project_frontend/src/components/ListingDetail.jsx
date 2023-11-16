@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
+
 // import DeleteIcon from '@mui/icons-material/Delete';
 // import Stack from '@mui/material/Stack';
 
@@ -19,6 +21,7 @@ export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");
   const [listingDetail, setListingDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [alert, setAlert] = useState(false);
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -45,6 +48,7 @@ export default function ListingDetail() {
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
+    setAlert(true);
 
     const url = `http://127.0.0.1:8000/cart/`;
     try {
@@ -64,9 +68,10 @@ export default function ListingDetail() {
       });
 
       if (response.ok) {
-        console.log("Added to cart successfully!");
-        setListingDetail(null);
-        navigate("/cart");
+        setListingDetail(listingDetail);
+        updateForm.current.reset();
+        useRevalidator.revalidate();
+        // navigate("/cart");
       } else {
         console.error("Failed to add to cart");
       }
@@ -117,14 +122,21 @@ export default function ListingDetail() {
                 </DetailPrice> */}
                 {listingDetail.username !==
                   localStorage.getItem("username") && (
-                  <Button
-                    variant="contained"
-                    type="button"
-                    id="addToCartButton"
-                    onClick={handleAddToCart}
-                  >
-                    Add to Cart
-                  </Button>
+                  <>
+                    <Button
+                      variant="contained"
+                      type="button"
+                      id="addToCartButton"
+                      onClick={handleAddToCart}
+                    >
+                      Add to Cart
+                    </Button>
+                    {alert ? (
+                      <Alert severity="success">Added to your cart!</Alert>
+                    ) : (
+                      <></>
+                    )}
+                  </>
                 )}
               </>
             ) : (
