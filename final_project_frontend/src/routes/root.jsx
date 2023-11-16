@@ -12,6 +12,7 @@ export default function Root() {
       <StyleRoot>
         <h1>Fox Body Swap Meet</h1>
         <h2>For enthusiasts, by enthusiasts</h2>
+        <img src="" />
       </StyleRoot>
       <Outlet />
       <Footer />

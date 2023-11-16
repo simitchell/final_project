@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// import { Button } from "../components/GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 // import DeleteIcon from '@mui/icons-material/Delete';
 // import Stack from '@mui/material/Stack';
 
 import {
-  DetailCard,
   DetailDescription,
   DetailImage,
   DetailLeft,
@@ -15,8 +14,6 @@ import {
   DetailSeller,
   DetailWrapper,
 } from "./GlobalStyles/StyleListingDetail";
-import CircularProgress from "@mui/material/CircularProgress";
-import EditListing from "./EditListing";
 
 export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");
