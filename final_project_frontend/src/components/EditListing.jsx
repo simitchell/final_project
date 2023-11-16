@@ -4,6 +4,7 @@ import { useRevalidator, useParams, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
+import Alert from "@mui/material/Alert";
 
 export default function EditListing() {
   const auth = localStorage.getItem("access_token");
@@ -11,6 +12,7 @@ export default function EditListing() {
   const navigate = useNavigate();
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
+  const [alert, setAlert] = useState(false);
 
   const { id } = useParams();
 
@@ -31,7 +33,7 @@ export default function EditListing() {
 
   useEffect(() => {
     getIndividualListing();
-  }, []);
+  }, [listingDetail]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,8 +51,9 @@ export default function EditListing() {
     // console.log(data);
     updateForm.current.reset();
     revalidator.revalidate();
+    setAlert(true);
     // alert("Listing updated successfully");
-    location.reload();
+    // location.reload();
     return data;
   };
 
@@ -65,8 +68,8 @@ export default function EditListing() {
       });
 
       if (response.ok) {
+        setAlert(true);
         setListingDetail(null);
-        navigate("/profile");
       } else {
         console.error("Failed to delete listing");
       }
@@ -111,35 +114,41 @@ export default function EditListing() {
               >
                 Update Listing
               </Button>
+              {alert ? (
+                <Alert severity="success">Listing updated successfully!</Alert>
+              ) : (
+                <></>
+              )}
+              {listingDetail ? (
+                listingDetail.username === localStorage.getItem("username") && (
+                  <div className="listingOptions">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      type="button"
+                      id="deleteButton"
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            "Are you sure you wish to delete this item?"
+                          )
+                        ) {
+                          handleDelete();
+                        }
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                )
+              ) : (
+                <div>No detail found</div>
+              )}
             </Form>
-            {listingDetail ? (
-              listingDetail.username === localStorage.getItem("username") && (
-                <div className="listingOptions">
-                  <Button
-                    variant="contained"
-                    color="error"
-                    type="button"
-                    id="deleteButton"
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          "Are you sure you wish to delete this item?"
-                        )
-                      ) {
-                        handleDelete();
-                      }
-                    }}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              )
-            ) : (
-              <div>No detail found</div>
-            )}
           </div>
         )}
       </div>
     </>
   );
+  
 }

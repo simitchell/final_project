@@ -10,3 +10,8 @@ export const StyleRoot = styled.div`
     text-align: right;
   }
 `;
+
+export const Logo = styled.div`
+  height: auto;
+  width: 600px;
+`

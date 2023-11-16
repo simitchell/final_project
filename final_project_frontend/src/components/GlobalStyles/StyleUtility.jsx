@@ -8,5 +8,6 @@ export const Form = styled.form`
   flex-direction: column;
   button {
     margin-top: 1rem;
+    /* justify-content: space-around; */
   }
 `;

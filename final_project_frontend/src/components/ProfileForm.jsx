@@ -84,54 +84,56 @@ export default function ProfileDetail() {
 
   return (
     <>
-      {profileDetail ? (
-        <div>
-          <h3>Current Information</h3>
-          <p>
-            <strong>Address:</strong> {profileDetail.address}
-          </p>
-          <p>
-            <strong>Birthdate:</strong> {profileDetail.birthdate}
-          </p>
-          <p>
-            <strong>Bio:</strong> {profileDetail.bio}
-          </p>
-        </div>
-      ) : (
-        <div>
-          Profile Information will display here. Please fill out the form.
-        </div>
-      )}
       {isLoading ? (
         <CircularProgress />
       ) : (
-        alert ? (
-          <Alert severity="success">
-            Profile information updated successfully!
-          </Alert>
-        ) : (
-          <>
-            <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-              <h4>Update your profile information</h4>
-              <label>Address</label>
-              <input type="text" name="address" />
-              <label>Birthdate</label>
-              <input type="date" name="birthdate" />
-              <label>Bio</label>
-              <textarea type="text" name="bio" />
-              <input
-                type="hidden"
-                name="user"
-                value={localStorage.getItem("userId")}
-              />
-              <Button variant="contained" type="submit">
-                Update Profile
-              </Button>
-            </Form>
-          </>
-        )
+        <>
+          {profileDetail ? (
+            <div>
+              <h3>Current Information</h3>
+              <p>
+                <strong>Address:</strong> {profileDetail.address}
+              </p>
+              <p>
+                <strong>Birthdate:</strong> {profileDetail.birthdate}
+              </p>
+              <p>
+                <strong>Bio:</strong> {profileDetail.bio}
+              </p>
+            </div>
+          ) : (
+            <div>
+              Profile Information will display here. Please fill out the form.
+            </div>
+          )}
+        </>
       )}
+
+      {alert ? (
+        <Alert severity="success">
+          Profile information updated successfully!
+        </Alert>
+      ) : (
+        <></>
+      )}
+
+      <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+        <h4>Update your profile information</h4>
+        <label>Address</label>
+        <input type="text" name="address" />
+        <label>Birthdate</label>
+        <input type="date" name="birthdate" />
+        <label>Bio</label>
+        <textarea type="text" name="bio" />
+        <input
+          type="hidden"
+          name="user"
+          value={localStorage.getItem("userId")}
+        />
+        <Button variant="contained" type="submit">
+          Update Profile
+        </Button>
+      </Form>
     </>
   );
-  
 }

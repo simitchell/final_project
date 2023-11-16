@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Nav = styled.nav`
   /* color-scheme: light dark; */
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 9999;

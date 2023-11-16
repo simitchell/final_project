@@ -4,6 +4,7 @@ import { Nav, NavLeft, NavRight } from "./StyleNav";
 // import { Button } from "../GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
+import { LogoSVGSmall } from "../../../public/FoxBodySwapMeetLogoSmall";
 // import TextField from '@mui/material/TextField';
 
 // import
@@ -41,8 +42,8 @@ export default function MainNav() {
       <NavLeft>
         <div className="navCompanyName">
           <Link to="/">
-            {/* <img src="mediafiles/images/logo.svg" /> */}
-            <p>Fox Body Swap Meet</p>
+            {LogoSVGSmall}
+            {/* <p>Fox Body Swap Meet</p> */}
           </Link>
         </div>
         <div className="searchBar">

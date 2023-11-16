@@ -1,8 +1,10 @@
 import { useLoaderData, Link, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { LogoSVGTagline } from "../../public/FoxBodySwapMeetLogoTagline"
 import Footer from "../components/Footer/Footer";
 import MainNav from "../components/NavBar";
-import { StyleRoot } from "../components/GlobalStyles/StyleRoot";
+
+import { Logo, StyleRoot } from "../components/GlobalStyles/StyleRoot";
 import { AuthProvider } from "../AuthContext";
 
 export default function Root() {
@@ -10,9 +12,7 @@ export default function Root() {
     <AuthProvider>
       <MainNav />
       <StyleRoot>
-        <h1>Fox Body Swap Meet</h1>
-        <h2>For enthusiasts, by enthusiasts</h2>
-        {/* <img src="final_project_frontend/public/FoxBodySwapMeetLogo.svg" /> */}
+        <Logo>{LogoSVGTagline}</Logo>
       </StyleRoot>
       <Outlet />
       <Footer />
