@@ -4,6 +4,7 @@ export const StyleFooter = styled.footer`
   color: #f5f5f5;
   background-color: #f2502c;
   padding-top: 2rem;
+  z-index: 9999;
   position: relative;
   bottom: 0;
   left: 0;
@@ -21,14 +22,3 @@ export const BottomRow = styled.div`
   text-align: center;
   line-height: 0.2rem;
 `;
-
-// position: absolute;
-//     top: 0;
-//     left: 0;
-//     z-index: 9999;
-//     width: 100%;
-//     height: 50px;
-//     background-color: #f2502c;
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
