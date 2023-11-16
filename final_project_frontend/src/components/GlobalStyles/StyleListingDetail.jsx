@@ -98,7 +98,6 @@ export const DetailImage = styled.div`
 
 export const DetailRight = styled.div`
   width: 30%;
-  padding-top: 15%;
   display: flex;
   flex-direction: column;
   justify-content: justify;
@@ -111,3 +110,9 @@ export const DetailDescription = styled.div`
 export const DetailPrice = styled.div`
   /* color: blue; */
 `;
+
+export const DetailSeller = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between
+`

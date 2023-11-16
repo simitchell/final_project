@@ -24,6 +24,8 @@ import {
   RowShipping,
   RowTotal,
 } from "./GlobalStyles/StyleCart";
+import CircularProgress from "@mui/material/CircularProgress";
+
 
 export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
@@ -88,7 +90,7 @@ export default function CartDetail() {
     <CartDiv>
       <h3>My Cart</h3>
       {isLoading ? (
-        <div>Loading...</div>
+        <CircularProgress />
       ) : (
         <CartOuterContainer>
           <CartContents>

@@ -8,17 +8,19 @@ export const Nav = styled.nav`
   z-index: 9999;
   width: 100%;
   height: 50px;
-  background-color: #F2502c;
+  background-color: #f2502c;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
   a {
     color: #f5f5f5;
-      /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
-
+    /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
   }
-  
+
+  a:hover {
+      color: #4e56f6;
+    }
 
   .navCompanyName {
     p {
