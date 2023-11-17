@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Link,
-  useLocation,
-  useRevalidator,
-  useParams,
-  useNavigate,
-  json,
-} from "react-router-dom";
-// import { Button } from "../components/GlobalStyles/StyleUtility";
+import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   CartButton,
   CartContents,
@@ -24,12 +17,13 @@ import {
   RowShipping,
   RowTotal,
 } from "./GlobalStyles/StyleCart";
-import CircularProgress from "@mui/material/CircularProgress";
 
 export default function CartDetail() {
   const auth = localStorage.getItem("access_token");
   const [isLoading, setIsLoading] = useState(true);
   const [cartData, setCartData] = useState(null);
+  const [taxes, setTaxes] = useState(0);
+  const [cartTotal, setCartTotal] = useState(0); // New state for the total
   const location = useLocation();
 
   const getCart = async () => {
@@ -41,7 +35,7 @@ export default function CartDetail() {
           Authorization: `Bearer ${auth}`,
         },
       });
-      // console.log({ response });
+
       if (response.ok) {
         const data = await response.json();
         const filteredCart = data.filter(
@@ -67,9 +61,7 @@ export default function CartDetail() {
       });
 
       if (response.ok) {
-        // setListingDetail(null);
         getCart();
-        // navigate("/profile");
       } else {
         console.error("Failed to delete listing");
       }
@@ -78,12 +70,26 @@ export default function CartDetail() {
     }
   };
 
-  // cartData is all cart data in the table
-  // console.log(cartData);
+  const calculateTotal = () => {
+    if (cartData) {
+      const totalBeforeTaxes = cartData.reduce(
+        (total, item) => total + item.price,
+        0
+      );
+      const calculatedTaxes = totalBeforeTaxes * 0.06; // 6% tax
+      setTaxes(calculatedTaxes);
+      return totalBeforeTaxes + calculatedTaxes;
+    }
+    return 0;
+  };
 
   useEffect(() => {
     getCart();
   }, []);
+
+  useEffect(() => {
+    setCartTotal(calculateTotal());
+  }, [cartData]);
 
   return (
     <CartDiv>
@@ -103,7 +109,7 @@ export default function CartDetail() {
                       type="button"
                       id="deleteButton"
                       onClick={() => {
-                        handleDelete(item.id); // Pass the item id to handleDelete
+                        handleDelete(item.id);
                       }}
                     >
                       Remove
@@ -122,19 +128,19 @@ export default function CartDetail() {
             <h2>Checkout</h2>
             <RowItems>
               <p>Items</p>
-              <p>$ number</p>
+              <p>${cartTotal.toFixed(2)}</p>
             </RowItems>
             <RowTaxes>
-              <p>Taxes</p>
-              <p>$ number</p>
+              <p>Taxes (6%)</p>
+              <p>${taxes.toFixed(2)}</p>
             </RowTaxes>
             <RowShipping>
               <p>Shipping</p>
-              <p>$ number</p>
+              <p>$0.00</p> {/* Replace with your shipping calculation logic */}
             </RowShipping>
             <RowTotal>
               <p>Total</p>
-              <p>$ number</p>
+              <p>${cartTotal.toFixed(2)}</p>
             </RowTotal>
           </CartTotal>
         </CartOuterContainer>
