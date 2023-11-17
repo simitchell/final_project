@@ -4,7 +4,7 @@ import { Text } from "../components/GlobalStyles/StyleText";
 export default function HowItWorksCopy() {
   return (
     <Text>
-      <h2>How It Works Section</h2>
+      <h2>How It Works</h2>
       <ul>
         <li>
           Create an account or login <a href="./register">here</a>

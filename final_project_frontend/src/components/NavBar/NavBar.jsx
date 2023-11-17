@@ -78,18 +78,25 @@ export default function MainNav() {
             <Link to="howitworks">How It Works</Link>
           </li>
           {isAuth ? (
+            <>
+            <li>
+            <Link to="/cart">Cart</Link>
+          </li>
             <li>
               <Link to="/profile">{localStorage.getItem("username")}</Link>
             </li>
+            </>
           ) : (
             <li>
               <Link to="/login">Log In or Register</Link>
             </li>
           )}
           {isAuth ? (
+            <>
             <li>
               <Link to="/logout">Logout</Link>
             </li>
+            </>
           ) : null}
         </ul>
       </NavRight>

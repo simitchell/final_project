@@ -25,6 +25,9 @@ export const StyleFooter = styled.footer`
 export const TopRow = styled.div`
   display: flex;
   justify-content: space-evenly;
+  max-width: 60%;
+  padding: auto;
+  margin: auto;
 `;
 
 export const BottomRow = styled.div`
