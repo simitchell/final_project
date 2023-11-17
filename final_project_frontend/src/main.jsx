@@ -20,6 +20,7 @@ import Register from "./routes/register";
 import Root from "./routes/root";
 import Search from "./components/SearchFeature";
 import Footer from "./components/Footer/Footer";
+import SearchFail from "./routes/searchfail";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "register/",
         element: <Register />,
+      },
+      {
+        path: "search/",
+        element: <SearchFail />
       },
       {
         path: "search/:search",

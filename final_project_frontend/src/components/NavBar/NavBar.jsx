@@ -34,6 +34,8 @@ export default function MainNav() {
     if (code === 13) {
       navigate(`/search/${search}`);
       setSearch("");
+    } else {
+      navigate("/");
     }
   };
 

@@ -5,7 +5,7 @@ export default function AboutUsCopy() {
 
     return (
         <Text>
-        <h3>About Us</h3>
+        <h2>About Us</h2>
       <p>
         Fox Body Swap Meet exists to help owners keep their Fox Body Mustangs on
         the road for as long as possible. We have a passion for helping sellers

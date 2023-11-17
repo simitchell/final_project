@@ -33,7 +33,9 @@ export const Nav = styled.nav`
 
   .searchBar {
     input {
-      margin: 8px;
+      margin: auto;
+      padding: .5rem;
+      border-radius: 5px;
     }
     button {
       margin: 8px;
