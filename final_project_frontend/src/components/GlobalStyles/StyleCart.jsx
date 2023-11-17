@@ -30,31 +30,36 @@ export const CartContents = styled.div`
     justify-content: center;
     margin-bottom: 4rem;
   }
+
 `;
 
 export const CartButton = styled.div`
   margin: auto;
   padding: auto;
+  
 `;
 
 export const CartImg = styled.div`
   width: 125px;
   height: 125px;
-  padding: 0;
-  margin: 0;
+  display: flex;
+  
   img {
     object-fit: cover;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
   }
 `;
 
 export const CartItem = styled.div`
   display: flex;
   justify-content: space-between;
-  /* border: solid 1px black; */
   height: 120px;
-  /* width: 20%; */
+  background-color: white;
+  border-radius: 25px;
+  margin: 1rem;
+  padding: 1rem;
 `;
 
 export const CartItemDesc = styled.div`
