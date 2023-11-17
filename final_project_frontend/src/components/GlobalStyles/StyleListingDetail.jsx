@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const ListingDetailHeader = styled.h2`
+  display: flex;
+  justify-content: space-around;
+`;
+
 export const DetailWrapper = styled.div`
   display: flex;
   flex-direction: row;

@@ -15,6 +15,7 @@ import {
   DetailRight,
   DetailSeller,
   DetailWrapper,
+  ListingDetailHeader
 } from "./GlobalStyles/StyleListingDetail";
 
 export default function ListingDetail() {
@@ -81,6 +82,8 @@ export default function ListingDetail() {
   };
 
   return (
+    <>
+      <ListingDetailHeader>Listing Detail</ListingDetailHeader>
     <DetailWrapper>
       {isLoading ? (
         <CircularProgress />
@@ -143,5 +146,6 @@ export default function ListingDetail() {
         </>
       )}
     </DetailWrapper>
+    </>
   );
 }
