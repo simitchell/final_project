@@ -142,6 +142,7 @@ export default function CartDetail() {
               <p>Total</p>
               <p>${cartTotal.toFixed(2)}</p>
             </RowTotal>
+          <Button variant="contained">Proceed to Checkout</Button>
           </CartTotal>
         </CartOuterContainer>
       )}

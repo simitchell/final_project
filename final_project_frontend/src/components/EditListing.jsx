@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
 import Alert from "@mui/material/Alert";
+import { ButtonContainer, EditListingHeader } from "./GlobalStyles/StyleEditListing";
 
 export default function EditListing() {
   const auth = localStorage.getItem("access_token");
@@ -83,7 +84,7 @@ export default function EditListing() {
       <div>
         {listingDetail?.username === localStorage.getItem("username") && (
           <div className="updateListingForm">
-            <h2>Update Your listing</h2>
+            <EditListingHeader>Update Your listing</EditListingHeader>
             <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
               <label>Listing Title</label>
               <input type="text" name="title" />
@@ -107,6 +108,7 @@ export default function EditListing() {
                 name="username"
                 value={localStorage.getItem("username")}
               />
+              <ButtonContainer>
               <Button
                 variant="contained"
                 sx={{ width: 200, padding: 1, margin: 3 }}
@@ -114,6 +116,7 @@ export default function EditListing() {
               >
                 Update Listing
               </Button>
+              
               {alert ? (
                 <Alert severity="success">Listing updated successfully!</Alert>
               ) : (
@@ -124,6 +127,7 @@ export default function EditListing() {
                   <div className="listingOptions">
                     <Button
                       variant="contained"
+                      sx={{ width: 200, padding: 1, margin: 3 }}
                       color="error"
                       type="button"
                       id="deleteButton"
@@ -137,18 +141,18 @@ export default function EditListing() {
                         }
                       }}
                     >
-                      Delete
+                      Delete Listing
                     </Button>
                   </div>
+                  
                 )
               ) : (
                 <div>No detail found</div>
-              )}
+              )}</ButtonContainer>
             </Form>
           </div>
         )}
       </div>
     </>
   );
-  
 }

@@ -117,9 +117,6 @@ export default function ListingDetail() {
                     <p>${listingDetail.price}</p>
                   </div>
                 </DetailSeller>
-
-                {/* <DetailPrice>
-                </DetailPrice> */}
                 {listingDetail.username !==
                   localStorage.getItem("username") && (
                   <>
