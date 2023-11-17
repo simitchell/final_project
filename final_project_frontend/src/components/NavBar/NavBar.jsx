@@ -45,11 +45,9 @@ export default function MainNav() {
         <div className="navCompanyName">
           <Link to="/">
             {LogoSVGSmall}
-            {/* <p>Fox Body Swap Meet</p> */}
           </Link>
         </div>
         <div className="searchBar">
-          {/* <TextField type="search" id="filled-basic" label="Filled" variant="filled"/> */}
           <input
             type="search"
             placeholder="Search Listings"
