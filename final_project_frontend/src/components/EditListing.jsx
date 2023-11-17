@@ -5,7 +5,10 @@ import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
 import Alert from "@mui/material/Alert";
-import { ButtonContainer, EditListingHeader } from "./GlobalStyles/StyleEditListing";
+import {
+  ButtonContainer,
+  EditListingHeader,
+} from "./GlobalStyles/StyleEditListing";
 
 export default function EditListing() {
   const auth = localStorage.getItem("access_token");
@@ -110,46 +113,49 @@ export default function EditListing() {
                 value={localStorage.getItem("username")}
               />
               <ButtonContainer>
-              <Button
-                variant="contained"
-                sx={{ width: 200, padding: 1, margin: 3 }}
-                type="submit"
-              >
-                Update Listing
-              </Button>
-              
-              {alert ? (
-                <Alert severity="success">Listing updated successfully!</Alert>
-              ) : (
-                <></>
-              )}
-              {listingDetail ? (
-                listingDetail.username === localStorage.getItem("username") && (
-                  <div className="listingOptions">
-                    <Button
-                      variant="contained"
-                      sx={{ width: 200, padding: 1, margin: 3 }}
-                      color="error"
-                      type="button"
-                      id="deleteButton"
-                      onClick={() => {
-                        if (
-                          window.confirm(
-                            "Are you sure you wish to delete this item?"
-                          )
-                        ) {
-                          handleDelete();
-                        }
-                      }}
-                    >
-                      Delete Listing
-                    </Button>
-                  </div>
-                  
-                )
-              ) : (
-                <div>No detail found</div>
-              )}</ButtonContainer>
+                <Button
+                  variant="contained"
+                  sx={{ width: 200, padding: 1, margin: 3 }}
+                  type="submit"
+                >
+                  Update Listing
+                </Button>
+
+                {alert ? (
+                  <Alert severity="success">
+                    Listing updated successfully!
+                  </Alert>
+                ) : (
+                  <></>
+                )}
+                {listingDetail ? (
+                  listingDetail.username ===
+                    localStorage.getItem("username") && (
+                    <div className="listingOptions">
+                      <Button
+                        variant="contained"
+                        sx={{ width: 200, padding: 1, margin: 3 }}
+                        color="error"
+                        type="button"
+                        id="deleteButton"
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you wish to delete this item?"
+                            )
+                          ) {
+                            handleDelete();
+                          }
+                        }}
+                      >
+                        Delete Listing
+                      </Button>
+                    </div>
+                  )
+                ) : (
+                  <div>No detail found</div>
+                )}
+              </ButtonContainer>
             </Form>
           </div>
         )}
