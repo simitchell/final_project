@@ -18,8 +18,8 @@ export const Nav = styled.nav`
   }
 
   a:hover {
-      color: #4e56f6;
-    }
+    color: #4e56f6;
+  }
 
   .navCompanyName {
     p {

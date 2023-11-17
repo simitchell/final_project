@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "../components/GlobalStyles/StyleText";
 
-export default function HowItWorks() {
+export default function HowItWorksCopy() {
   return (
     <Text>
       <h3>How It Works Section</h3>

@@ -27,10 +27,10 @@ export default function HomePage() {
             <ul>
               <h3>New here? Visit our...</h3>
               <li>
-                <a href="./aboutus">About Us</a> page for more on who we are
+                <a href="./aboutus"><strong>About Us</strong></a> page for more on who we are
               </li>
               <li>
-                <a href="./howitworks">How It Works</a> page for more on how it
+                <a href="./howitworks"><strong>How It Works</strong></a> page for more on how it
                 works at Fox Body Swap Meet
               </li>
             </ul>

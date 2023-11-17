@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const Text = styled.div`
-  margin: 0 4rem;
+  display: flex;
+  flex-direction: column;
   max-width: 65ch;
+  margin: auto;
 `;
