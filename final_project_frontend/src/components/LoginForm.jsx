@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { Form } from "../components/GlobalStyles/StyleUtility";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -70,10 +71,10 @@ export default function LoginForm() {
         <Button variant="contained" type="submit">
           Login
         </Button>
+        <p>
+          <Link to="./register">Register</Link> as a new user
+        </p>
       </Form>
-      <p>
-        <a href="./register">Register</a> as a new user
-      </p>
     </div>
   );
 }

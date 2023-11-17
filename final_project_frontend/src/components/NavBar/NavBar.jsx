@@ -73,7 +73,7 @@ export default function MainNav() {
             <Link to="/aboutus">About Us</Link>
           </li>
           <li>
-            <Link to="howitworks">How It Works</Link>
+            <Link to="/howitworks">How It Works</Link>
           </li>
           {isAuth ? (
             <>

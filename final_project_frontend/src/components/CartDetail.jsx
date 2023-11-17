@@ -136,7 +136,7 @@ export default function CartDetail() {
             </RowTaxes>
             <RowShipping>
               <p>Shipping</p>
-              <p>$0.00</p> {/* Replace with your shipping calculation logic */}
+              <p>$0.00</p> 
             </RowShipping>
             <RowTotal>
               <p>Total</p>

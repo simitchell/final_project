@@ -1,14 +1,16 @@
-import { useRef } from "react";
-import { useRevalidator } from "react-router-dom";
+import { useRef, useState } from "react";
+import { useRevalidator, useNavigate } from "react-router-dom";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
+import Alert from "@mui/material/Alert";
 
 export default function ListingForm() {
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
   const updateForm = useRef(null);
+  const [alert, setAlert] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,8 +29,8 @@ export default function ListingForm() {
     // console.log(data);
     updateForm.current.reset();
     revalidator.revalidate();
-    alert("Listing created successfully");
-    window.location.href = "/profile/";
+    setAlert(true);
+    // window.location.href = "/profile/";
   };
 
   return (
@@ -68,7 +70,17 @@ export default function ListingForm() {
               name="username"
               value={localStorage.getItem("username")}
             />
-            <Button variant="contained" type="submit">Post Listing</Button>
+            <Button variant="contained" type="submit">
+              Post Listing
+            </Button>
+
+            {alert ? (
+              <Alert severity="success">
+                Listing created successfully!
+              </Alert>
+            ) : (
+              <></>
+            )}
           </Form>
         </div>
       </div>

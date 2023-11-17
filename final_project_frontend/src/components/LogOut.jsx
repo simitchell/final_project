@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import { Text } from "./GlobalStyles/StyleText";
 
@@ -41,7 +41,7 @@ export default function LogoutPage() {
     <Text>
       <h1>Logout</h1>
       <p>You have been successfully logged out.</p>
-      <a href="/">Login</a>
+      <Link to="/">Login</Link>
     </Text>
   );
 }

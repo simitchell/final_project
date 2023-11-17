@@ -71,6 +71,7 @@ export default function EditListing() {
       if (response.ok) {
         setAlert(true);
         setListingDetail(null);
+        useNavigate("/profile");
       } else {
         console.error("Failed to delete listing");
       }
