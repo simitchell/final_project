@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import { Link, useLocation } from "react-router-dom";
+import { DisplayListingsContainer } from "./GlobalStyles/StyleDisplayListing";
 
 export default function DisplayUserListings() {
   const [listingData, setListingData] = useState([]);
@@ -35,7 +36,8 @@ export default function DisplayUserListings() {
   // console.log(filteredListings);
 
   return (
-    <div>
+    <DisplayListingsContainer>
+      <h2 className="listingHeader">Your Listings</h2>
       {isLoading ? (
         <CircularProgress />      ) : (
         <CardContainer>
@@ -65,6 +67,6 @@ export default function DisplayUserListings() {
       {isLoading
         ? null
         : filteredListings.length === 0 && <div>No data found</div>}
-    </div>
+    </DisplayListingsContainer>
   );
 }

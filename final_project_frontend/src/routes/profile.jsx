@@ -35,7 +35,7 @@ export default function Profile() {
         </div>
       </div>
       <div>
-        <h2 className="listingHeader">Your Listings</h2>
+        
         <DisplayUserListings />
       </div>
     </ProfileContainer>
