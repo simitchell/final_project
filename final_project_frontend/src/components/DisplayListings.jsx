@@ -13,7 +13,7 @@ export default function DisplayListings() {
 
   const getInfo = async () => {
     try {
-      const apiUrl = "postgres://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet/listing/";
+      const apiUrl = "https://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet/listing/";
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingData(data);
