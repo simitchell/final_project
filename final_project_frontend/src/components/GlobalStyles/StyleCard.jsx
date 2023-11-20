@@ -14,8 +14,8 @@ export const CardContainer = styled.div`
   }
 
   a:hover {
-      color: #f2502c;
-    }
+    color: #f2502c;
+  }
 
   .card {
     display: flex;
@@ -28,8 +28,6 @@ export const CardContainer = styled.div`
     border-radius: 25px;
     margin: 1rem;
     padding: 1rem;
-
-   
 
     h2 {
       margin: 0;
@@ -75,4 +73,11 @@ export const CardContainer = styled.div`
   .card:hover {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
+`;
+
+export const NoDataDiv = styled.div`
+  margin: auto;
+  padding: auto;
+  text-align: center;
+  font-weight: bold;
 `;

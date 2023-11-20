@@ -1,4 +1,4 @@
-import { CardContainer } from "./GlobalStyles/StyleCard";
+import { CardContainer, NoDataDiv } from "./GlobalStyles/StyleCard";
 import { useState, useEffect } from "react";
 import React from "react";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -66,7 +66,7 @@ export default function DisplayUserListings() {
       )}
       {isLoading
         ? null
-        : filteredListings.length === 0 && <div>No data found</div>}
+        : filteredListings.length === 0 && <NoDataDiv>No data found</NoDataDiv>}
     </DisplayListingsContainer>
   );
 }
