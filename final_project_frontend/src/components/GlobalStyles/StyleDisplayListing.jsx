@@ -5,3 +5,10 @@ export const DisplayListingsContainer = styled.div`
     text-align: center;
   }
 `;
+
+export const ProgressDiv = styled.div`
+  margin: auto;
+  padding: auto;
+  text-align: center;
+  font-weight: bold;
+`

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useRevalidator, useParams, useNavigate } from "react-router-dom";
-import { Form } from "./GlobalStyles/StyleUtility";
+import { Form, ProgressDiv } from "./GlobalStyles/StyleUtility";
 // import { Button } from "./GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -85,7 +85,9 @@ export default function ProfileDetail() {
   return (
     <>
       {isLoading ? (
-        <CircularProgress />
+        <ProgressDiv>
+          <CircularProgress />
+        </ProgressDiv>
       ) : (
         <>
           {profileDetail ? (

@@ -12,6 +12,7 @@ import {
   CartImg,
   CartOuterContainer,
   CartTotal,
+  ProgressDiv,
   RowItems,
   RowTaxes,
   RowShipping,
@@ -94,7 +95,9 @@ export default function CartDetail() {
   return (
     <CartDiv>
       {isLoading ? (
-        <CircularProgress />
+        <ProgressDiv>
+          <CircularProgress />
+        </ProgressDiv>
       ) : (
         <CartOuterContainer>
           <CartContents>
@@ -136,13 +139,13 @@ export default function CartDetail() {
             </RowTaxes>
             <RowShipping>
               <p>Shipping</p>
-              <p>$0.00</p> 
+              <p>$0.00</p>
             </RowShipping>
             <RowTotal>
               <p>Total</p>
               <p>${cartTotal.toFixed(2)}</p>
             </RowTotal>
-          <Button variant="contained">Proceed to Checkout</Button>
+            <Button variant="contained">Proceed to Checkout</Button>
           </CartTotal>
         </CartOuterContainer>
       )}

@@ -2,9 +2,8 @@ import { CardContainer } from "./GlobalStyles/StyleCard";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { DisplayListingsContainer } from "./GlobalStyles/StyleDisplayListing";
+import { DisplayListingsContainer, ProgressDiv } from "./GlobalStyles/StyleDisplayListing";
 import CircularProgress from "@mui/material/CircularProgress";
-
 
 export default function DisplayListings() {
   const [listingData, setListingData] = useState([]);
@@ -35,7 +34,9 @@ export default function DisplayListings() {
         <h2>Current Listings</h2>
       </div>
       {isLoading ? (
-        <CircularProgress />
+        <ProgressDiv>
+          <CircularProgress />
+        </ProgressDiv>
       ) : (
         <div>
           {listingData ? (

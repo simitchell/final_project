@@ -17,3 +17,10 @@ export const Form = styled.form`
     /* justify-content: space-around; */
   }
 `;
+
+export const ProgressDiv = styled.div`
+  margin: auto;
+  padding: auto;
+  text-align: center;
+  font-weight: bold;
+`

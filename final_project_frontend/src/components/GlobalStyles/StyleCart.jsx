@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const CartDiv = styled.div`
-  width: 100vw;
+  width: 100%;
   /* max-width: 1200px; */
   /* width: 1000px; */
+  /* background-color: blue; */
   h3 {
     max-width: 65ch;
     justify-content: space-around;
@@ -83,6 +84,13 @@ export const CartTotal = styled.div`
     margin-bottom: 4rem;
   }
 `;
+
+export const ProgressDiv = styled.div`
+  margin: auto;
+  padding: auto;
+  text-align: center;
+  font-weight: bold;
+`
 
 export const RowItems = styled.div`
   display: flex;
