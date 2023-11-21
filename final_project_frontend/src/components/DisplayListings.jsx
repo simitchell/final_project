@@ -2,7 +2,10 @@ import { CardContainer } from "./GlobalStyles/StyleCard";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { DisplayListingsContainer, ProgressDiv } from "./GlobalStyles/StyleDisplayListing";
+import {
+  DisplayListingsContainer,
+  ProgressDiv,
+} from "./GlobalStyles/StyleDisplayListing";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function DisplayListings() {
@@ -12,7 +15,9 @@ export default function DisplayListings() {
 
   const getInfo = async () => {
     try {
-      const apiUrl = process.env.DB_HOST || "http://127.0.0.1:8000/listing/";      const response = await fetch(apiUrl);
+      const baseApiUrl = process.env.DB_HOST || "http://127.0.0.1:8000";
+      const apiUrl = `${baseApiUrl}/listing`;
+      const response = await fetch(apiUrl);
       const data = await response.json();
       setListingData(data);
       // console.log(data);
