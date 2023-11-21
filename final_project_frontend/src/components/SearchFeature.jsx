@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import { SearchHeader } from "./GlobalStyles/StyleSearch";
+import { NoDataDiv, ProgressDiv, SearchHeader } from "./GlobalStyles/StyleSearch";
 import { CardContainer } from "./GlobalStyles/StyleCard";
 import CircularProgress from '@mui/material/CircularProgress';
 
@@ -39,7 +39,7 @@ export default function Search() {
         <h3>Results matching "{params.search}"</h3>
       </SearchHeader>
       {isLoading ? (
-        <CircularProgress />
+        <ProgressDiv><CircularProgress /></ProgressDiv>
       ) : listingSearch ? (
         <CardContainer>
           {listingSearch.map((listing, index) => (
@@ -68,7 +68,7 @@ export default function Search() {
         <div>No items matching search parameters</div>
       )}
       {!isLoading && listingSearch.length === 0 && (
-        <div>No data found</div>
+        <NoDataDiv>No data found</NoDataDiv>
       )}
     </div>
   );

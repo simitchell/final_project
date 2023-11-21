@@ -3,7 +3,10 @@ import { useState, useEffect } from "react";
 import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Link, useLocation } from "react-router-dom";
-import { DisplayListingsContainer } from "./GlobalStyles/StyleDisplayListing";
+import {
+  DisplayListingsContainer,
+  ProgressDiv,
+} from "./GlobalStyles/StyleDisplayListing";
 
 export default function DisplayUserListings() {
   const [listingData, setListingData] = useState([]);
@@ -39,7 +42,9 @@ export default function DisplayUserListings() {
     <DisplayListingsContainer>
       <h2 className="listingHeader">Your Listings</h2>
       {isLoading ? (
-        <CircularProgress />
+        <ProgressDiv>
+          <CircularProgress />
+        </ProgressDiv>
       ) : (
         <CardContainer>
           {filteredListings.map((listing, index) => (
