@@ -15,7 +15,7 @@ export default function DisplayListings() {
 
   const getInfo = async () => {
     try {
-      const baseApiUrl = process.env.DB_HOST || "http://127.0.0.1:8000";
+      const baseApiUrl = process.env.DB_HOST;
       const apiUrl = `${baseApiUrl}/listing`;
       const response = await fetch(apiUrl);
       const data = await response.json();
