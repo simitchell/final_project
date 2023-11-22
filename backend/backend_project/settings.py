@@ -28,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", default="your secret key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -39,7 +39,11 @@ ALLOWED_HOSTS = [
     "localhost:5173",
     # "localhost:5173/listing",
     "postgres://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet",
+    "fox-body-swap-meet-db.onrender.com",
 ]
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -169,10 +173,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Actual directory user files go to
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles')
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
 
 # URL used to access the media
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152  # 2MB
 FILE_UPLOAD_MAX_CHUNK_SIZE = 4194304  # 4MB
