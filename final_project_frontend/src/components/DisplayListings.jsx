@@ -18,7 +18,7 @@ export default function DisplayListings() {
       const apiUrl = "https://fox-body-swap-meet-db.onrender.com/listing";
       const response = await fetch(apiUrl, {
         method: "GET",
-        mode: "cors", // Add this line to enable CORS
+        // mode: "cors", // Add this line to enable CORS
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
