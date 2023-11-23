@@ -40,6 +40,8 @@ ALLOWED_HOSTS = [
     # "localhost:5173/listing",
     "postgres://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet",
     "https://fox-body-swap-meet-db.onrender.com",
+    "https://foxbodyswapmeet.com",
+    "https://foxbodyswapmeet.netlify.app"
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
@@ -64,15 +66,19 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = "https://foxbodyswapmeet.com", "https://foxbodyswapmeet.netlify.app/"
+CORS_ALLOWED_ORIGINS = (
+    "https://foxbodyswapmeet.com",
+    "https://foxbodyswapmeet.netlify.app/",
+)
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
 ]
