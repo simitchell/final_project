@@ -17,6 +17,7 @@ export default function DisplayListings() {
         method: 'GET',
         mode: 'cors', // Add this line to enable CORS
         headers: {
+          'Origin': 'https://foxbodyswapmeet.com',
           'Content-Type': 'application/json',
           // Add any other headers your API may require
         },
