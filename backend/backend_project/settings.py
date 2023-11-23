@@ -39,7 +39,7 @@ ALLOWED_HOSTS = [
     "localhost:5173",
     # "localhost:5173/listing",
     "postgres://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet",
-    "fox-body-swap-meet-db.onrender.com",
+    "https://fox-body-swap-meet-db.onrender.com",
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
