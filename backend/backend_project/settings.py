@@ -60,9 +60,9 @@ INSTALLED_APPS = [
     "backend_project.backend_app",
     "rest_framework_simplejwt.token_blacklist",
 ]
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = "https://foxbodyswapmeet.com", "https://foxbodyswapmeet.netlify.app/"
 
