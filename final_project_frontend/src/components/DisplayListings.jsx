@@ -12,7 +12,7 @@ export default function DisplayListings() {
 
   const getInfo = async () => {
     try {
-      const apiUrl = "http://127.0.0.1:8000/listing/";
+      const apiUrl = "https://fox-body-swap-meet-db.onrender.com/listing";
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingData(data);
