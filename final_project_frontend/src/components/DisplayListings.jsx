@@ -13,7 +13,19 @@ export default function DisplayListings() {
   const getInfo = async () => {
     try {
       const apiUrl = "https://fox-body-swap-meet-db.onrender.com/listing";
-      const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        mode: 'cors', // Add this line to enable CORS
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers your API may require
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
       const data = await response.json();
       setListingData(data);
       // console.log(data);
@@ -23,6 +35,7 @@ export default function DisplayListings() {
       setIsLoading(false);
     }
   };
+  
 
   useEffect(() => {
     getInfo();
