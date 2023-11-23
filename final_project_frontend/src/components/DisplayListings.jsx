@@ -2,7 +2,10 @@ import { CardContainer } from "./GlobalStyles/StyleCard";
 import { useState, useEffect } from "react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { DisplayListingsContainer, ProgressDiv } from "./GlobalStyles/StyleDisplayListing";
+import {
+  DisplayListingsContainer,
+  ProgressDiv,
+} from "./GlobalStyles/StyleDisplayListing";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function DisplayListings() {
@@ -14,19 +17,19 @@ export default function DisplayListings() {
     try {
       const apiUrl = "https://fox-body-swap-meet-db.onrender.com/listing";
       const response = await fetch(apiUrl, {
-        method: 'GET',
-        mode: 'cors', // Add this line to enable CORS
+        method: "GET",
+        mode: "cors", // Add this line to enable CORS
         headers: {
-          'Origin': 'https://foxbodyswapmeet.com',
-          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
           // Add any other headers your API may require
         },
       });
-  
+
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
-  
+
       const data = await response.json();
       setListingData(data);
       // console.log(data);
@@ -36,7 +39,6 @@ export default function DisplayListings() {
       setIsLoading(false);
     }
   };
-  
 
   useEffect(() => {
     getInfo();
