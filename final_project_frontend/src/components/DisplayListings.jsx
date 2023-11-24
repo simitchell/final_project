@@ -1,12 +1,11 @@
-import { CardContainer } from "./GlobalStyles/StyleCard";
-import { useState, useEffect } from "react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   DisplayListingsContainer,
   ProgressDiv,
 } from "./GlobalStyles/StyleDisplayListing";
-import CircularProgress from "@mui/material/CircularProgress";
+import { CardContainer } from "./GlobalStyles/StyleCard";
 
 export default function DisplayListings() {
   const [listingData, setListingData] = useState([]);
@@ -15,15 +14,8 @@ export default function DisplayListings() {
 
   const getInfo = async () => {
     try {
-      const apiUrl = "https://fox-body-swap-meet-db.onrender.com/listing";
-      const response = await fetch(apiUrl, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          // Add any other headers your API may require
-        },
-      });
+      const apiUrl = "http://127.0.0.1:8000/listing/";
+      const response = await fetch(apiUrl);
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -31,7 +23,6 @@ export default function DisplayListings() {
 
       const data = await response.json();
       setListingData(data);
-      // console.log(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -54,11 +45,11 @@ export default function DisplayListings() {
         </ProgressDiv>
       ) : (
         <div>
-          {listingData ? (
+          {listingData.length > 0 ? (
             <CardContainer>
-              {listingData.map((listing, index) => (
+              {listingData.map((listing) => (
                 <Link to={`/listingdetail/${listing.id}`} key={listing.id}>
-                  <div key={index} className="card">
+                  <div className="card">
                     <h2>{listing.title}</h2>
                     <div className="cardInfo">
                       <div className="returnInfo">
@@ -71,7 +62,7 @@ export default function DisplayListings() {
                         </span>
                       </div>
                       <div className="cardImage">
-                        <img src={listing.image_url} />
+                        <img src={listing.image_url} alt={listing.title} />
                       </div>
                     </div>
                   </div>
