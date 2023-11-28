@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import { ProgressDiv } from "./GlobalStyles/StyleUtility";
 
 // import DeleteIcon from '@mui/icons-material/Delete';
 // import Stack from '@mui/material/Stack';
@@ -15,7 +16,7 @@ import {
   DetailRight,
   DetailSeller,
   DetailWrapper,
-  ListingDetailHeader
+  ListingDetailHeader,
 } from "./GlobalStyles/StyleListingDetail";
 
 export default function ListingDetail() {
@@ -84,68 +85,69 @@ export default function ListingDetail() {
   return (
     <>
       <ListingDetailHeader>Listing Detail</ListingDetailHeader>
-    <DetailWrapper>
+      
       {isLoading ? (
-        <CircularProgress />
+        <ProgressDiv>
+          <CircularProgress />
+        </ProgressDiv>
       ) : (
         <>
-          <DetailLeft>
-            {listingDetail ? (
-              <>
+          <DetailWrapper>
+            <DetailLeft>
+              {listingDetail ? (
                 <DetailImage>
                   <img
                     src={listingDetail.image_url}
                     alt={listingDetail.title}
                   />
                 </DetailImage>
-              </>
-            ) : (
-              <div>No detail found</div>
-            )}
-          </DetailLeft>
-          <DetailRight>
-            {listingDetail ? (
-              <>
-                <h2>{listingDetail.title}</h2>
-                <DetailDescription>
-                  <p>{listingDetail.description}</p>
-                </DetailDescription>
-                <DetailSeller>
-                  <div>
-                    <h3>Seller</h3>
-                    <p>{listingDetail.username}</p>
-                  </div>
-                  <div>
-                    <h3>Price</h3>
-                    <p>${listingDetail.price}</p>
-                  </div>
-                </DetailSeller>
-                {listingDetail.username !==
-                  localStorage.getItem("username") && (
-                  <>
-                    <Button
-                      variant="contained"
-                      type="button"
-                      id="addToCartButton"
-                      onClick={handleAddToCart}
-                    >
-                      Add to Cart
-                    </Button>
-                    {alert ? (
-                      <Alert severity="success">Added to your cart!</Alert>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              <div>No detail found</div>
-            )}
-          </DetailRight>
+              ) : (
+                <div>No detail found</div>
+              )}
+            </DetailLeft>
+            <DetailRight>
+              {listingDetail ? (
+                <>
+                  <h2>{listingDetail.title}</h2>
+                  <DetailDescription>
+                    <p>{listingDetail.description}</p>
+                  </DetailDescription>
+                  <DetailSeller>
+                    <div>
+                      <h3>Seller</h3>
+                      <p>{listingDetail.username}</p>
+                    </div>
+                    <div>
+                      <h3>Price</h3>
+                      <p>${listingDetail.price}</p>
+                    </div>
+                  </DetailSeller>
+                  {listingDetail.username !== localStorage.getItem("username") && (
+                    <>
+                      <Button
+                        variant="contained"
+                        type="button"
+                        id="addToCartButton"
+                        onClick={handleAddToCart}
+                      >
+                        Add to Cart
+                      </Button>
+                      {alert ? (
+                        <Alert severity="success">Added to your cart!</Alert>
+                      ) : (
+                        <></>
+                      )}
+                    </>
+                  )}
+                </>
+              ) : (
+                <div>No detail found</div>
+              )}
+            </DetailRight>
+          </DetailWrapper>
         </>
       )}
-    </DetailWrapper>
     </>
   );
+  
 }

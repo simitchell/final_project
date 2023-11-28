@@ -40,7 +40,9 @@ export default function DisplayUserListings() {
 
   return (
     <DisplayListingsContainer>
-      <h2 className="listingHeader">Your Listings</h2>
+      <div className="listingHeader">
+        <h2>Your Listings</h2>
+      </div>
       {isLoading ? (
         <ProgressDiv>
           <CircularProgress />
