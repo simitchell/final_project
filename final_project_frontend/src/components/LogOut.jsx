@@ -10,7 +10,7 @@ export default function LogoutPage() {
   console.log(setIsAuth());
 
   const performLogout = async () => {
-    const url = "https://fox-body-swap-meet-db.onrender.com/logout/";
+    const url = "http://127.0.0.1:8000/logout/";
     const refresh_token = localStorage.getItem("refresh_token");
     const access_token = localStorage.getItem("access_token");
 
