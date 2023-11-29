@@ -13,7 +13,6 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-  setIsLoading(false);
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -57,36 +56,29 @@ export default function LoginForm() {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        {isLoading ? (
-          <ProgressDiv>
-            <CircularProgress />
-          </ProgressDiv>
-        ) : (
-          <>
-            <h2>Log In</h2>
-            <label>Username</label>
-            <input
-              type="text"
-              name="username"
-              value={username}
-              onChange={handleChangeUsername}
-            />
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChangePassword}
-            />
-            <Button variant="contained" type="submit">
-              Login
-            </Button>
-            <p>
-              <Link to="./register">Register</Link> as a new user
-            </p>
-          </>
-        )}
+        <h2>Log In</h2>
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          onChange={handleChangeUsername}
+        />
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChangePassword}
+        />
+        <Button variant="contained" type="submit">
+          Login
+        </Button>
+        <p>
+          <Link to="./register">Register</Link> as a new user
+        </p>
       </Form>
     </div>
   );
+  
 }
