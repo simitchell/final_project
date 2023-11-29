@@ -30,7 +30,7 @@ export default function ListingDetail() {
 
   const getIndividualListing = async () => {
     try {
-      const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+      const apiUrl = `https://fox-body-swap-meet-db.onrender.com/listing/${id}/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       // console.log(data);
@@ -52,7 +52,7 @@ export default function ListingDetail() {
     e.preventDefault();
     setAlert(true);
 
-    const url = `http://127.0.0.1:8000/cart/`;
+    const url = `https://fox-body-swap-meet-db.onrender.com/cart/`;
     try {
       const response = await fetch(url, {
         method: "POST",

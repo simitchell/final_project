@@ -22,7 +22,7 @@ export default function EditListing() {
 
   const getIndividualListing = async () => {
     try {
-      const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+      const apiUrl = `https://fox-body-swap-meet-db.onrender.com/listing/${id}/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
@@ -43,7 +43,7 @@ export default function EditListing() {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
     console.log(formData);
-    const url = `http://127.0.0.1:8000/listing/${id}/`;
+    const url = `https://fox-body-swap-meet-db.onrender.com/listing/${id}/`;
     const data = await fetch(url, {
       method: "PUT",
       headers: {
@@ -62,7 +62,7 @@ export default function EditListing() {
   };
 
   const handleDelete = async () => {
-    const apiUrl = `http://127.0.0.1:8000/listing/${id}/`;
+    const apiUrl = `https://fox-body-swap-meet-db.onrender.com/listing/${id}/`;
     try {
       const response = await fetch(apiUrl, {
         method: "DELETE",

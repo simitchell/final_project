@@ -29,7 +29,7 @@ export default function CartDetail() {
 
   const getCart = async () => {
     try {
-      const apiUrl = "http://127.0.0.1:8000/cart/";
+      const apiUrl = "https://fox-body-swap-meet-db.onrender.com/cart/";
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {
@@ -52,7 +52,7 @@ export default function CartDetail() {
   };
 
   const handleDelete = async (id) => {
-    const apiUrl = `http://127.0.0.1:8000/cart/item/${id}/`;
+    const apiUrl = `https://fox-body-swap-meet-db.onrender.com/cart/item/${id}/`;
     try {
       const response = await fetch(apiUrl, {
         method: "DELETE",

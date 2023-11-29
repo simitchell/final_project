@@ -25,7 +25,7 @@ export default function LoginForm() {
       username,
       password,
     };
-    const url = "http://127.0.0.1:8000/token/";
+    const url = "https://fox-body-swap-meet-db.onrender.com/token/";
     const data = await fetch(url, {
       method: "POST",
       headers: {

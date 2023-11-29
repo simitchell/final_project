@@ -21,7 +21,7 @@ export default function ProfileDetail() {
 
   const getIndividualProfile = async () => {
     try {
-      const apiUrl = `http://127.0.0.1:8000/profile/${localStorage.getItem(
+      const apiUrl = `https://fox-body-swap-meet-db.onrender.com/profile/${localStorage.getItem(
         "userId"
       )}/`;
       const response = await fetch(apiUrl);
@@ -57,7 +57,7 @@ export default function ProfileDetail() {
 
   const handlePost = async (formData) => {
     // const formData = new FormData(updateForm.current);
-    const apiUrl = `http://127.0.0.1:8000/profile/`;
+    const apiUrl = `https://fox-body-swap-meet-db.onrender.com/profile/`;
     const data = await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -69,7 +69,7 @@ export default function ProfileDetail() {
   };
 
   const handlePut = async (formData) => {
-    const apiUrl = `http://127.0.0.1:8000/profile/${localStorage.getItem(
+    const apiUrl = `https://fox-body-swap-meet-db.onrender.com/profile/${localStorage.getItem(
       "userId"
     )}/`;
     const data = await fetch(apiUrl, {

@@ -17,7 +17,7 @@ export default function ListingForm() {
     const formData = new FormData(updateForm.current);
     // console.log(formData);
 
-    const url = "http://127.0.0.1:8000/listing/";
+    const url = "https://fox-body-swap-meet-db.onrender.com/listing/";
     const data = await fetch(url, {
       method: "POST",
       headers: {
