@@ -1,13 +1,10 @@
 import { useState } from "react";
 import React from "react";
 import { Nav, NavLeft, NavRight } from "./StyleNav";
-// import { Button } from "../GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { LogoSVGSmall } from "../../../public/FoxBodySwapMeetLogoSmall";
-// import TextField from '@mui/material/TextField';
 
-// import
 
 export default function MainNav() {
   const isAuth = localStorage.getItem("access_token");
@@ -43,9 +40,7 @@ export default function MainNav() {
     <Nav>
       <NavLeft>
         <div className="navCompanyName">
-          <Link to="/">
-            {LogoSVGSmall}
-          </Link>
+          <Link to="/">{LogoSVGSmall}</Link>
         </div>
         <div className="searchBar">
           <input
@@ -77,12 +72,12 @@ export default function MainNav() {
           </li>
           {isAuth ? (
             <>
-            <li>
-            <Link to="/cart">Cart</Link>
-          </li>
-            <li>
-              <Link to="/profile">{localStorage.getItem("username")}</Link>
-            </li>
+              <li>
+                <Link to="/cart">Cart</Link>
+              </li>
+              <li>
+                <Link to="/profile">{localStorage.getItem("username")}</Link>
+              </li>
             </>
           ) : (
             <li>
@@ -91,9 +86,9 @@ export default function MainNav() {
           )}
           {isAuth ? (
             <>
-            <li>
-              <Link to="/logout">Logout</Link>
-            </li>
+              <li>
+                <Link to="/logout">Logout</Link>
+              </li>
             </>
           ) : null}
         </ul>
