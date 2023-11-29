@@ -27,12 +27,21 @@ export default function HomePage() {
             <ul>
               <h3>New here? Visit our...</h3>
               <li>
-                <a href="./aboutus"><strong>About Us</strong></a> page for more on who we are
+                <a href="./aboutus">
+                  <strong>About Us</strong>
+                </a>{" "}
+                page for more on who we are
               </li>
               <li>
-                <a href="./howitworks"><strong>How It Works</strong></a> page for more on how it
-                works at Fox Body Swap Meet
+                <a href="./howitworks">
+                  <strong>How It Works</strong>
+                </a>{" "}
+                page for more on how it works at Fox Body Swap Meet
               </li>
+              {/* <li>
+                <strong>About Fox Body Mustangs</strong> for more on what makes
+                these cars so great
+              </li> */}
             </ul>
           </Text>
         </HomeWelcome>
