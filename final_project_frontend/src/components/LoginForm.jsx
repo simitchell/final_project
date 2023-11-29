@@ -12,7 +12,7 @@ export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -40,6 +40,7 @@ export default function LoginForm() {
     const { access, refresh, userId } = data;
     // console.log(data);
     if (access !== undefined) {
+      setIsLoading(true);
       localStorage.clear();
       localStorage.setItem("username", username);
       localStorage.setItem("userId", userId);
@@ -55,30 +56,35 @@ export default function LoginForm() {
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-        <h2>Log In</h2>
-        <label>Username</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleChangeUsername}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChangePassword}
-        />
-        <Button variant="contained" type="submit">
-          Login
-        </Button>
-        <p>
-          <Link to="./register">Register</Link> as a new user
-        </p>
-      </Form>
+      {isLoading ? (
+        <ProgressDiv>
+          <CircularProgress />
+        </ProgressDiv>
+      ) : (
+        <Form onSubmit={handleSubmit}>
+          <h2>Log In</h2>
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={handleChangeUsername}
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChangePassword}
+          />
+          <Button variant="contained" type="submit">
+            Login
+          </Button>
+          <p>
+            <Link to="./register">Register</Link> as a new user
+          </p>
+        </Form>
+      )}
     </div>
   );
-  
 }
