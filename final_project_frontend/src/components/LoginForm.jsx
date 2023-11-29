@@ -36,19 +36,14 @@ export default function LoginForm() {
       },
       body: JSON.stringify(user),
     }).then((response) => response.json());
-    // console.log("DATA IS:", data);
     const { access, refresh, userId } = data;
-    // console.log(data);
     if (access !== undefined) {
-      setIsLoading(true);
-      console.log('isLoading', isLoading);
       localStorage.clear();
       localStorage.setItem("username", username);
       localStorage.setItem("userId", userId);
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
       navigate("./profile");
-      // console.log(userId);
     }
     if (access == undefined) {
       alert("You have entered an invalid username or password");
@@ -57,35 +52,29 @@ export default function LoginForm() {
 
   return (
     <div>
-      {isLoading ? (
-        <ProgressDiv>
-          <CircularProgress />
-        </ProgressDiv>
-      ) : (
-        <Form onSubmit={handleSubmit}>
-          <h2>Log In</h2>
-          <label>Username</label>
-          <input
-            type="text"
-            name="username"
-            value={username}
-            onChange={handleChangeUsername}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChangePassword}
-          />
-          <Button variant="contained" type="submit">
-            Login
-          </Button>
-          <p>
-            <Link to="./register">Register</Link> as a new user
-          </p>
-        </Form>
-      )}
+      <Form onSubmit={handleSubmit}>
+        <h2>Log In</h2>
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          value={username}
+          onChange={handleChangeUsername}
+        />
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChangePassword}
+        />
+        <Button variant="contained" type="submit">
+          Login
+        </Button>
+        <p>
+          <Link to="./register">Register</Link> as a new user
+        </p>
+      </Form>
     </div>
   );
 }
