@@ -41,6 +41,7 @@ export default function LoginForm() {
     // console.log(data);
     if (access !== undefined) {
       setIsLoading(true);
+      console.log('isLoading', isLoading);
       localStorage.clear();
       localStorage.setItem("username", username);
       localStorage.setItem("userId", userId);
