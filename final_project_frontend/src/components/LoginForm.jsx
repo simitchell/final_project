@@ -43,7 +43,7 @@ export default function LoginForm() {
       localStorage.setItem("userId", userId);
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
-      // navigate('/profile');
+      useNavigate("/profile");
       // console.log(userId);
     }
     if (access == undefined) {
