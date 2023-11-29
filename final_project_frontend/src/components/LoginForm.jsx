@@ -13,6 +13,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  setIsLoading(false);
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
