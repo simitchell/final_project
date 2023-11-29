@@ -56,8 +56,6 @@ export default function EditListing() {
     updateForm.current.reset();
     revalidator.revalidate();
     setAlert(true);
-    // alert("Listing updated successfully");
-    // location.reload();
     return data;
   };
 
