@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -42,7 +43,7 @@ export default function LoginForm() {
       localStorage.setItem("userId", userId);
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
-      window.location.href = "/profile/";
+      navigate('/profile');
       // console.log(userId);
     }
     if (access == undefined) {
