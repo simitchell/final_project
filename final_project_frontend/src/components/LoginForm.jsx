@@ -4,13 +4,15 @@ import { useNavigate } from "react-router";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { Form } from "../components/GlobalStyles/StyleUtility";
+import { Form, ProgressDiv } from "../components/GlobalStyles/StyleUtility";
 import { Link } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -54,27 +56,35 @@ export default function LoginForm() {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <h2>Log In</h2>
-        <label>Username</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleChangeUsername}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChangePassword}
-        />
-        <Button variant="contained" type="submit">
-          Login
-        </Button>
-        <p>
-          <Link to="./register">Register</Link> as a new user
-        </p>
+        {isLoading ? (
+          <ProgressDiv>
+            <CircularProgress />
+          </ProgressDiv>
+        ) : (
+          <>
+            <h2>Log In</h2>
+            <label>Username</label>
+            <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={handleChangeUsername}
+            />
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChangePassword}
+            />
+            <Button variant="contained" type="submit">
+              Login
+            </Button>
+            <p>
+              <Link to="./register">Register</Link> as a new user
+            </p>
+          </>
+        )}
       </Form>
     </div>
   );
