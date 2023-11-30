@@ -20,7 +20,6 @@ class Cart(models.Model):
     image_url = models.CharField(blank=True, null=True)
     price = models.IntegerField(null=True)
 
-
     def __str__(self) -> str:
         return self.cart_item
 
