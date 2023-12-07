@@ -20,6 +20,17 @@ export default function HowItWorksCopy() {
           up today and get your Mustang right!
         </li>
         <li>
+          Our fee is 6% of the transaction price (paid by the seller).  What you get in return is
+          <ul>
+            <li>
+              Conflict resolution on registered disputes
+            </li>
+            <li>
+              A community of enthusiasts who understand these cars, their values, and their related parts
+            </li>
+          </ul>
+        </li>
+        <li>
           Sign up at{" "}
           <a href="https://stripe.com/" target="_blank">
             www.stripe.com
