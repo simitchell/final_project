@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 # lets us explicitly set upload path and filename
 def upload_to(instance, filename):
-    return "backend/backend_project/mediafiles/images/{filename}".format(filename=filename)
+    return "src/assets/mediafiles/images/{filename}".format(filename=filename)
 
 # Create your models here.
 class Cart(models.Model):
