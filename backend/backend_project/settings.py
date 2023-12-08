@@ -41,7 +41,7 @@ ALLOWED_HOSTS = [
     "postgres://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet",
     "https://fox-body-swap-meet-db.onrender.com",
     "https://foxbodyswapmeet.com",
-    "https://foxbodyswapmeet.netlify.app"
+    "https://foxbodyswapmeet.netlify.app",
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
@@ -184,7 +184,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
 
 # URL used to access the media
-MEDIA_URL = "/"
+MEDIA_URL = "/media/"
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152  # 2MB
 FILE_UPLOAD_MAX_CHUNK_SIZE = 4194304  # 4MB
