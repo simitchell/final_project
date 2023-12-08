@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 # lets us explicitly set upload path and filename
 def upload_to(instance, filename):
-    return "images/{filename}".format(filename=filename)
+    return "backend/backend_app/images/{filename}".format(filename=filename)
 
 
 # Create your models here.
