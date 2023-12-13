@@ -16,6 +16,7 @@ export default function DisplayListings() {
     try {
       const apiUrl = "http://127.0.0.1:8000/listing/";
       const response = await fetch(apiUrl);
+      console.log(response);
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
