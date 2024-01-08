@@ -24,25 +24,28 @@ export default function HomePage() {
               for Fox Body Mustangs. Get started today and start looking for
               what you need for your project!
             </p>
-            <ul>
-              <h3>New here? Visit our...</h3>
-              <li>
-                <a href="./aboutus">
-                  <strong>About Us</strong>
-                </a>{" "}
-                page for more on who we are
-              </li>
-              <li>
-                <a href="./howitworks">
-                  <strong>How It Works</strong>
-                </a>{" "}
-                page for more on how it works at Fox Body Swap Meet
-              </li>
-              {/* <li>
+
+            {isAuth ? null : (
+              <ul>
+                <h3>New here? Visit our...</h3>
+                <li>
+                  <a href="./aboutus">
+                    <strong>About Us</strong>
+                  </a>{" "}
+                  page for more on who we are
+                </li>
+                <li>
+                  <a href="./howitworks">
+                    <strong>How It Works</strong>
+                  </a>{" "}
+                  page for more on how it works at Fox Body Swap Meet
+                </li>
+                {/* <li>
                 <strong>About Fox Body Mustangs</strong> for more on what makes
                 these cars so great
               </li> */}
-            </ul>
+              </ul>
+            )}
           </Text>
         </HomeWelcome>
         {isAuth ? null : (
