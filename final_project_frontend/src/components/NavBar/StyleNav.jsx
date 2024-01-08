@@ -65,6 +65,7 @@ export const NavRight = styled.div`
   display: flex;
   flex-direction: row;
   width: 40%;
+  margin: auto;
   /* margin-right: 7.5%; */
   /* text-align: right; */
 
@@ -75,7 +76,7 @@ export const NavRight = styled.div`
     font-size: 1rem;
     padding: 3px 10px;
     vertical-align: baseline;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
   }
 
