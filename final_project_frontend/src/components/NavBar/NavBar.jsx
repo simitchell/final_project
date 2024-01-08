@@ -5,7 +5,6 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { LogoSVGSmall } from "../../../public/FoxBodySwapMeetLogoSmall";
 
-
 export default function MainNav() {
   const isAuth = localStorage.getItem("access_token");
   const [search, setSearch] = useState("");
@@ -64,12 +63,16 @@ export default function MainNav() {
       </NavLeft>
       <NavRight>
         <ul>
-          <li>
-            <Link to="/aboutus">About Us</Link>
-          </li>
-          <li>
-            <Link to="/howitworks">How It Works</Link>
-          </li>
+          {isAuth ? null : (
+            <li>
+              <Link to="/aboutus">About Us</Link>
+            </li>
+          )}
+          {isAuth ? null : (
+            <li>
+              <Link to="/howitworks">How It Works</Link>
+            </li>
+          )}
           {isAuth ? (
             <>
               <li>
