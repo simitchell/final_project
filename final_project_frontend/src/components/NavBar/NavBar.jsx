@@ -87,13 +87,6 @@ export default function MainNav() {
               <Link to="/login">Log In or Register</Link>
             </li>
           )}
-          {isAuth ? (
-            <>
-              <li>
-                <Link to="/logout">Logout</Link>
-              </li>
-            </>
-          ) : null}
         </ul>
       </NavRight>
     </Nav>

@@ -5,13 +5,18 @@ import { ProfileDiv } from "./GlobalStyles/StyleProfile";
 
 export default function ProfileComponent() {
   return (
-    <ProfileDiv>
-      <Link to="/cart">
-        <Button variant="contained">Cart</Button>
-      </Link>
-      <Link to="/createlisting">
-        <Button variant="contained">Create A Listing</Button>
-      </Link>
-    </ProfileDiv>
+    <>
+      <ProfileDiv>
+        <Link to="/cart">
+          <Button variant="contained">Cart</Button>
+        </Link>
+        <Link to="/createlisting">
+          <Button variant="contained">Create A Listing</Button>
+        </Link>
+        <Link to="/logout">
+          <Button variant="contained" color="error">Logout</Button>
+        </Link>
+      </ProfileDiv>
+    </>
   );
 }

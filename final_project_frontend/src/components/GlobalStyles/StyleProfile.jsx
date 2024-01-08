@@ -32,6 +32,6 @@ export const ProfileDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  max-width: 300px;
+  max-width: 450px;
   margin: auto;
 `;
