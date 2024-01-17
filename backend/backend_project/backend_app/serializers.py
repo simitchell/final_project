@@ -59,8 +59,3 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id", "email", "username", "password"]
-
-
-# class RegisterSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model =
