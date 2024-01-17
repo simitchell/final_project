@@ -63,7 +63,10 @@ export default function DisplayListings() {
                         </span>
                       </div>
                       <div className="cardImage">
-                        <img src={listing.image_url} alt={listing.title} />
+                        <img
+                          src={"src/images/B303_Cam_gCa59sV.jpg"}
+                          alt={listing.title}
+                        />
                       </div>
                     </div>
                   </div>
