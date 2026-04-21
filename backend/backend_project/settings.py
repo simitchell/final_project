@@ -15,10 +15,8 @@ import environ
 import os
 from pathlib import Path
 
-
 env = environ.Env()
-environ.Env.read_env()
-
+environ.Env.read_env(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +39,7 @@ ALLOWED_HOSTS = [
     "postgres://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet",
     "https://fox-body-swap-meet-db.onrender.com",
     "https://foxbodyswapmeet.com",
-    "https://foxbodyswapmeet.netlify.app"
+    "https://foxbodyswapmeet.netlify.app",
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
