@@ -34,13 +34,12 @@ DEBUG = "RENDER" not in os.environ
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "localhost:5173",
-    # "localhost:5173/listing",
-    "postgres://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet",
-    "https://fox-body-swap-meet-db.onrender.com",
-    "https://foxbodyswapmeet.com",
-    "https://foxbodyswapmeet.netlify.app",
+    "finalproject-production-bb8b.up.railway.app",
+    "foxbodyswapmeet.netlify.app",
 ]
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
