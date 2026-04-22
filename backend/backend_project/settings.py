@@ -105,15 +105,13 @@ WSGI_APPLICATION = "backend_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+import dj_database_url
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": env("DB_HOST"),
-        "NAME": env("DB_NAME"),
-        "PORT": env("DB_PORT"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-    }
+    "default": dj_database_url.config(
+        default=f"postgresql://{env('DB_USER')}:{env('DB_PASSWORD')}@{env('DB_HOST')}:{env('DB_PORT')}/{env('DB_NAME')}",
+        conn_max_age=600,
+    )
 }
 
 
@@ -170,6 +168,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

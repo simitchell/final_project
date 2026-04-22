@@ -2,10 +2,9 @@ import React from "react";
 import { Text } from "./GlobalStyles/StyleText";
 
 export default function AboutUsCopy() {
-
-    return (
-        <Text>
-        <h2>About Us</h2>
+  return (
+    <Text>
+      <h2>About Us</h2>
       <p>
         Fox Body Swap Meet exists to help owners keep their Fox Body Mustangs on
         the road for as long as possible. We have a passion for helping sellers
@@ -20,6 +19,6 @@ export default function AboutUsCopy() {
         good parts in the hands of our buyers, and money in the pockets of our
         sellers.
       </p>
-        </Text>
-    )
+    </Text>
+  );
 }
