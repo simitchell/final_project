@@ -107,18 +107,24 @@ WSGI_APPLICATION = "backend_project.wsgi.application"
 
 import dj_database_url
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=f"postgresql://{env('DB_USER')}:{env('DB_PASSWORD')}@{env('DB_HOST')}:{env('DB_PORT')}/{env('DB_NAME')}",
-        conn_max_age=600,
-    )
-}
-
 if os.environ.get("DATABASE_URL"):
-    DATABASES["default"] = dj_database_url.config(
-        env="DATABASE_URL",
-        conn_max_age=600,
-    )
+    DATABASES = {
+        "default": dj_database_url.config(
+            env="DATABASE_URL",
+            conn_max_age=600,
+        )
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "HOST": env("DB_HOST"),
+            "NAME": env("DB_NAME"),
+            "PORT": env("DB_PORT"),
+            "USER": env("DB_USER"),
+            "PASSWORD": env("DB_PASSWORD"),
+        }
+    }
 
 
 # Password validation
