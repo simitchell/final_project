@@ -17,7 +17,7 @@ export default function ListingForm() {
     const formData = new FormData(updateForm.current);
     // console.log(formData);
 
-    const url = "http://127.0.0.1:8000/listing/";
+    const url = "https://finalproject-production-bb8b.up.railway.app/listing/";
     const data = await fetch(url, {
       method: "POST",
       headers: {

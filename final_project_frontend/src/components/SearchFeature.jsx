@@ -15,7 +15,7 @@ export default function Search() {
   const navigate = useNavigate();
 
   async function getSearch() {
-    const url = `http://127.0.0.1:8000/listing/?search=${params.search}`;
+    const url = `https://finalproject-production-bb8b.up.railway.app/listing/?search=${params.search}`;
     try {
       const response = await fetch(url);
       const result = await response.json();

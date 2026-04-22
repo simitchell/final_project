@@ -25,7 +25,7 @@ export default function LoginForm() {
       username,
       password,
     };
-    const url = "http://127.0.0.1:8000/token/";
+    const url = "https://finalproject-production-bb8b.up.railway.app/token/";
     const data = await fetch(url, {
       method: "POST",
       headers: {

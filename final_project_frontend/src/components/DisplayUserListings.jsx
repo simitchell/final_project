@@ -16,7 +16,7 @@ export default function DisplayUserListings() {
   const getInfo = async () => {
     // console.log("here");
     try {
-      const apiUrl = "http://127.0.0.1:8000/listing/";
+      const apiUrl = "https://finalproject-production-bb8b.up.railway.app/listing/";
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingData(data);
