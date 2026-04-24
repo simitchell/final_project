@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "finalproject-production-bb8b.up.railway.app",
     "foxbodyswapmeet.netlify.app",
+    "foxbodyswapmeet.com",
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
@@ -47,6 +48,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 CSRF_TRUSTED_ORIGINS = [
     "https://finalproject-production-bb8b.up.railway.app",
     "https://foxbodyswapmeet.netlify.app",
+    "https://foxbodyswapmeet.com",
 ]
 
 # Application definition
