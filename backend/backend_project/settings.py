@@ -192,7 +192,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend". #remove this
+
+RESEND_API_KEY = env("RESEND_API_KEY")
+PROFILE NOTIFICATION_EMAIL = env("PROFILE_NOTIFICATION_EMAIL"), default="foxbodyswapmeet@gmail.com"
 
 # Actual directory user files go to
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
