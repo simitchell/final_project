@@ -1,14 +1,16 @@
+import uuid
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
 # lets us explicitly set upload path and filename
 def upload_to(instance, filename):
-    return "images/{filename}".format(filename=filename)
+    ext = filename.split('.')[-1]
+    unique_filename = f"{uuid.uuid4()}.{ext}"
+    return f"images/{unique_filename}"
 
 
 # Create your models here.
@@ -19,7 +21,6 @@ class Cart(models.Model):
     cart_item = models.CharField(max_length=100)
     image_url = models.CharField(blank=True, null=True)
     price = models.IntegerField(null=True)
-
 
     def __str__(self) -> str:
         return self.cart_item

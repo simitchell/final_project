@@ -21,15 +21,11 @@ environ.Env.read_env(os.path.join(os.path.dirname(__file__), "..", ".env"))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY", default="your secret key")
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -64,6 +60,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "backend_project.backend_app",
     "rest_framework_simplejwt.token_blacklist",
+    "storages",
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -194,11 +191,27 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# Actual directory user files go to
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
-
-# URL used to access the media
-MEDIA_URL = "/media/"
-
+# File upload limits
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152  # 2MB
 FILE_UPLOAD_MAX_CHUNK_SIZE = 4194304  # 4MB
+
+# Media Storage — S3 in production, local in development
+if os.environ.get("AWS_ACCESS_KEY_ID"):
+    # S3 configuration (production)
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "fbsm-listingimages"
+    AWS_S3_REGION_NAME = "us-east-1"
+    AWS_DEFAULT_ACL = None
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    AWS_QUERYSTRING_AUTH = False
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+else:
+    # Local filesystem fallback (development)
+    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
+    MEDIA_URL = "/media/"
