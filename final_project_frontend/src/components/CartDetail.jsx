@@ -29,7 +29,7 @@ export default function CartDetail() {
 
   const getCart = async () => {
     try {
-      const apiUrl = "https://fox-body-swap-meet-db.onrender.com/cart/";
+      const apiUrl = "https://finalproject-production-bb8b.up.railway.app/cart/";
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {
@@ -52,7 +52,7 @@ export default function CartDetail() {
   };
 
   const handleDelete = async (id) => {
-    const apiUrl = `https://fox-body-swap-meet-db.onrender.com/cart/item/${id}/`;
+    const apiUrl = `https://finalproject-production-bb8b.up.railway.app/cart/item/${id}/`;
     try {
       const response = await fetch(apiUrl, {
         method: "DELETE",

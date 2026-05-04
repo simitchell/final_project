@@ -22,7 +22,7 @@ export default function EditListing() {
 
   const getIndividualListing = async () => {
     try {
-      const apiUrl = `https://fox-body-swap-meet-db.onrender.com/listing/${id}/`;
+      const apiUrl = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
@@ -43,7 +43,7 @@ export default function EditListing() {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
     console.log(formData);
-    const url = `https://fox-body-swap-meet-db.onrender.com/listing/${id}/`;
+    const url = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
     const data = await fetch(url, {
       method: "PUT",
       headers: {
@@ -56,11 +56,13 @@ export default function EditListing() {
     updateForm.current.reset();
     revalidator.revalidate();
     setAlert(true);
+    // alert("Listing updated successfully");
+    // location.reload();
     return data;
   };
 
   const handleDelete = async () => {
-    const apiUrl = `https://fox-body-swap-meet-db.onrender.com/listing/${id}/`;
+    const apiUrl = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
     try {
       const response = await fetch(apiUrl, {
         method: "DELETE",

@@ -15,7 +15,7 @@ export default function RegisterForm() {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
 
-    const url = "https://fox-body-swap-meet-db.onrender.com/register/";
+    const url = "https://finalproject-production-bb8b.up.railway.app/register/";
     const data = await fetch(url, {
       method: "POST",
       headers: {

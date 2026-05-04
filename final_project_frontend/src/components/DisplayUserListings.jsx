@@ -16,7 +16,7 @@ export default function DisplayUserListings() {
   const getInfo = async () => {
     // console.log("here");
     try {
-      const apiUrl = "https://fox-body-swap-meet-db.onrender.com/listing/";
+      const apiUrl = "https://finalproject-production-bb8b.up.railway.app/listing/";
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingData(data);

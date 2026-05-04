@@ -4,15 +4,12 @@ import { useNavigate } from "react-router";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { Form, ProgressDiv } from "../components/GlobalStyles/StyleUtility";
+import { Form } from "../components/GlobalStyles/StyleUtility";
 import { Link } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -28,7 +25,7 @@ export default function LoginForm() {
       username,
       password,
     };
-    const url = "https://fox-body-swap-meet-db.onrender.com/token/";
+    const url = "https://finalproject-production-bb8b.up.railway.app/token/";
     const data = await fetch(url, {
       method: "POST",
       headers: {
@@ -36,14 +33,17 @@ export default function LoginForm() {
       },
       body: JSON.stringify(user),
     }).then((response) => response.json());
+    // console.log("DATA IS:", data);
     const { access, refresh, userId } = data;
+    // console.log(data);
     if (access !== undefined) {
       localStorage.clear();
       localStorage.setItem("username", username);
       localStorage.setItem("userId", userId);
       localStorage.setItem("access_token", access);
       localStorage.setItem("refresh_token", refresh);
-      navigate("./profile");
+      window.location.href = "/profile/";
+      // console.log(userId);
     }
     if (access == undefined) {
       alert("You have entered an invalid username or password");

@@ -14,7 +14,7 @@ export default function DisplayListings() {
 
   const getInfo = async () => {
     try {
-      const apiUrl = "https://fox-body-swap-meet-db.onrender.com/listing/";
+      const apiUrl = "https://finalproject-production-bb8b.up.railway.app/listing/";
       const response = await fetch(apiUrl);
 
       if (!response.ok) {

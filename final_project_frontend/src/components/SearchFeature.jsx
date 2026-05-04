@@ -15,7 +15,7 @@ export default function Search() {
   const navigate = useNavigate();
 
   async function getSearch() {
-    const url = `https://fox-body-swap-meet-db.onrender.com/listing/?search=${params.search}`;
+    const url = `https://finalproject-production-bb8b.up.railway.app/listing/?search=${params.search}`;
     try {
       const response = await fetch(url);
       const result = await response.json();

@@ -15,14 +15,11 @@ import environ
 import os
 from pathlib import Path
 
-
 env = environ.Env()
-environ.Env.read_env()
-
+environ.Env.read_env(os.path.join(os.path.dirname(__file__), "..", ".env"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -30,23 +27,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY", default="your secret key")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "RENDER" not in os.environ
-
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "localhost:5173",
-    # "localhost:5173/listing",
-    "postgres://sammitchell:cQc7uacNpT5cV5k7J9YovTeUCBDxWaqB@dpg-ckvsjhj5a8kc73fst640-a.ohio-postgres.render.com/fox_body_swap_meet",
-    "https://fox-body-swap-meet-db.onrender.com",
-    "https://foxbodyswapmeet.com",
-    "https://foxbodyswapmeet.netlify.app"
+    "finalproject-production-bb8b.up.railway.app",
+    "foxbodyswapmeet.netlify.app",
+    "foxbodyswapmeet.com",
 ]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://finalproject-production-bb8b.up.railway.app",
+    "https://foxbodyswapmeet.netlify.app",
+    "https://foxbodyswapmeet.com",
+]
 
 # Application definition
 
@@ -61,6 +60,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "backend_project.backend_app",
     "rest_framework_simplejwt.token_blacklist",
+    "storages",
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -107,16 +107,26 @@ WSGI_APPLICATION = "backend_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": env("DB_HOST"),
-        "NAME": env("DB_NAME"),
-        "PORT": env("DB_PORT"),
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
+import dj_database_url
+
+if os.environ.get("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.config(
+            env="DATABASE_URL",
+            conn_max_age=600,
+        )
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "HOST": env("DB_HOST"),
+            "NAME": env("DB_NAME"),
+            "PORT": env("DB_PORT"),
+            "USER": env("DB_USER"),
+            "PASSWORD": env("DB_PASSWORD"),
+        }
+    }
 
 
 # Password validation
@@ -172,6 +182,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -180,11 +191,27 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-# Actual directory user files go to
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
-
-# URL used to access the media
-MEDIA_URL = "/media/"
-
+# File upload limits
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152  # 2MB
 FILE_UPLOAD_MAX_CHUNK_SIZE = 4194304  # 4MB
+
+# Media Storage — S3 in production, local in development
+if os.environ.get("AWS_ACCESS_KEY_ID"):
+    # S3 configuration (production)
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "fbsm-listingimages"
+    AWS_S3_REGION_NAME = "us-east-1"
+    AWS_DEFAULT_ACL = None
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    AWS_QUERYSTRING_AUTH = False
+    AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+    AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+
+    MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+else:
+    # Local filesystem fallback (development)
+    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
+    MEDIA_URL = "/media/"
