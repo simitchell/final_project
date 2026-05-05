@@ -41,7 +41,6 @@ export default function EditListing() {
 const handleSubmit = async (e) => {
   e.preventDefault();
   const formData = new FormData(updateForm.current);
-  console.log(formData);
   const url = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
   const data = await fetch(url, {
     method: "PUT",
