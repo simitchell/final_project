@@ -65,6 +65,7 @@ INSTALLED_APPS = [
 CORS_ALLOWED_ORIGINS = [
     "https://foxbodyswapmeet.com",
     "https://foxbodyswapmeet.netlify.app",
+    "http://localhost:5173",
 ]
 
 MIDDLEWARE = [
