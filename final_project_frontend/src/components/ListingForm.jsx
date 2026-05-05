@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useRevalidator, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
@@ -12,23 +12,29 @@ export default function ListingForm() {
   const updateForm = useRef(null);
   const [alert, setAlert] = useState(false);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const formData = new FormData(updateForm.current);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(updateForm.current);
 
-  const url = "https://finalproject-production-bb8b.up.railway.app/listing/";
-  const data = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${auth}`,
-    },
-    body: formData,
-  });
+    const url = "https://finalproject-production-bb8b.up.railway.app/listing/";
+    const data = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${auth}`,
+      },
+      body: formData,
+    });
 
-  const newListing = await data.json();
-  updateForm.current.reset();
-  navigate(`/listingdetail/${newListing.id}`);
-};
+    const newListing = await data.json();
+
+    if (!data.ok) {
+      console.error("Failed to create listing:", newListing);
+      return;
+    }
+
+    updateForm.current.reset();
+    navigate(`/listingdetail/${newListing.id}`);
+  };
 
   return (
     <CreateListingContainer>
@@ -72,9 +78,7 @@ const handleSubmit = async (e) => {
             </Button>
 
             {alert ? (
-              <Alert severity="success">
-                Listing created successfully!
-              </Alert>
+              <Alert severity="success">Listing created successfully!</Alert>
             ) : (
               <></>
             )}
