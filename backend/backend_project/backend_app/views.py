@@ -26,6 +26,9 @@ from .serializers import (
     CustomTokenObtainPairSerializer,
 )
 
+import boto3
+from rest_framework.exceptions import ValidationError
+
 
 # Create your views here.
 
@@ -47,6 +50,27 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
 
+def check_image_moderation(image_file):
+    """
+    Sends image to AWS Rekognition for content moderation.
+    Raises ValidationError if inappropriate content is detected.
+    """
+    client = boto3.client('rekognition', region_name='us-east-1')
+    
+    image_bytes = image_file.read()
+    image_file.seek(0)  # Reset file pointer after reading
+    
+    response = client.detect_moderation_labels(
+        Image={'Bytes': image_bytes},
+        MinConfidence=75
+    )
+    
+    if response['ModerationLabels']:
+        labels = [label['Name'] for label in response['ModerationLabels']]
+        raise ValidationError(
+            f"Image contains inappropriate content and cannot be uploaded."
+        )
+
 class ListingViewSet(viewsets.ModelViewSet):
     permisssion_classes = [IsAuthenticatedOrReadOnly]
     queryset = Listing.objects.all()
@@ -55,8 +79,17 @@ class ListingViewSet(viewsets.ModelViewSet):
     search_fields = ["title"]
     filter_backends = [SearchFilter, OrderingFilter]
 
-    # def perform_create(self, serializer):
-    #     serializer.save(creator=self.request.user)
+    def perform_create(self, serializer):
+        image = self.request.FILES.get('image_url')
+        if image:
+            check_image_moderation(image)
+        serializer.save()
+
+    def perform_update(self, serializer):
+        image = self.request.FILES.get('image_url')
+        if image:
+            check_image_moderation(image)
+        serializer.save()
 
 
 class RegisterView(APIView):
