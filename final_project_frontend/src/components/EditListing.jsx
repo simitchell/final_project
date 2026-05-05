@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useRevalidator, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
@@ -14,7 +14,6 @@ export default function EditListing() {
   const auth = localStorage.getItem("access_token");
   const [listingDetail, setListingDetail] = useState(null);
   const navigate = useNavigate();
-  const revalidator = useRevalidator();
   const updateForm = useRef(null);
   const [alert, setAlert] = useState(false);
 
@@ -39,27 +38,21 @@ export default function EditListing() {
     getIndividualListing();
   }, [listingDetail]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(updateForm.current);
-    console.log(formData);
-    const url = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
-    const data = await fetch(url, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${auth}`,
-      },
-      body: formData,
-    });
-    // console.log(formData);
-    // console.log(data);
-    updateForm.current.reset();
-    revalidator.revalidate();
-    setAlert(true);
-    // alert("Listing updated successfully");
-    // location.reload();
-    return data;
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData(updateForm.current);
+  console.log(formData);
+  const url = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
+  const data = await fetch(url, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${auth}`,
+    },
+    body: formData,
+  });
+  updateForm.current.reset();
+  navigate(`/listingdetail/${id}`);
+};
 
   const handleDelete = async () => {
     const apiUrl = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
@@ -74,7 +67,7 @@ export default function EditListing() {
       if (response.ok) {
         setAlert(true);
         setListingDetail(null);
-        useNavigate("/profile");
+        navigate("/profile");
       } else {
         console.error("Failed to delete listing");
       }

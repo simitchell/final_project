@@ -8,30 +8,26 @@ import Alert from "@mui/material/Alert";
 
 export default function ListingForm() {
   const auth = localStorage.getItem("access_token");
-  const revalidator = useRevalidator();
   const updateForm = useRef(null);
   const [alert, setAlert] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(updateForm.current);
-    // console.log(formData);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData(updateForm.current);
 
-    const url = "https://finalproject-production-bb8b.up.railway.app/listing/";
-    const data = await fetch(url, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${auth}`,
-      },
-      body: formData,
-    });
-    // console.log(formData);
-    // console.log(data);
-    updateForm.current.reset();
-    revalidator.revalidate();
-    setAlert(true);
-    // window.location.href = "/profile/";
-  };
+  const url = "https://finalproject-production-bb8b.up.railway.app/listing/";
+  const data = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${auth}`,
+    },
+    body: formData,
+  });
+
+  const newListing = await data.json();
+  updateForm.current.reset();
+  navigate(`/listingdetail/${newListing.id}`);
+};
 
   return (
     <CreateListingContainer>
