@@ -61,6 +61,8 @@ INSTALLED_APPS = [
     "backend_project.backend_app",
     "rest_framework_simplejwt.token_blacklist",
     "storages",
+    "hijack",
+    "hijack.contrib.admin",
 ]
 CORS_ALLOWED_ORIGINS = [
     "https://foxbodyswapmeet.com",
@@ -211,3 +213,5 @@ else:
     # Local filesystem fallback (development)
     MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "mediafiles")
     MEDIA_URL = "/media/"
+
+HIJACK_ALLOW_GET_REQUESTS = True

@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -27,7 +28,6 @@ from rest_framework_simplejwt import views as jwt_views
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from backend_project.backend_app.views import CartDeleteViewSet
 
-
 router = routers.DefaultRouter()
 # router.register()
 router.register(r"cart", views.CartViewSet),
@@ -38,6 +38,7 @@ router.register(r"profile", views.ProfileViewSet)
 urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
+    path("hijack/", include("hijack.urls")),
     # path("api/users/", include("users.urls")),
     # path("api/", include("commerce.urls")),
     path("cart/item/<int:pk>/", CartDeleteViewSet.as_view(), name="cart-delete"),
