@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
       </TopRow>
       <BottomRow>
-        <p>Contact us at: foxbodyswapmeet@gmail.com</p>
+        <p>Contact us at: sam@foxbodyswapmeet.com</p>
         <p className="col-sm">
           &copy;{new Date().getFullYear()} FOX BODY SWAP MEET INC | ALL RIGHTS
           RESERVED | LLC
