@@ -10,3 +10,4 @@ __pycache__/
 
 # Media files
 mediafiles/
+backend/staticfiles/
