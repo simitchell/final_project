@@ -13,6 +13,7 @@ class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ["id", "user_id", "cart_item", "image_url", "price"]
+        read_only_fields = ["user_id"]
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -38,12 +39,14 @@ class ListingSerializer(serializers.ModelSerializer):
             "description",
             "image_url",
         ]
+        read_only_fields = ["user", "username"]
 
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ["id", "user_id", "bio", "address", "birthdate"]
+        read_only_fields = ["user_id"]
         lookup_field = "user_id"
 
 
