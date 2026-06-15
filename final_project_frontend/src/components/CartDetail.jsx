@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -29,7 +30,7 @@ export default function CartDetail() {
 
   const getCart = async () => {
     try {
-      const apiUrl = "https://finalproject-production-bb8b.up.railway.app/cart/";
+      const apiUrl = `${API_BASE_URL}/cart/`;
       const response = await fetch(apiUrl, {
         method: "GET",
         headers: {
@@ -52,7 +53,7 @@ export default function CartDetail() {
   };
 
   const handleDelete = async (id) => {
-    const apiUrl = `https://finalproject-production-bb8b.up.railway.app/cart/item/${id}/`;
+    const apiUrl = `${API_BASE_URL}/cart/item/${id}/`;
     try {
       const response = await fetch(apiUrl, {
         method: "DELETE",

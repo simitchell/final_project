@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { useState } from "react";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router";
@@ -25,7 +26,7 @@ export default function LoginForm() {
       username,
       password,
     };
-    const url = "https://finalproject-production-bb8b.up.railway.app/token/";
+    const url = `${API_BASE_URL}/token/`;
     const data = await fetch(url, {
       method: "POST",
       headers: {

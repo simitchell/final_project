@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
@@ -21,7 +22,7 @@ export default function EditListing() {
 
   const getIndividualListing = async () => {
     try {
-      const apiUrl = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
+      const apiUrl = `${API_BASE_URL}/listing/${id}/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingDetail(data);
@@ -41,7 +42,7 @@ export default function EditListing() {
 const handleSubmit = async (e) => {
   e.preventDefault();
   const formData = new FormData(updateForm.current);
-  const url = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
+  const url = `${API_BASE_URL}/listing/${id}/`;
   const data = await fetch(url, {
     method: "PUT",
     headers: {
@@ -54,7 +55,7 @@ const handleSubmit = async (e) => {
 };
 
   const handleDelete = async () => {
-    const apiUrl = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
+    const apiUrl = `${API_BASE_URL}/listing/${id}/`;
     try {
       const response = await fetch(apiUrl, {
         method: "DELETE",

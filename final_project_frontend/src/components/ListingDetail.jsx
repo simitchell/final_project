@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -30,7 +31,7 @@ export default function ListingDetail() {
 
   const getIndividualListing = async () => {
     try {
-      const apiUrl = `https://finalproject-production-bb8b.up.railway.app/listing/${id}/`;
+      const apiUrl = `${API_BASE_URL}/listing/${id}/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       // console.log(data);
@@ -52,7 +53,7 @@ export default function ListingDetail() {
     e.preventDefault();
     setAlert(true);
 
-    const url = `https://finalproject-production-bb8b.up.railway.app/cart/`;
+    const url = `${API_BASE_URL}/cart/`;
     try {
       const response = await fetch(url, {
         method: "POST",

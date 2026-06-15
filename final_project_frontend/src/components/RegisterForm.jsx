@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { useRef } from "react";
 import React from "react";
 import { Form } from "./GlobalStyles/StyleUtility";
@@ -15,7 +16,7 @@ export default function RegisterForm() {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
 
-    const url = "https://finalproject-production-bb8b.up.railway.app/register/";
+    const url = `${API_BASE_URL}/register/`;
     const data = await fetch(url, {
       method: "POST",
       headers: {

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { CardContainer, NoDataDiv } from "./GlobalStyles/StyleCard";
 import { useState, useEffect } from "react";
 import React from "react";
@@ -16,7 +17,7 @@ export default function DisplayUserListings() {
   const getInfo = async () => {
     // console.log("here");
     try {
-      const apiUrl = "https://finalproject-production-bb8b.up.railway.app/listing/";
+      const apiUrl = `${API_BASE_URL}/listing/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
       setListingData(data);
