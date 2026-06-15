@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useRevalidator, useParams, useNavigate } from "react-router-dom";
@@ -21,7 +22,7 @@ export default function ProfileDetail() {
 
   const getIndividualProfile = async () => {
     try {
-      const apiUrl = `https://finalproject-production-bb8b.up.railway.app/profile/${localStorage.getItem(
+      const apiUrl = `${API_BASE_URL}/profile/${localStorage.getItem(
         "userId"
       )}/`;
       const response = await fetch(apiUrl, {
@@ -61,7 +62,7 @@ export default function ProfileDetail() {
 
   const handlePost = async (formData) => {
     // const formData = new FormData(updateForm.current);
-    const apiUrl = `https://finalproject-production-bb8b.up.railway.app/profile/`;
+    const apiUrl = `${API_BASE_URL}/profile/`;
     const data = await fetch(apiUrl, {
       method: "POST",
       headers: {
@@ -73,7 +74,7 @@ export default function ProfileDetail() {
   };
 
   const handlePut = async (formData) => {
-    const apiUrl = `https://finalproject-production-bb8b.up.railway.app/profile/${localStorage.getItem(
+    const apiUrl = `${API_BASE_URL}/profile/${localStorage.getItem(
       "userId"
     )}/`;
     const data = await fetch(apiUrl, {

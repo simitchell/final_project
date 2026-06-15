@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
@@ -15,7 +16,7 @@ export default function Search() {
   const navigate = useNavigate();
 
   async function getSearch() {
-    const url = `https://finalproject-production-bb8b.up.railway.app/listing/?search=${params.search}`;
+    const url = `${API_BASE_URL}/listing/?search=${params.search}`;
     try {
       const response = await fetch(url);
       const result = await response.json();

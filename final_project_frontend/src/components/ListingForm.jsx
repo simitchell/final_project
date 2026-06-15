@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
@@ -16,7 +17,7 @@ export default function ListingForm() {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
 
-    const url = "https://finalproject-production-bb8b.up.railway.app/listing/";
+    const url = `${API_BASE_URL}/listing/`;
     const data = await fetch(url, {
       method: "POST",
       headers: {

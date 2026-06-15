@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
@@ -10,7 +11,7 @@ export default function LogoutPage() {
   console.log(setIsAuth());
 
   const performLogout = async () => {
-    const url = "https://finalproject-production-bb8b.up.railway.app/logout/";
+    const url = `${API_BASE_URL}/logout/`;
     const refresh_token = localStorage.getItem("refresh_token");
     const access_token = localStorage.getItem("access_token");
 

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -14,7 +15,7 @@ export default function DisplayListings() {
 
   const getInfo = async () => {
     try {
-      const apiUrl = "https://finalproject-production-bb8b.up.railway.app/listing/";
+      const apiUrl = `${API_BASE_URL}/listing/`;
       const response = await fetch(apiUrl);
 
       if (!response.ok) {
