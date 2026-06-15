@@ -24,7 +24,11 @@ export default function ProfileDetail() {
       const apiUrl = `https://finalproject-production-bb8b.up.railway.app/profile/${localStorage.getItem(
         "userId"
       )}/`;
-      const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl, {
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+      });
       const data = await response.json();
       setProfileDetail(data);
       // console.log(data);
