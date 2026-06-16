@@ -27,7 +27,7 @@
 
 ## Hardening & correctness (near-term)
 > Concrete issues in the current code, not future features.
-- [ ] Registration bypasses password validation: `RegisterView` calls
+- [x] Registration bypasses password validation: `RegisterView` calls
       `make_password()` directly without running `AUTH_PASSWORD_VALIDATORS`, so
       weak passwords are accepted. Run `validate_password` in `UserSerializer`.
 - [ ] Make `SECRET_KEY` and `DEBUG` env-driven and fail loudly in production.
