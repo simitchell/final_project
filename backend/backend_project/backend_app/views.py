@@ -12,7 +12,6 @@ from rest_framework_simplejwt.tokens import (
 )
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
-from django.contrib.auth.models import make_password
 from rest_framework import status
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .models import Cart, Listing, Profile
@@ -116,12 +115,9 @@ class ListingViewSet(viewsets.ModelViewSet):
 class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            password = make_password(request.data["password"])
-            serializer.save(password=password)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class ProfileViewSet(viewsets.ModelViewSet):

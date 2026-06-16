@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "../config";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import React from "react";
 import { Form } from "./GlobalStyles/StyleUtility";
 // import { Button } from "./GlobalStyles/StyleUtility";
@@ -11,19 +11,36 @@ export default function RegisterForm() {
   const revalidator = useRevalidator();
   // const navigate = Navigate();
   const updateForm = useRef(null);
+  const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors([]);
     const formData = new FormData(updateForm.current);
 
     const url = `${API_BASE_URL}/register/`;
-    const data = await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         // Authorization: `Bearer ${auth}`,
       },
       body: formData,
     });
+
+    if (!response.ok) {
+      // DRF returns field-keyed error arrays, e.g. {"password": ["too short"]}.
+      let messages = ["Registration failed. Please try again."];
+      try {
+        const body = await response.json();
+        const collected = Object.values(body).flat();
+        if (collected.length) messages = collected.map(String);
+      } catch {
+        // non-JSON error response; keep the generic message
+      }
+      setErrors(messages);
+      return;
+    }
+
     updateForm.current.reset();
     revalidator.revalidate;
     alert("New user created successfully");
@@ -45,6 +62,13 @@ export default function RegisterForm() {
         <input type="email" name="email" />
         <label>Password</label>
         <input type="password" name="password" />
+        {errors.length > 0 && (
+          <ul style={{ color: "red", margin: "0.5rem 0", paddingLeft: "1.25rem" }}>
+            {errors.map((msg, i) => (
+              <li key={i}>{msg}</li>
+            ))}
+          </ul>
+        )}
         <Button variant="contained" type="submit">
           Register User
         </Button>

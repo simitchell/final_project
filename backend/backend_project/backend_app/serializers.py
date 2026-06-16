@@ -2,6 +2,8 @@ from .models import Cart, Listing, Profile, User
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.password_validation import validate_password
 
 User = get_user_model()
 
@@ -52,7 +54,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     # profile = ProfileSerializer()
+    password = serializers.CharField(
+        write_only=True, validators=[validate_password]
+    )
 
     class Meta:
         model = User
         fields = ["id", "email", "username", "password"]
+
+    def create(self, validated_data):
+        validated_data["password"] = make_password(validated_data["password"])
+        return super().create(validated_data)
