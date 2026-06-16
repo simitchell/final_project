@@ -75,6 +75,20 @@ venv/bin/python manage.py runserver 8000
   set, local `mediafiles/` otherwise. On listing create/update, uploaded images
   run through `check_image_moderation` (AWS Rekognition); flagged images raise a
   `ValidationError`.
+- Admin user impersonation: `django-hijack` is installed (`hijack` +
+  `hijack.contrib.admin` apps, mounted at `hijack/` in `urls.py`). Lets staff
+  "log in as" another user from the Django admin to reproduce their view.
+  `HIJACK_ALLOW_GET_REQUESTS = True` is set, which relaxes the default
+  POST-only/CSRF protection — convenient but a known weakening; keep this admin-
+  only.
+- Static files: `WhiteNoise` serves Django's own static assets (admin CSS/JS,
+  DRF browsable API) in production, since Railway has no separate static server.
+  It's the `whitenoise.middleware.WhiteNoiseMiddleware` (placed right after
+  `SecurityMiddleware`) plus `STATICFILES_STORAGE =
+  CompressedManifestStaticFilesStorage`, which serves compressed, hashed files
+  from `STATIC_ROOT` (`staticfiles/`). The Procfile runs `collectstatic` on
+  deploy to populate it. WhiteNoise only handles `static/`; user-uploaded media
+  still goes to S3.
 
 ### Frontend
 - `src/main.jsx` defines all routes via `createBrowserRouter`; `routes/` files are
