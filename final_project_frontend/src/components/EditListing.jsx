@@ -89,6 +89,13 @@ const handleSubmit = async (e) => {
               <input type="number" name="price" />
               <label>Description</label>
               <textarea type="text" name="description" maxLength="250" />
+              <label>Condition</label>
+              <select name="condition" value={listingDetail?.condition} onChange={() => {}}>
+                <option value="new">New</option>
+                <option value="great">Great</option>
+                <option value="good">Good</option>
+                <option value="fair">Fair</option>
+              </select>
               <label>Upload Image</label>
               <input
                 type="file"

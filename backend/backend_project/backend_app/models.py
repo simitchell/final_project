@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 # lets us explicitly set upload path and filename
 def upload_to(instance, filename):
-    ext = filename.split('.')[-1]
+    ext = filename.split(".")[-1]
     unique_filename = f"{uuid.uuid4()}.{ext}"
     return f"images/{unique_filename}"
 
@@ -26,6 +26,14 @@ class Cart(models.Model):
         return self.cart_item
 
 
+CONDITION_CHOICES = [
+    ("new", "New"),
+    ("great", "Great"),
+    ("good", "Good"),
+    ("fair", "Fair"),
+]
+
+
 class Listing(models.Model):
     username = models.CharField(null=True)
     user = models.ForeignKey(
@@ -35,6 +43,13 @@ class Listing(models.Model):
     price = models.IntegerField(null=True)
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
     description = models.TextField(null=True)
+    condition = models.CharField(
+        max_length=10,
+        choices=CONDITION_CHOICES,
+        default="good",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self) -> str:
         return self.title
@@ -45,9 +60,10 @@ class Profile(models.Model):
     address = models.CharField(max_length=50, blank=True)
     bio = models.TextField(max_length=400, blank=True)
     birthdate = models.DateField(null=True, blank=True)
-    
+
     def __str__(self):
         return self.user.username
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
