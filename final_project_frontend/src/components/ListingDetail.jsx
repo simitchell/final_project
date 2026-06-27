@@ -86,7 +86,7 @@ export default function ListingDetail() {
   return (
     <>
       <ListingDetailHeader>Listing Detail</ListingDetailHeader>
-      
+
       {isLoading ? (
         <ProgressDiv>
           <CircularProgress />
@@ -122,8 +122,13 @@ export default function ListingDetail() {
                       <h3>Price</h3>
                       <p>${listingDetail.price}</p>
                     </div>
+                    <div>
+                      <h3>Condition</h3>
+                      <p>{listingDetail.condition}</p>
+                    </div>
                   </DetailSeller>
-                  {listingDetail.username !== localStorage.getItem("username") && (
+                  {listingDetail.username !==
+                    localStorage.getItem("username") && (
                     <>
                       <Button
                         variant="contained"
@@ -150,5 +155,4 @@ export default function ListingDetail() {
       )}
     </>
   );
-  
 }

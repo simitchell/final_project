@@ -40,6 +40,7 @@ class ListingSerializer(serializers.ModelSerializer):
             "price",
             "description",
             "image_url",
+            "condition",
         ]
         read_only_fields = ["user", "username"]
 
@@ -54,9 +55,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     # profile = ProfileSerializer()
-    password = serializers.CharField(
-        write_only=True, validators=[validate_password]
-    )
+    password = serializers.CharField(write_only=True, validators=[validate_password])
 
     class Meta:
         model = User
