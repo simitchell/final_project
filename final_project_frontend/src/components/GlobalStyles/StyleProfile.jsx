@@ -18,6 +18,11 @@ export const ProfileContainer = styled.div`
     flex-wrap: wrap;
     margin: 0 10%;
     justify-content: space-between;
+
+    @media (max-width: 640px) {
+      flex-direction: column;
+      margin: 0 1rem;
+    }
   }
 
   .profileIntro {
