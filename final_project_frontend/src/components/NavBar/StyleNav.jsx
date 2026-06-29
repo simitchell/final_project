@@ -59,6 +59,20 @@ export const NavLeft = styled.div`
   justify-content: space-evenly;
   width: 60%;
   /* margin-left: 7.5%; */
+
+  @media (max-width: 768px) {
+    flex: 1;
+    width: auto;
+    justify-content: flex-start;
+
+    .navCompanyName {
+      display: none;
+    }
+
+    .searchBar {
+      margin-left: 0.5rem;
+    }
+  }
 `;
 
 export const NavRight = styled.div`
