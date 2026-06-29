@@ -21,7 +21,7 @@ export const CardContainer = styled.div`
   .card {
     display: flex;
     flex-direction: column;
-    width: clamp(280px, 90%, 400px);
+    width: clamp(280px, 45%, 400px);
     /* max-height: 325px; */
     border: none;
     background-color: white;
