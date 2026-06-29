@@ -5,7 +5,7 @@ export const StyleFooter = styled.footer`
   background-color: #f2502c;
   padding-top: 1rem;
   position: relative;
-  min-width: 100vw;
+  width: 100%;
 
   h4 {
     display: flex;

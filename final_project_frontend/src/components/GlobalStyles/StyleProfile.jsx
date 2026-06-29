@@ -15,16 +15,17 @@ export const ProfileContainer = styled.div`
   
   .profileWrapper {
     display: flex;
+    flex-wrap: wrap;
     margin: 0 10%;
     justify-content: space-between;
   }
 
   .profileIntro {
-    width: 65%;
+    flex: 1 1 300px;
   }
 
   .profileUpdate {
-    width: 25%;
+    flex: 1 1 240px;
   }
 `;
 

@@ -115,7 +115,7 @@ const handleSubmit = async (e) => {
               <ButtonContainer>
                 <Button
                   variant="contained"
-                  sx={{ width: 200, padding: 1, margin: 3 }}
+                  sx={{ padding: 1, margin: 3 }}
                   type="submit"
                 >
                   Update Listing
@@ -134,7 +134,7 @@ const handleSubmit = async (e) => {
                     <div className="listingOptions">
                       <Button
                         variant="contained"
-                        sx={{ width: 200, padding: 1, margin: 3 }}
+                        sx={{ padding: 1, margin: 3 }}
                         color="error"
                         type="button"
                         id="deleteButton"
