@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import { Nav, NavLeft, NavRight } from "./StyleNav";
+import { Nav, NavLeft, NavRight, HamburgerButton } from "./StyleNav";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { LogoSVGSmall } from "../../../public/FoxBodySwapMeetLogoSmall";
@@ -10,6 +10,7 @@ export default function MainNav() {
   const isAuth = localStorage.getItem("access_token");
   const [search, setSearch] = useState("");
   const [lastSearch, setLastSearch] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleChangeSearch = (e) => {
@@ -62,7 +63,13 @@ export default function MainNav() {
           </Button>
         </div>
       </NavLeft>
-      <NavRight>
+      <HamburgerButton
+        aria-label="Toggle navigation"
+        onClick={() => setMenuOpen((prev) => !prev)}
+      >
+        {menuOpen ? "✕" : "☰"}
+      </HamburgerButton>
+      <NavRight $open={menuOpen}>
         <ul>
           <li>
             <Link to="/aboutus">About Us</Link>
