@@ -4,6 +4,7 @@ export const CardContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: flex-start;
   max-width: 1400px;
   margin: auto;
   padding: auto;
