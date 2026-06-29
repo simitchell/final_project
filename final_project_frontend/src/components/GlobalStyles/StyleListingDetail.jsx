@@ -29,8 +29,8 @@ export const DetailImage = styled.div`
 
   img {
     object-fit: contain;
-    width: 600px;
-    height: 600px;
+    max-width: 100%;
+    height: auto;
     padding: auto;
     margin: auto;
   }
