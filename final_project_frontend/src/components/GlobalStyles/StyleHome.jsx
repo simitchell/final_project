@@ -12,6 +12,10 @@ export const HomeWrapper = styled.div`
   flex-wrap: wrap;
   margin: 0 10%;
   ${(justifyContent) => justifyContent};
+
+  @media (max-width: 640px) {
+    margin: 0 1rem;
+  }
 `;
 
 export const HomeWelcome = styled.div`
