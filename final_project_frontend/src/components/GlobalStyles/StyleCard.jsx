@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+  gap: 1.5rem;
+  justify-content: center;
   max-width: 1400px;
   margin: auto;
-  padding: auto;
-  justify-content: center;
+  padding: 1rem;
 
   a {
     color: black;
@@ -21,7 +20,7 @@ export const CardContainer = styled.div`
   .card {
     display: flex;
     flex-direction: column;
-    width: clamp(280px, 45%, 400px);
+    width: 100%;
     /* max-height: 325px; */
     border: none;
     background-color: white;
