@@ -37,7 +37,7 @@ export default function EditListing() {
 
   useEffect(() => {
     getIndividualListing();
-  }, [listingDetail]);
+  }, []);
 
 const handleSubmit = async (e) => {
   e.preventDefault();
