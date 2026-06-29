@@ -6,4 +6,10 @@ export const StyleRoute = styled.div`
   h2 {
     margin: 1rem 4rem;
   }
+
+  @media (max-width: 640px) {
+    h2 {
+      margin: 1rem;
+    }
+  }
 `;

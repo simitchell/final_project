@@ -13,5 +13,11 @@ export const StyleRoot = styled.div`
 
 export const Logo = styled.div`
   height: auto;
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
+
+  svg {
+    max-width: 100%;
+    overflow: hidden;
+  }
 `

@@ -20,8 +20,7 @@ export const CardContainer = styled.div`
   .card {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 400px;
+    width: clamp(280px, 90%, 400px);
     /* max-height: 325px; */
     border: none;
     background-color: white;
@@ -36,15 +35,14 @@ export const CardContainer = styled.div`
     .cardInfo {
       display: flex;
       flex-direction: column;
-      height: 400px;
-      width: 400px;
       width: inherit;
       margin-bottom: 0;
     }
 
     .cardImage {
-      width: 400px;
-      height: 325px;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
       padding: auto;
       margin: auto;
       /* object-fit: contain; */

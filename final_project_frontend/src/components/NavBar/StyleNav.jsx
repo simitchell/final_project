@@ -7,7 +7,7 @@ export const Nav = styled.nav`
   left: 0;
   z-index: 9999;
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   background-color: #f2502c;
   display: flex;
   flex-direction: row;
@@ -81,5 +81,41 @@ export const NavRight = styled.div`
 
   ul li {
     padding: 8px;
+  }
+
+  @media (max-width: 768px) {
+    display: ${({ $open }) => ($open ? "flex" : "none")};
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #f2502c;
+    flex-direction: column;
+
+    ul {
+      flex-direction: column;
+      padding: 0.25rem 0;
+    }
+
+    ul li {
+      padding: 12px 16px;
+    }
+  }
+`;
+
+export const HamburgerButton = styled.button`
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #f5f5f5;
+  font-size: 1.5rem;
+  padding: 8px;
+  margin: auto 8px;
+  line-height: 1;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
   }
 `;

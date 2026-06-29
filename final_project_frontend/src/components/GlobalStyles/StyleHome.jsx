@@ -9,8 +9,13 @@ export const HomeContainer = styled.div`
 
 export const HomeWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   margin: 0 10%;
   ${(justifyContent) => justifyContent};
+
+  @media (max-width: 640px) {
+    margin: 0 1rem;
+  }
 `;
 
 export const HomeWelcome = styled.div`
@@ -23,5 +28,6 @@ export const HomeWelcome = styled.div`
 `;
 
 export const HomeLogin = styled.div`
-  width: 25%;
+  flex: 0 0 280px;
+  max-width: 100%;
 `;

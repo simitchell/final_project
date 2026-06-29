@@ -14,6 +14,7 @@ export const CartDiv = styled.div`
 
 export const CartOuterContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   /* flex-direction: column; */
   width: 65%;
   max-width: 1000px;
@@ -43,6 +44,7 @@ export const CartButton = styled.div`
 export const CartImg = styled.div`
   width: 125px;
   height: 125px;
+  flex-shrink: 0;
   display: flex;
   
   img {
@@ -56,7 +58,8 @@ export const CartImg = styled.div`
 export const CartItem = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 120px;
+  align-items: center;
+  min-height: 80px;
   background-color: white;
   border-radius: 25px;
   margin: 1rem;
