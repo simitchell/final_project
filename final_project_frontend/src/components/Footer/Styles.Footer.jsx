@@ -24,10 +24,17 @@ export const StyleFooter = styled.footer`
 
 export const TopRow = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   max-width: 60%;
   padding: auto;
   margin: auto;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    max-width: 100%;
+    align-items: center;
+  }
 `;
 
 export const BottomRow = styled.div`
