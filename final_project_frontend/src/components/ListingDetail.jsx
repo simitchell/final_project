@@ -6,19 +6,32 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import { ProgressDiv } from "./GlobalStyles/StyleUtility";
 
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import Stack from '@mui/material/Stack';
-
 import {
   DetailDescription,
   DetailImage,
+  DetailInfoCard,
   DetailLeft,
   DetailPrice,
   DetailRight,
   DetailSeller,
+  DetailTitleBlock,
   DetailWrapper,
   ListingDetailHeader,
 } from "./GlobalStyles/StyleListingDetail";
+
+const conditionColor = (condition) => {
+  switch (condition?.toLowerCase()) {
+    case "new":
+      return "#2563eb";
+    case "great":
+    case "good":
+      return "#3b6d11";
+    case "fair":
+      return "#854f0b";
+    default:
+      return "#888";
+  }
+};
 
 export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");
@@ -34,15 +47,12 @@ export default function ListingDetail() {
       const apiUrl = `${API_BASE_URL}/listing/${id}/`;
       const response = await fetch(apiUrl);
       const data = await response.json();
-      // console.log(data);
       setListingDetail(data);
-      // console.log(listingDetail);
     } catch (error) {
       console.error("Error fetching listing:", error);
     } finally {
       setIsLoading(false);
     }
-    // console.log(listingDetail);
   };
 
   useEffect(() => {
@@ -60,7 +70,6 @@ export default function ListingDetail() {
         headers: {
           Authorization: `Bearer ${auth}`,
           "Content-Type": "application/json",
-          // "Accept": "application/json"
         },
         body: JSON.stringify({
           user_id: parseInt(localStorage.getItem("userId")),
@@ -70,12 +79,7 @@ export default function ListingDetail() {
         }),
       });
 
-      if (response.ok) {
-        setListingDetail(listingDetail);
-        updateForm.current.reset();
-        useRevalidator.revalidate();
-        // navigate("/cart");
-      } else {
+      if (!response.ok) {
         console.error("Failed to add to cart");
       }
     } catch (error) {
@@ -92,66 +96,90 @@ export default function ListingDetail() {
           <CircularProgress />
         </ProgressDiv>
       ) : (
-        <>
-          <DetailWrapper>
-            <DetailLeft>
-              {listingDetail ? (
-                <DetailImage>
-                  <img
-                    src={listingDetail.image_url}
-                    alt={listingDetail.title}
-                  />
-                </DetailImage>
-              ) : (
-                <div>No detail found</div>
-              )}
-            </DetailLeft>
-            <DetailRight>
-              {listingDetail ? (
-                <>
+        <DetailWrapper>
+          <DetailLeft>
+            {listingDetail ? (
+              <DetailImage>
+                <img src={listingDetail.image_url} alt={listingDetail.title} />
+              </DetailImage>
+            ) : (
+              <div>No detail found</div>
+            )}
+          </DetailLeft>
+
+          <DetailRight>
+            {listingDetail ? (
+              <>
+                <DetailTitleBlock>
                   <h2>{listingDetail.title}</h2>
-                  <DetailDescription>
-                    <p>{listingDetail.description}</p>
-                  </DetailDescription>
-                  <DetailSeller>
-                    <div>
-                      <h3>Seller</h3>
-                      <p>{listingDetail.username}</p>
+                </DetailTitleBlock>
+
+                <DetailPrice>
+                  <span>${listingDetail.price}</span>
+                </DetailPrice>
+
+                <DetailDescription>
+                  <p className="label">Description</p>
+                  <p className="body">{listingDetail.description}</p>
+                </DetailDescription>
+
+                <DetailInfoCard>
+                  <div className="top-row">
+                    <div className="cell">
+                      <p className="label">Seller</p>
+                      <p className="value">{listingDetail.username}</p>
                     </div>
-                    <div>
-                      <h3>Price</h3>
-                      <p>${listingDetail.price}</p>
+                    <div className="cell condition">
+                      <p className="label">Condition</p>
+                      <div className="condition-row">
+                        <span
+                          style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: "50%",
+                            background: conditionColor(listingDetail.condition),
+                            display: "inline-block",
+                            flexShrink: 0,
+                          }}
+                        />
+                        <p className="value">{listingDetail.condition}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3>Condition</h3>
-                      <p>{listingDetail.condition}</p>
+                  </div>
+                  <div className="bottom-row">
+                    <p className="label">Listed by</p>
+                    <div className="seller-row">
+                      <div className="avatar">
+                        {listingDetail.username?.slice(0, 2).toUpperCase()}
+                      </div>
+                      <p className="username">{listingDetail.username}</p>
                     </div>
-                  </DetailSeller>
-                  {listingDetail.username !==
-                    localStorage.getItem("username") && (
-                    <>
-                      <Button
-                        variant="contained"
-                        type="button"
-                        id="addToCartButton"
-                        onClick={handleAddToCart}
-                      >
-                        Add to Cart
-                      </Button>
-                      {alert ? (
-                        <Alert severity="success">Added to your cart!</Alert>
-                      ) : (
-                        <></>
-                      )}
-                    </>
-                  )}
-                </>
-              ) : (
-                <div>No detail found</div>
-              )}
-            </DetailRight>
-          </DetailWrapper>
-        </>
+                  </div>
+                </DetailInfoCard>
+
+                {listingDetail.username !==
+                  localStorage.getItem("username") && (
+                  <>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      type="button"
+                      id="addToCartButton"
+                      onClick={handleAddToCart}
+                    >
+                      Add to Cart
+                    </Button>
+                    {alert && (
+                      <Alert severity="success">Added to your cart!</Alert>
+                    )}
+                  </>
+                )}
+              </>
+            ) : (
+              <div>No detail found</div>
+            )}
+          </DetailRight>
+        </DetailWrapper>
       )}
     </>
   );

@@ -1,15 +1,16 @@
 import { API_BASE_URL } from "../config";
 import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// import { Button } from "../components/GlobalStyles/StyleUtility";
-import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
-import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
 import Alert from "@mui/material/Alert";
 import {
   ButtonContainer,
+  DeleteButton,
+  EditListingCard,
   EditListingHeader,
+  UpdateButton,
 } from "./GlobalStyles/StyleEditListing";
+
 
 export default function EditListing() {
   const auth = localStorage.getItem("access_token");
@@ -76,90 +77,52 @@ const handleSubmit = async (e) => {
     }
   };
 
-  return (
-    <>
-      <div>
-        {listingDetail?.username === localStorage.getItem("username") && (
-          <div className="updateListingForm">
-            <EditListingHeader>Update Your listing</EditListingHeader>
-            <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
-              <label>Listing Title</label>
-              <input type="text" name="title" />
-              <label>Price</label>
-              <input type="number" name="price" />
-              <label>Description</label>
-              <textarea type="text" name="description" maxLength="250" />
-              <label>Condition</label>
-              <select name="condition" value={listingDetail?.condition} onChange={() => {}}>
-                <option value="new">New</option>
-                <option value="great">Great</option>
-                <option value="good">Good</option>
-                <option value="fair">Fair</option>
-              </select>
-              <label>Upload Image</label>
-              <input
-                type="file"
-                name="image_url"
-                accept="image/jpeg, image/png, image/gif"
-              />
-              <input
-                type="hidden"
-                name="user"
-                value={localStorage.getItem("userId")}
-              />
-              <input
-                type="hidden"
-                name="username"
-                value={localStorage.getItem("username")}
-              />
-              <ButtonContainer>
-                <Button
-                  variant="contained"
-                  sx={{ padding: 1, margin: 3 }}
-                  type="submit"
-                >
-                  Update Listing
-                </Button>
-
-                {alert ? (
-                  <Alert severity="success">
-                    Listing updated successfully!
-                  </Alert>
-                ) : (
-                  <></>
-                )}
-                {listingDetail ? (
-                  listingDetail.username ===
-                    localStorage.getItem("username") && (
-                    <div className="listingOptions">
-                      <Button
-                        variant="contained"
-                        sx={{ padding: 1, margin: 3 }}
-                        color="error"
-                        type="button"
-                        id="deleteButton"
-                        onClick={() => {
-                          if (
-                            window.confirm(
-                              "Are you sure you wish to delete this item?"
-                            )
-                          ) {
-                            handleDelete();
-                          }
-                        }}
-                      >
-                        Delete Listing
-                      </Button>
-                    </div>
-                  )
-                ) : (
-                  <div>No detail found</div>
-                )}
-              </ButtonContainer>
-            </Form>
-          </div>
-        )}
-      </div>
-    </>
-  );
+ return (
+  <>
+    {listingDetail?.username === localStorage.getItem("username") && (
+      <EditListingCard>
+        <EditListingHeader>Update Your Listing</EditListingHeader>
+        <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+          <label>Listing Title</label>
+          <input type="text" name="title" />
+          <label>Price</label>
+          <input type="number" name="price" />
+          <label>Description</label>
+          <textarea type="text" name="description" maxLength="250" />
+          <label>Condition</label>
+          <select name="condition" value={listingDetail?.condition} onChange={() => {}}>
+            <option value="new">New</option>
+            <option value="great">Great</option>
+            <option value="good">Good</option>
+            <option value="fair">Fair</option>
+          </select>
+          <label>Upload Image</label>
+          <input
+            type="file"
+            name="image_url"
+            accept="image/jpeg, image/png, image/gif"
+          />
+          <input type="hidden" name="user" value={localStorage.getItem("userId")} />
+          <input type="hidden" name="username" value={localStorage.getItem("username")} />
+          <ButtonContainer>
+            <UpdateButton type="submit">Update Listing</UpdateButton>
+            {listingDetail && (
+              <DeleteButton
+                type="button"
+                onClick={() => {
+                  if (window.confirm("Are you sure you wish to delete this item?")) {
+                    handleDelete();
+                  }
+                }}
+              >
+                Delete Listing
+              </DeleteButton>
+            )}
+          </ButtonContainer>
+          {alert && <Alert severity="success">Listing updated successfully!</Alert>}
+        </Form>
+      </EditListingCard>
+    )}
+  </>
+);
 }
