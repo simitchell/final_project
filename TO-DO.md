@@ -5,8 +5,10 @@
 > are not built yet.
 
 ## Transactional email (Resend)
+
 > `RESEND_API_KEY` already lives in `backend/.env`. These hook into
 > `RegisterView` in `backend/backend_project/backend_app/views.py`.
+
 - [ ] Welcome email: on registration, send from `noreply@foxbodyswapmeet.com`
       (or similar) to the new user's email address.
 - [ ] Admin notification email: on registration, send to
@@ -19,6 +21,7 @@
       break registration or listing uploads. Handle send/scan failures gracefully.
 
 ## Make it demoable
+
 - [ ] `.env.example` documenting every required env var (no real secrets).
 - [ ] README quickstart that actually works from a clean clone.
 - [ ] Seed-data script so the site has listings to browse on first run.
@@ -26,7 +29,9 @@
       `tests.py` is currently empty.
 
 ## Hardening & correctness (near-term)
+
 > Concrete issues in the current code, not future features.
+
 - [x] Registration bypasses password validation: `RegisterView` calls
       `make_password()` directly without running `AUTH_PASSWORD_VALIDATORS`, so
       weak passwords are accepted. Run `validate_password` in `UserSerializer`.
@@ -43,7 +48,9 @@
       "search by keywords" goal is half-built. Include description/keywords.
 
 ## Data model
+
 > Schema changes that will get harder to make once there's real data.
+
 - [ ] Prices are `IntegerField` on both `Listing` and `Cart` — no cents
       (`$19.99` is not representable). Move to `DecimalField(decimal_places=2)`
       or commit to storing integer cents everywhere.
@@ -56,16 +63,19 @@
       `title`, `price`, `description`, `image_url`.)
 
 ## Ops
+
 - [ ] Health-check endpoint for Railway.
 - [ ] Error monitoring (e.g. Sentry) — there's no `LOGGING` config today and no
       visibility into production failures.
 
 ## Back burner
+
 - [ ] Stripe payment integration / real checkout flow
 
 ## Not started
+
 - [ ] Dispute / ticket system
 - [ ] Seller ratings & feedback
 - [ ] Transaction & shipping tracking
 - [ ] Add field for email address on profiles
-
+- [ ] Fix EditListing.jsx useEffect loop (dependency array should be [] not [listingDetail])

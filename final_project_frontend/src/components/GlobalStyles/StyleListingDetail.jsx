@@ -2,53 +2,182 @@ import styled from "styled-components";
 
 export const ListingDetailHeader = styled.h2`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 `;
 
 export const DetailWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  max-width: 1200px;
+  max-width: 1100px;
+  margin: 0 auto;
+  border: 0.5px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 420px;
 `;
 
 export const DetailLeft = styled.div`
-  width: 70%;
+  width: 55%;
+  background: #f5f5f5;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  h2 {
-    justify-content: center;
-  }
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  border-right: 0.5px solid #e0e0e0;
 `;
 
 export const DetailImage = styled.div`
-  display: flex;
-  object-fit: contain;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
-    object-fit: contain;
-    max-width: 100%;
-    height: auto;
-    padding: auto;
-    margin: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
 export const DetailRight = styled.div`
-  width: 30%;
+  width: 45%;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: justify;
+  gap: 1.25rem;
 `;
 
-export const DetailDescription = styled.div``;
-
-export const DetailPrice = styled.div``;
-
-export const DetailSeller = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+export const DetailTitleBlock = styled.div`
+  h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.3;
+  }
 `;
+
+export const DetailPrice = styled.div`
+  display: inline-block;
+  align-self: flex-start;
+  background: #eaf3de;
+  border: 0.5px solid #c0dd97;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+
+  span {
+    font-size: 28px;
+    font-weight: 500;
+    color: #3b6d11;
+  }
+`;
+
+export const DetailDescription = styled.div`
+  p.label {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 6px 0;
+  }
+  p.body {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+  }
+`;
+
+export const DetailInfoCard = styled.div`
+  border: 0.5px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 0.5px solid #e0e0e0;
+  }
+
+.cell {
+  padding: 0.75rem 1rem;
+
+  p.value {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  &.condition p.value {
+    text-transform: capitalize;
+  }
+
+  &:first-child {
+    border-right: 0.5px solid #e0e0e0;
+  }
+}
+
+    p.label {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 3px 0;
+    }
+
+    p.value {
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  .condition-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .bottom-row {
+    padding: 0.75rem 1rem;
+    background: #f9f9f9;
+
+    p.label {
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 0 0 4px 0;
+    }
+
+    .seller-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #dbeafe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: #1e40af;
+    }
+
+    p.username {
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+`;
+
+export const DetailSeller = styled.div``;
