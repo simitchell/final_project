@@ -67,7 +67,7 @@
       badge, condition dot indicator (blue=New, green=Good/Great, amber=Fair),
       structured seller/condition info card, matching edit form card.
 - [ ] Update responsive design for ListingDetail.jsx
-- [ ] Homepage listing cards: carry over price badge (green background) and
+- [x] Homepage listing cards: carry over price badge (green background) and
       condition dot indicator from the listing detail redesign for visual
       consistency across the browsing experience.
 
