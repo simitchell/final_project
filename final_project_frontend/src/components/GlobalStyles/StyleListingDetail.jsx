@@ -102,23 +102,8 @@ export const DetailInfoCard = styled.div`
     border-bottom: 0.5px solid #e0e0e0;
   }
 
-.cell {
-  padding: 0.75rem 1rem;
-
-  p.value {
-    font-size: 14px;
-    font-weight: 500;
-    margin: 0;
-  }
-
-  &.condition p.value {
-    text-transform: capitalize;
-  }
-
-  &:first-child {
-    border-right: 0.5px solid #e0e0e0;
-  }
-}
+  .cell {
+    padding: 0.75rem 1rem;
 
     p.label {
       font-size: 11px;
@@ -132,6 +117,14 @@ export const DetailInfoCard = styled.div`
       font-size: 14px;
       font-weight: 500;
       margin: 0;
+    }
+
+    &.condition p.value {
+      text-transform: capitalize;
+    }
+
+    &:first-child {
+      border-right: 0.5px solid #e0e0e0;
     }
   }
 

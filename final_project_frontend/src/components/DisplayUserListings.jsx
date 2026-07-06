@@ -41,7 +41,7 @@ export default function DisplayUserListings() {
 
   // Filter listings created by user_id
   const filteredListings = listingData.filter(
-    (listing) => listing.username === localStorage.getItem("username")
+    (listing) => listing.username === localStorage.getItem("username"),
   );
 
   // console.log(filteredListings);
