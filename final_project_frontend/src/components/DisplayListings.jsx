@@ -6,7 +6,14 @@ import {
   DisplayListingsContainer,
   ProgressDiv,
 } from "./GlobalStyles/StyleDisplayListing";
-import { CardContainer } from "./GlobalStyles/StyleCard";
+import {
+  CardContainer,
+  Card,
+  PriceBadge,
+  ConditionDot,
+  NoDataDiv,
+} from "./GlobalStyles/StyleCard";
+import conditionColor from "../utils/conditionColor";
 
 export default function DisplayListings() {
   const [listingData, setListingData] = useState([]);
@@ -50,28 +57,29 @@ export default function DisplayListings() {
             <CardContainer>
               {listingData.map((listing) => (
                 <Link to={`/listingdetail/${listing.id}`} key={listing.id}>
-                  <div className="card">
-                    <h2>{listing.title}</h2>
-                    <div className="cardInfo">
-                      <div className="returnInfo">
-                        <span>
-                          <strong>Price: </strong>${listing.price}
-                        </span>
-                        <span>
-                          <strong>Seller: </strong>
-                          {listing.username}
-                        </span>
-                      </div>
-                      <div className="cardImage">
-                        <img src={listing.image_url} alt={listing.title} />
-                      </div>
+                  <Card className="card">
+                    <div className="cardImage">
+                      <img src={listing.image_url} alt={listing.title} />
                     </div>
-                  </div>
+                    <div className="cardBody">
+                      <h2>{listing.title}</h2>
+                      <div className="cardMeta">
+                        <PriceBadge>${listing.price}</PriceBadge>
+                        <span className="conditionRow">
+                          <ConditionDot
+                            color={conditionColor(listing.condition)}
+                          />
+                          {listing.condition}
+                        </span>
+                      </div>
+                      <p className="seller">{listing.username}</p>
+                    </div>
+                  </Card>
                 </Link>
               ))}
             </CardContainer>
           ) : (
-            <div>No data found</div>
+            <NoDataDiv>No listings found</NoDataDiv>
           )}
         </div>
       )}

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 400px));
   gap: 1.5rem;
   justify-content: center;
   max-width: 1400px;
@@ -10,67 +10,89 @@ export const CardContainer = styled.div`
   padding: 1rem;
 
   a {
-    color: black;
+    color: inherit;
+    text-decoration: none;
   }
 
-  a:hover {
-    color: #f2502c;
-  }
-
-  .card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    /* max-height: 325px; */
-    border: none;
-    background-color: white;
-    border-radius: 25px;
-    margin: 1rem;
-    padding: 1rem;
-
-    h2 {
-      margin: 0;
-    }
-
-    .cardInfo {
-      display: flex;
-      flex-direction: column;
-      width: inherit;
-      margin-bottom: 0;
-    }
-
-    .cardImage {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 4 / 3;
-      padding: auto;
-      margin: auto;
-      /* object-fit: contain; */
-
-      img {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-      }
-    }
-
-    .returnInfo {
-      display: flex;
-      /* flex-direction: column; */
-      justify-content: space-between;
-      /* text-align: left;
-      padding: 1rem; */
-      width: 100%;
-
-      span {
-        margin-bottom: 0.7rem;
-      }
-    }
-  }
-  .card:hover {
+  a:hover .card {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
+`;
+
+export const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: white;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+
+  .cardImage {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .cardBody {
+    padding: 0.85rem 1rem 1rem;
+  }
+
+  h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #111;
+  }
+
+  .cardMeta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .conditionRow {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  .seller {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 0.45rem;
+  }
+`;
+
+export const PriceBadge = styled.span`
+  display: inline-block;
+  background: #eaf3de;
+  border: 0.5px solid #c0dd97;
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #3b6d11;
+`;
+
+export const ConditionDot = styled.span`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: ${({ color }) => color};
+  flex-shrink: 0;
+  display: inline-block;
 `;
 
 export const NoDataDiv = styled.div`
