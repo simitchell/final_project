@@ -18,7 +18,7 @@
 - [ ] Move slow external calls off the request path: send email asynchronously,
       and do the same for the synchronous AWS Rekognition moderation call in
       `check_image_moderation` (views.py) so a slow/failing third party can't
-      break registration or listing uploads. Handle send/scan failures gracefully.
+      break registration or listing uploads. Handle send/mod failures gracefully.
 
 ## Make it demoable
 
@@ -58,9 +58,18 @@
       plain fields) instead of an FK to `Listing` + a quantity. Carts go stale
       when a listing changes or is deleted, and there's no quantity or real
       order/transaction record. Model the cart as `FK(Listing)` + quantity.
-- [ ] `Listing` is missing fields the product vision calls for: `condition`,
-      `keywords`, and a category. (README lists these; the model has only
-      `title`, `price`, `description`, `image_url`.)
+- [ ] `Listing` is missing fields the product vision calls for: `keywords` and
+      a category. (README lists these; condition has been added.)
+
+## UI / Design
+
+- [x] Listing detail page redesign: two-column card layout, prominent price
+      badge, condition dot indicator (blue=New, green=Good/Great, amber=Fair),
+      structured seller/condition info card, matching edit form card.
+- [ ] Update responsive design for ListingDetail.jsx
+- [ ] Homepage listing cards: carry over price badge (green background) and
+      condition dot indicator from the listing detail redesign for visual
+      consistency across the browsing experience.
 
 ## Ops
 

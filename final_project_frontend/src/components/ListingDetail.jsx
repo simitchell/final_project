@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import { ProgressDiv } from "./GlobalStyles/StyleUtility";
+import conditionColor from "../utils/conditionColor";
 
 import {
   DetailDescription,
@@ -18,20 +19,6 @@ import {
   DetailWrapper,
   ListingDetailHeader,
 } from "./GlobalStyles/StyleListingDetail";
-
-const conditionColor = (condition) => {
-  switch (condition?.toLowerCase()) {
-    case "new":
-      return "#2563eb";
-    case "great":
-    case "good":
-      return "#3b6d11";
-    case "fair":
-      return "#854f0b";
-    default:
-      return "#888";
-  }
-};
 
 export default function ListingDetail() {
   const auth = localStorage.getItem("access_token");
