@@ -30,10 +30,10 @@ export const Card = styled.div`
 
   .cardImage {
     width: 100%;
-    height: auto;
     aspect-ratio: 4 / 3;
     padding: auto;
     margin: auto;
+    overflow: hidden;
 
     img {
       object-fit: cover;
