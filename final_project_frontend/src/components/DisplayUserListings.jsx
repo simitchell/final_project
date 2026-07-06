@@ -1,5 +1,11 @@
 import { API_BASE_URL } from "../config";
-import { CardContainer, NoDataDiv } from "./GlobalStyles/StyleCard";
+import {
+  CardContainer,
+  Card,
+  PriceBadge,
+  ConditionDot,
+  NoDataDiv,
+} from "./GlobalStyles/StyleCard";
 import { useState, useEffect } from "react";
 import React from "react";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -8,6 +14,7 @@ import {
   DisplayListingsContainer,
   ProgressDiv,
 } from "./GlobalStyles/StyleDisplayListing";
+import conditionColor from "../utils/conditionColor";
 
 export default function DisplayUserListings() {
   const [listingData, setListingData] = useState([]);
@@ -50,25 +57,24 @@ export default function DisplayUserListings() {
         </ProgressDiv>
       ) : (
         <CardContainer>
-          {filteredListings.map((listing, index) => (
+          {filteredListings.map((listing) => (
             <Link to={`/listingdetail/${listing.id}`} key={listing.id}>
-              <div key={index} className="card">
-                <h2>{listing.title}</h2>
-                <div className="cardInfo">
-                  <div className="returnInfo">
-                    <span>
-                      <strong>Price: </strong>${listing.price}
-                    </span>
-                    <span>
-                      <strong>Seller: </strong>
-                      {listing.username}
-                    </span>
-                  </div>
-                  <div className="cardImage">
-                    <img src={listing.image_url} />
-                  </div>
+              <Card>
+                <div className="cardImage">
+                  <img src={listing.image_url} alt={listing.title} />
                 </div>
-              </div>
+                <div className="cardBody">
+                  <h2>{listing.title}</h2>
+                  <div className="cardMeta">
+                    <PriceBadge>${listing.price}</PriceBadge>
+                    <span className="conditionRow">
+                      <ConditionDot color={conditionColor(listing.condition)} />
+                      {listing.condition}
+                    </span>
+                  </div>
+                  <p className="seller">{listing.username}</p>
+                </div>
+              </Card>
             </Link>
           ))}
         </CardContainer>
