@@ -64,6 +64,7 @@ export default function ListingDetail() {
           cart_item: listingDetail.title,
           image_url: listingDetail.image_url,
           price: listingDetail.price,
+          condition: listingDetail.condition,
         }),
       });
 

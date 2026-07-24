@@ -1,4 +1,4 @@
-import { useLoaderData, Link, Outlet } from "react-router-dom";
+import { useLoaderData, Link, Outlet, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LogoSVGTagline } from "../../public/FoxBodySwapMeetLogoTagline";
 import Footer from "../components/Footer/Footer";
@@ -8,14 +8,19 @@ import { AuthProvider } from "../AuthContext";
 import { Main } from "../components/GlobalStyles/StyleMain";
 
 export default function Root() {
+  const location = useLocation();
+  const hideLogoBanner = location.pathname.startsWith("/cart");
+
   return (
     <AuthProvider>
       <MainNav />
-      <StyleRoot>
-        <Link to="/">
-          <Logo>{LogoSVGTagline}</Logo>
-        </Link>
-      </StyleRoot>
+      {!hideLogoBanner && (
+        <StyleRoot>
+          <Link to="/">
+            <Logo>{LogoSVGTagline}</Logo>
+          </Link>
+        </StyleRoot>
+      )}
       <Main>
         <Outlet />
       </Main>

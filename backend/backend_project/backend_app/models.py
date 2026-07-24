@@ -13,6 +13,14 @@ def upload_to(instance, filename):
     return f"images/{unique_filename}"
 
 
+CONDITION_CHOICES = [
+    ("new", "New"),
+    ("great", "Great"),
+    ("good", "Good"),
+    ("fair", "Fair"),
+]
+
+
 # Create your models here.
 class Cart(models.Model):
     user_id = models.ForeignKey(
@@ -21,17 +29,16 @@ class Cart(models.Model):
     cart_item = models.CharField(max_length=100)
     image_url = models.CharField(blank=True, null=True)
     price = models.IntegerField(null=True)
+    condition = models.CharField(
+        max_length=10,
+        choices=CONDITION_CHOICES,
+        default="good",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self) -> str:
         return self.cart_item
-
-
-CONDITION_CHOICES = [
-    ("new", "New"),
-    ("great", "Great"),
-    ("good", "Good"),
-    ("fair", "Fair"),
-]
 
 
 class Listing(models.Model):

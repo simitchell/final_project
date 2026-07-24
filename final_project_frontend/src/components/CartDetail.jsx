@@ -3,17 +3,23 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
+import { ConditionDot, NoDataDiv } from "./GlobalStyles/StyleCard";
+import conditionColor from "../utils/conditionColor";
 import {
-  CartButton,
-  CartContents,
   CartDiv,
-  CartItem,
-  CartItemDesc,
-  CartItemPrice,
+  CartHeader,
   CartImg,
+  CartItem,
+  CartItemInfo,
+  CartItemPrice,
+  CartItemTitle,
+  CartMain,
   CartOuterContainer,
-  CartTotal,
+  CartPanel,
+  CartSummary,
+  ConditionPill,
   ProgressDiv,
+  RemoveButton,
   RowItems,
   RowTaxes,
   RowShipping,
@@ -93,6 +99,8 @@ export default function CartDetail() {
     setCartTotal(calculateTotal());
   }, [cartData]);
 
+  const itemCount = cartData?.length ?? 0;
+
   return (
     <CartDiv>
       {isLoading ? (
@@ -101,34 +109,44 @@ export default function CartDetail() {
         </ProgressDiv>
       ) : (
         <CartOuterContainer>
-          <CartContents>
-            <h2>My Cart</h2>
-            {cartData?.map((item) => (
-              <div key={item.id}>
-                <CartItem>
-                  <CartButton>
-                    <Button
-                      variant="contained"
-                      color="error"
+          <CartMain>
+            <CartHeader>
+              <h1>My Cart</h1>
+              <span className="itemCount">
+                {itemCount} {itemCount === 1 ? "item" : "items"}
+              </span>
+            </CartHeader>
+
+            <CartPanel>
+              {itemCount > 0 ? (
+                cartData.map((item) => (
+                  <CartItem key={item.id}>
+                    <CartImg>
+                      <img src={item.image_url} alt={item.cart_item} />
+                    </CartImg>
+                    <CartItemInfo>
+                      <CartItemTitle>{item.cart_item}</CartItemTitle>
+                      <ConditionPill>
+                        <ConditionDot color={conditionColor(item.condition)} />
+                        {item.condition}
+                      </ConditionPill>
+                    </CartItemInfo>
+                    <CartItemPrice>${item.price}</CartItemPrice>
+                    <RemoveButton
                       type="button"
-                      id="deleteButton"
-                      onClick={() => {
-                        handleDelete(item.id);
-                      }}
+                      onClick={() => handleDelete(item.id)}
                     >
                       Remove
-                    </Button>
-                  </CartButton>
-                  <CartImg>
-                    <img src={item.image_url} alt={item.cart_item} />
-                  </CartImg>
-                  <CartItemDesc>{item.cart_item}</CartItemDesc>
-                  <CartItemPrice>${item.price}</CartItemPrice>
-                </CartItem>
-              </div>
-            ))}
-          </CartContents>
-          <CartTotal>
+                    </RemoveButton>
+                  </CartItem>
+                ))
+              ) : (
+                <NoDataDiv>Your cart is empty</NoDataDiv>
+              )}
+            </CartPanel>
+          </CartMain>
+
+          <CartSummary>
             <h2>Checkout</h2>
             <RowItems>
               <p>Items</p>
@@ -147,7 +165,7 @@ export default function CartDetail() {
               <p>${cartTotal.toFixed(2)}</p>
             </RowTotal>
             <Button variant="contained">Proceed to Checkout</Button>
-          </CartTotal>
+          </CartSummary>
         </CartOuterContainer>
       )}
     </CartDiv>

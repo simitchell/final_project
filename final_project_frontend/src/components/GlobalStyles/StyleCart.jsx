@@ -2,47 +2,65 @@ import styled from "styled-components";
 
 export const CartDiv = styled.div`
   width: 100%;
-  /* max-width: 1200px; */
-  /* width: 1000px; */
-  /* background-color: blue; */
-  h3 {
-    max-width: 65ch;
-    justify-content: space-around;
-    margin: auto auto 3rem auto;
-  }
 `;
 
 export const CartOuterContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  /* flex-direction: column; */
-  width: 65%;
-  max-width: 1000px;
-  margin: auto;
-  padding: auto;
-  /* background-color: blue; */
+  align-items: flex-start;
+  gap: 1.5rem;
+  width: 90%;
+  max-width: 1100px;
+  margin: 2rem auto;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
-export const CartContents = styled.div`
-  width: 100%;
-  text-align: left;
-  margin: auto;
-  h2 {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 4rem;
+export const CartMain = styled.div`
+  flex: 1 1 auto;
+  min-width: 0;
+`;
+
+export const CartHeader = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    color: #111;
   }
 
+  .itemCount {
+    font-size: 14px;
+    color: #6b7280;
+  }
 `;
 
-export const CartButton = styled.div`
-  margin: auto;
-  padding: auto;
-  
+export const CartPanel = styled.div`
+  background-color: white;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+`;
+
+export const CartItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+
+  & + & {
+    border-top: 0.5px solid #e5e7eb;
+  }
 `;
 
 export const CartImg = styled.div`
-  width: 125px;
+  width: 72px;
   aspect-ratio: 1 / 1;
   flex-shrink: 0;
   display: flex;
@@ -56,36 +74,79 @@ export const CartImg = styled.div`
   }
 `;
 
-export const CartItem = styled.div`
+export const CartItemInfo = styled.div`
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 80px;
-  background-color: white;
-  border-radius: 25px;
-  margin: 1rem;
-  padding: 1rem;
+  flex-direction: column;
+  gap: 0.4rem;
 `;
 
-export const CartItemDesc = styled.div`
-  margin: auto;
-  width: 30%;
-  font-weight: bold;
+export const ConditionPill = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  background: #eaf3de;
+  border: 0.5px solid #c0dd97;
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3b6d11;
+  text-transform: capitalize;
+`;
+
+export const CartItemTitle = styled.div`
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const CartItemPrice = styled.div`
-  margin: auto;
-  width: 10%;
-  font-weight: bold;
+  flex-shrink: 0;
+  font-weight: 600;
+  color: #111;
 `;
 
-export const CartTotal = styled.div`
-  width: 25%;
-  text-align: right;
+export const RemoveButton = styled.button`
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 13px;
+  color: #9ca3af;
+  cursor: pointer;
+
+  &:hover {
+    color: #6b7280;
+    text-decoration: underline;
+  }
+`;
+
+export const CartSummary = styled.div`
+  flex: 0 0 300px;
+  background-color: white;
+  border: 0.5px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.25rem;
+
   h2 {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 4rem;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 1rem;
+    color: #111;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    flex: 1 1 auto;
   }
 `;
 
@@ -94,7 +155,7 @@ export const ProgressDiv = styled.div`
   padding: auto;
   text-align: center;
   font-weight: bold;
-`
+`;
 
 export const RowItems = styled.div`
   display: flex;
