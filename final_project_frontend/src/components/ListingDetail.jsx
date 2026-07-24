@@ -6,6 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import { ProgressDiv } from "./GlobalStyles/StyleUtility";
 import conditionColor from "../utils/conditionColor";
+import { ConditionDot } from "./GlobalStyles/StyleCard";
 
 import {
   DetailDescription,
@@ -119,16 +120,7 @@ export default function ListingDetail() {
                     <div className="cell condition">
                       <p className="label">Condition</p>
                       <div className="condition-row">
-                        <span
-                          style={{
-                            width: 8,
-                            height: 8,
-                            borderRadius: "50%",
-                            background: conditionColor(listingDetail.condition),
-                            display: "inline-block",
-                            flexShrink: 0,
-                          }}
-                        />
+                        <ConditionDot color={conditionColor(listingDetail.condition)} />
                         <p className="value">{listingDetail.condition}</p>
                       </div>
                     </div>

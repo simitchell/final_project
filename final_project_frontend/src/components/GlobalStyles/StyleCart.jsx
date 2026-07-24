@@ -43,10 +43,11 @@ export const CartButton = styled.div`
 
 export const CartImg = styled.div`
   width: 125px;
-  height: 125px;
+  aspect-ratio: 1 / 1;
   flex-shrink: 0;
   display: flex;
-  
+  overflow: hidden;
+
   img {
     object-fit: cover;
     width: 100%;
