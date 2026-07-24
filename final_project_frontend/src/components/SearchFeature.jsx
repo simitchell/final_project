@@ -3,8 +3,9 @@ import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { NoDataDiv, ProgressDiv, SearchHeader } from "./GlobalStyles/StyleSearch";
-import { CardContainer } from "./GlobalStyles/StyleCard";
+import { CardContainer, Card, PriceBadge, ConditionDot } from "./GlobalStyles/StyleCard";
 import CircularProgress from '@mui/material/CircularProgress';
+import conditionColor from "../utils/conditionColor";
 
 
 export default function Search() {
@@ -43,25 +44,24 @@ export default function Search() {
         <ProgressDiv><CircularProgress /></ProgressDiv>
       ) : listingSearch ? (
         <CardContainer>
-          {listingSearch.map((listing, index) => (
+          {listingSearch.map((listing) => (
             <Link to={`/listingdetail/${listing.id}`} key={listing.id}>
-              <div key={index} className="card">
-                <h2>{listing.title}</h2>
-                <div className="cardInfo">
-                  <div className="returnInfo">
-                    <span>
-                      <strong>Price: </strong>${listing.price}
-                    </span>
-                    <span>
-                      <strong>Seller: </strong>
-                      {listing.username}
-                    </span>
-                  </div>
-                  <div className="cardImage">
-                    <img src={listing.image_url} alt={listing.title} />
-                  </div>
+              <Card className="card">
+                <div className="cardImage">
+                  <img src={listing.image_url} alt={listing.title} />
                 </div>
-              </div>
+                <div className="cardBody">
+                  <h2>{listing.title}</h2>
+                  <div className="cardMeta">
+                    <PriceBadge>${listing.price}</PriceBadge>
+                    <span className="conditionRow">
+                      <ConditionDot color={conditionColor(listing.condition)} />
+                      {listing.condition}
+                    </span>
+                  </div>
+                  <p className="seller">{listing.username}</p>
+                </div>
+              </Card>
             </Link>
           ))}
         </CardContainer>
