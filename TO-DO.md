@@ -88,3 +88,32 @@
 - [ ] Transaction & shipping tracking
 - [ ] Add field for email address on profiles
 - [ ] Fix EditListing.jsx useEffect loop (dependency array should be [] not [listingDetail])
+
+## Styling consistency (from Claude Code audit, Aug 4)
+
+- [ ] Uncomment + populate GlobalStyles/Colors.jsx — root cause;
+      hex values currently hand-duplicated across StyleCard,
+      StyleCart, StyleListingDetail
+- [ ] Create/Edit listing form parity — EditListing has a card
+      wrapper, ListingForm (StyleCreateListing) has none
+- [ ] Decide: fully off MUI, or keep it? ListingForm, ListingDetail,
+      CartDetail still on MUI buttons; EditListing already migrated
+      to styled-components (this is the destination, not the drift)
+- [ ] EditListing button hexes #1976d2 / #c62828 are MUI defaults,
+      not FBSM branding — resolves once Colors.jsx lands
+- [ ] EditListing image preview — DEFER into multi-image work
+
+## Email
+
+- [ ] Welcome email at account creation (IN PROGRESS —
+      feature/welcome-email branch, Resend + django-anymail)
+- [ ] Admin alert on new signup (salvage the idea from
+      feature/profile-email-notifications; build after welcome email)
+
+## Multi-image listings
+
+- [ ] ListingImage model (FK to Listing, order field), data-migrate
+      existing Listing.image rows, then drop the field
+- [ ] Rekognition loop + max image count (~6-8)
+- [ ] Thumbnail strip first, lightbox (native <dialog>) second
+- [ ] Create flow first, edit flow as separate PR
