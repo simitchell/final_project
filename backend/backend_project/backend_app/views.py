@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import status, viewsets, permissions
@@ -72,7 +73,11 @@ def check_image_moderation(image_file):
     """
     Sends image to AWS Rekognition for content moderation.
     Raises ValidationError if inappropriate content is detected.
+    Skipped when SKIP_IMAGE_MODERATION=true (local dev without AWS credentials).
     """
+    if os.environ.get("SKIP_IMAGE_MODERATION", "").lower() == "true":
+        return
+
     client = boto3.client('rekognition', region_name='us-east-1')
     
     image_bytes = image_file.read()

@@ -37,18 +37,23 @@ npm run lint       # eslint, --max-warnings 0
 ```
 
 ### Local full-stack testing — DO NOT hit the prod database
-`backend/.env` points `DB_*` at the **production** Railway Postgres. `settings.py`
-prefers `DATABASE_URL` (via `dj_database_url`) when set and only falls back to the
-prod `DB_*` vars otherwise. To work locally, override with a throwaway DB so the
-prod `.env` stays untouched:
+`backend/.env` points `DB_*` at the **production** Railway Postgres, and also holds
+the prod AWS keys. `settings.py` loads it into the environment, so a bare
+`runserver` would use the prod DB (unless `DATABASE_URL` is set), write uploads to the
+**prod S3 bucket**, and call real Rekognition. Override all of it for local work:
 ```bash
 # Postgres via Postgres.app; default superuser is the macOS username, no password
 export DATABASE_URL="postgres://$(whoami)@localhost:5432/foxbody_local"
+export DEBUG=true                 # lets Django serve /media/ uploads (DEBUG is False otherwise)
+export AWS_ACCESS_KEY_ID=         # blank -> uploads go to local mediafiles/, not prod S3
+export SKIP_IMAGE_MODERATION=true # no AWS creds locally, so skip the Rekognition call
 venv/bin/python manage.py migrate
 venv/bin/python manage.py runserver 8000
 ```
 `npm run dev` reads `.env.development`, which points `VITE_API_BASE_URL` at
 `http://127.0.0.1:8000`, so the local UI talks to the local backend automatically.
+Don't `git stash` while `runserver` is up: the auto-reloader can restart on the stashed
+(settings-less) files and leave the server in a broken state.
 
 ## Architecture
 
@@ -101,6 +106,11 @@ venv/bin/python manage.py runserver 8000
   currently unused (commented out in `main.jsx`) — auth is read directly from
   `localStorage` in components. Authenticated requests send
   `Authorization: Bearer <access_token>`.
+- User feedback: use the shared `components/Toast.jsx` (MUI Snackbar) and
+  `utils/apiErrorMessage.js`. After a redirect, pass the message via
+  `navigate(path, { state: { toast } })`; `ListingDetail` shows it. The detail route
+  renders `EditListing` and `ListingDetail` together, so edits refresh via an
+  `onUpdated`/`refreshKey` pair instead of navigating.
 - Styling: per-feature styled-components modules under
   `components/GlobalStyles/` (`Style*.jsx`), mixed with MUI components.
 
