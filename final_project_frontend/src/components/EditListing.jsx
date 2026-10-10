@@ -2,7 +2,8 @@ import { API_BASE_URL } from "../config";
 import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Form } from "../components/GlobalStyles/StyleUtility";
-import Alert from "@mui/material/Alert";
+import Toast from "./Toast";
+import apiErrorMessage from "../utils/apiErrorMessage";
 import {
   ButtonContainer,
   DeleteButton,
@@ -12,12 +13,16 @@ import {
 } from "./GlobalStyles/StyleEditListing";
 
 
-export default function EditListing() {
+export default function EditListing({ onUpdated }) {
   const auth = localStorage.getItem("access_token");
   const [listingDetail, setListingDetail] = useState(null);
   const navigate = useNavigate();
   const updateForm = useRef(null);
-  const [alert, setAlert] = useState(false);
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "error",
+  });
 
   const { id } = useParams();
 
@@ -44,15 +49,48 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   const formData = new FormData(updateForm.current);
   const url = `${API_BASE_URL}/listing/${id}/`;
-  const data = await fetch(url, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${auth}`,
-    },
-    body: formData,
-  });
-  updateForm.current.reset();
-  navigate(`/listingdetail/${id}`);
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${auth}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      const body = await response.json().catch(() => null);
+      console.error("Failed to update listing:", body);
+      setToast({
+        open: true,
+        severity: "error",
+        message: apiErrorMessage(body, "Couldn't update your listing."),
+      });
+      return;
+    }
+
+    updateForm.current.reset();
+    if (onUpdated) {
+      // Already on the detail page (it embeds this form): refresh in place.
+      onUpdated();
+      setToast({
+        open: true,
+        severity: "success",
+        message: "Listing updated successfully!",
+      });
+    } else {
+      navigate(`/listingdetail/${id}`, {
+        state: { toast: "Listing updated successfully!" },
+      });
+    }
+  } catch (error) {
+    console.error("Error updating listing:", error);
+    setToast({
+      open: true,
+      severity: "error",
+      message: "Couldn't reach the server. Please try again.",
+    });
+  }
 };
 
   const handleDelete = async () => {
@@ -66,7 +104,6 @@ const handleSubmit = async (e) => {
       });
 
       if (response.ok) {
-        setAlert(true);
         setListingDetail(null);
         navigate("/profile");
       } else {
@@ -119,8 +156,13 @@ const handleSubmit = async (e) => {
               </DeleteButton>
             )}
           </ButtonContainer>
-          {alert && <Alert severity="success">Listing updated successfully!</Alert>}
         </Form>
+        <Toast
+          open={toast.open}
+          message={toast.message}
+          severity={toast.severity}
+          onClose={() => setToast({ ...toast, open: false })}
+        />
       </EditListingCard>
     )}
   </>
