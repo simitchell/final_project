@@ -27,6 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY", default="your secret key")
 
+# Off unless DEBUG=true is exported. Needed locally so Django serves /media/
+# uploads (urls.py's static() is a no-op when DEBUG is False). Never set in prod.
+DEBUG = os.environ.get("DEBUG", "").lower() == "true"
+
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",

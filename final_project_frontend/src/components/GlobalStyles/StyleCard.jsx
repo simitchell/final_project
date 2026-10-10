@@ -31,7 +31,6 @@ export const Card = styled.div`
   .cardImage {
     width: 100%;
     aspect-ratio: 4 / 3;
-    padding: auto;
     margin: auto;
     overflow: hidden;
 
@@ -39,7 +38,6 @@ export const Card = styled.div`
       object-fit: cover;
       width: 100%;
       height: 100%;
-      border-radius: 10px
     }
   }
 

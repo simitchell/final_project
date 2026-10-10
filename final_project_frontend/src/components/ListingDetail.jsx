@@ -1,9 +1,10 @@
 import { API_BASE_URL } from "../config";
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import Toast from "./Toast";
 import { ProgressDiv } from "./GlobalStyles/StyleUtility";
 import conditionColor from "../utils/conditionColor";
 import { ConditionDot } from "./GlobalStyles/StyleCard";
@@ -21,12 +22,17 @@ import {
   ListingDetailHeader,
 } from "./GlobalStyles/StyleListingDetail";
 
-export default function ListingDetail() {
+export default function ListingDetail({ refreshKey = 0 }) {
   const auth = localStorage.getItem("access_token");
   const [listingDetail, setListingDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [alert, setAlert] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [toast, setToast] = useState({
+    open: Boolean(location.state?.toast),
+    message: location.state?.toast || "",
+  });
 
   const { id } = useParams();
 
@@ -45,6 +51,13 @@ export default function ListingDetail() {
 
   useEffect(() => {
     getIndividualListing();
+  }, [refreshKey]);
+
+  // Clear the one-shot toast from history so a reload doesn't show it again.
+  useEffect(() => {
+    if (location.state?.toast) {
+      navigate(location.pathname, { replace: true, state: null });
+    }
   }, []);
 
   const handleAddToCart = async (e) => {
@@ -78,6 +91,11 @@ export default function ListingDetail() {
 
   return (
     <>
+      <Toast
+        open={toast.open}
+        message={toast.message}
+        onClose={() => setToast({ ...toast, open: false })}
+      />
       <ListingDetailHeader>Listing Detail</ListingDetailHeader>
 
       {isLoading ? (

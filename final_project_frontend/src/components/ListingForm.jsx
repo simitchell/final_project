@@ -5,36 +5,51 @@ import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Form } from "../components/GlobalStyles/StyleUtility";
 import { CreateListingContainer } from "./GlobalStyles/StyleCreateListing";
-import Alert from "@mui/material/Alert";
+import Toast from "./Toast";
+import apiErrorMessage from "../utils/apiErrorMessage";
 
 export default function ListingForm() {
   const auth = localStorage.getItem("access_token");
   const navigate = useNavigate();
   const updateForm = useRef(null);
-  const [alert, setAlert] = useState(false);
+  const [toast, setToast] = useState({ open: false, message: "" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
 
     const url = `${API_BASE_URL}/listing/`;
-    const data = await fetch(url, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${auth}`,
-      },
-      body: formData,
-    });
+    try {
+      const data = await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+        body: formData,
+      });
 
-    const newListing = await data.json();
+      const newListing = await data.json();
 
-    if (!data.ok) {
-      console.error("Failed to create listing:", newListing);
-      return;
+      if (!data.ok) {
+        console.error("Failed to create listing:", newListing);
+        setToast({
+          open: true,
+          message: apiErrorMessage(newListing, "Couldn't create your listing."),
+        });
+        return;
+      }
+
+      updateForm.current.reset();
+      navigate(`/listingdetail/${newListing.id}`, {
+        state: { toast: "Listing created successfully!" },
+      });
+    } catch (error) {
+      console.error("Error creating listing:", error);
+      setToast({
+        open: true,
+        message: "Couldn't reach the server. Please try again.",
+      });
     }
-
-    updateForm.current.reset();
-    navigate(`/listingdetail/${newListing.id}`);
   };
 
   return (
@@ -85,14 +100,15 @@ export default function ListingForm() {
               Post Listing
             </Button>
 
-            {alert ? (
-              <Alert severity="success">Listing created successfully!</Alert>
-            ) : (
-              <></>
-            )}
           </Form>
         </div>
       </div>
+      <Toast
+        open={toast.open}
+        message={toast.message}
+        severity="error"
+        onClose={() => setToast({ ...toast, open: false })}
+      />
     </CreateListingContainer>
   );
 }
