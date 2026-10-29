@@ -40,8 +40,21 @@
 - [ ] Make `SECRET_KEY` and `DEBUG` env-driven and fail loudly in production.
       `SECRET_KEY` currently falls back to the literal `"your secret key"` and
       there is no explicit `DEBUG` setting in `settings.py`.
-- [ ] Add DRF throttling (e.g. `AnonRateThrottle`) on `token/` and `register/` —
-      they are currently brute-forceable (no `DEFAULT_THROTTLE_CLASSES`).
+- [x] Add DRF throttling on `register/` — `ScopedRateThrottle` (5/hour per IP,
+      `NUM_PROXIES=1` for Railway's proxy). Scoped to this view only, so the
+      rest of the API (including `token/`) is unaffected.
+- [ ] `token/` (login) is still brute-forceable — no throttling on it yet.
+- [x] Honeypot field on registration — hidden form field real users never
+      fill in; rejects with a generic error if it's non-empty.
+- [x] Cloudflare Turnstile on registration — frontend widget + backend
+      `siteverify` check (stdlib `urllib`, fails closed). PR #28.
+- [ ] Email verification before account activation: gate login (not just
+      listing creation) on a confirmed email, to make bot/junk signups
+      harmless rather than just harder. Recommended approach: a signed,
+      expiring token (Django's `signing.TimestampSigner`) rather than a new
+      DB model/migration, riding in the same Resend email as the welcome
+      message. Explicitly out of scope for PR #28 (registration bot
+      protection) — revisit separately.
 - [ ] Refresh token is stored in `localStorage` (set in `LoginForm.jsx`), which
       is XSS-exposed. Consider httpOnly cookies, or document as a known risk.
 - [ ] Add pagination to `listing/` (no `DEFAULT_PAGINATION_CLASS` today) — the
