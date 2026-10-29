@@ -1,30 +1,65 @@
 <!doctype html>
-<html>
-  <body style="margin:0;padding:24px;background:#f3f4f6;font-family:Arial,Helvetica,sans-serif;color:#111;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;overflow:hidden;">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <title>Welcome to Fox Body Swap Meet</title>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        .page { background-color: #111111 !important; }
+        .card { background-color: #1c1c1e !important; }
+        .text { color: #f2f2f2 !important; }
+        .muted { color: #b5b5b8 !important; }
+      }
+    </style>
+  </head>
+  <body class="page" style="margin:0;padding:0;background-color:#f3f4f6;" bgcolor="#f3f4f6">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="page" bgcolor="#f3f4f6" style="background-color:#f3f4f6;">
       <tr>
-        <td style="background:#ee3a24;color:#ffffff;padding:20px 24px;font-size:20px;font-weight:bold;">
-          Fox Body Swap Meet
-        </td>
-      </tr>
-      <tr>
-        <td style="padding:24px;font-size:15px;line-height:1.5;">
-          <p style="margin-top:0;">Hi {{ username }},</p>
-          <p>
-            Welcome to Fox Body Swap Meet, the marketplace for 1979&ndash;1993
-            Mustang parts, for enthusiasts, by enthusiasts.
-          </p>
-          <p>Your account is ready.</p>
-          <p style="margin:24px 0;">
-            <a href="{{ login_url }}" style="background:#1565c0;color:#ffffff;text-decoration:none;padding:12px 20px;border-radius:6px;font-weight:bold;">Log in</a>
-          </p>
-          <p>
-            Once you're in you can browse listings, add parts to your cart, and
-            post your own. Adding your state to your profile lets buyers and
-            sellers see roughly where you are, which helps when you want to
-            meet up in person.
-          </p>
-          <p style="margin-bottom:0;">See you at the swap meet,<br>Fox Body Swap Meet</p>
+        <td align="center" style="padding:24px 12px;">
+          <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:560px;">
+            <!-- Logo plate: opaque white image so it reads in light and dark mode -->
+            <tr>
+              <td align="center" bgcolor="#ffffff" style="background-color:#ffffff;border-radius:12px 12px 0 0;padding:16px 24px 12px;">
+                <img src="{{ site_url }}/FoxBodySwapMeetLogoEmail.png" width="260" height="65" alt="Fox Body Swap Meet" style="display:block;border:0;outline:none;width:260px;height:65px;max-width:100%;">
+              </td>
+            </tr>
+            <tr>
+              <td bgcolor="#ee3a24" height="6" style="background-color:#ee3a24;height:6px;font-size:0;line-height:0;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="card" bgcolor="#ffffff" style="background-color:#ffffff;border-radius:0 0 12px 12px;padding:28px 28px 32px;font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.6;">
+                <p class="text" style="margin:0 0 16px;color:#111111;">Hi {{ username }},</p>
+                <p class="text" style="margin:0 0 16px;color:#111111;">
+                  Welcome to Fox Body Swap Meet, the marketplace for 1979&ndash;1993
+                  Mustang parts, for enthusiasts, by enthusiasts.
+                </p>
+                <p class="text" style="margin:0 0 24px;color:#111111;">Your account is ready.</p>
+                <!-- Bulletproof button: a table cell keeps its background when CSS is stripped -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;">
+                  <tr>
+                    <td bgcolor="#1565c0" style="background-color:#1565c0;border-radius:6px;">
+                      <a href="{{ login_url }}" style="display:inline-block;padding:12px 28px;font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold;color:#ffffff;text-decoration:none;">Log in</a>
+                    </td>
+                  </tr>
+                </table>
+                <p class="text" style="margin:0 0 16px;color:#111111;">
+                  Once you're in you can browse listings, add parts to your cart,
+                  and post your own. Adding your state to your profile lets buyers
+                  and sellers see roughly where you are, which helps when you want
+                  to meet up in person.
+                </p>
+                <p class="text" style="margin:0;color:#111111;">See you at the swap meet,<br>Fox Body Swap Meet</p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" class="muted" style="padding:16px 12px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6b7280;">
+                For enthusiasts, by enthusiasts &middot; <a href="{{ site_url }}" style="color:#6b7280;">foxbodyswapmeet.com</a>
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
     </table>
