@@ -9,16 +9,18 @@
 > `RESEND_API_KEY` already lives in `backend/.env`. These hook into
 > `RegisterView` in `backend/backend_project/backend_app/views.py`.
 
-- [ ] Welcome email: on registration, send from `noreply@foxbodyswapmeet.com`
+- [x] Welcome email: on registration, send from `noreply@foxbodyswapmeet.com`
       (or similar) to the new user's email address.
 - [ ] Admin notification email: on registration, send to
       `sam@foxbodyswapmeet.com` announcing the new account (username + email).
-- [ ] Verify `foxbodyswapmeet.com` as a sending domain in Resend (SPF/DKIM)
+- [x] Verify `foxbodyswapmeet.com` as a sending domain in Resend (SPF/DKIM)
       so mail doesn't land in spam.
 - [ ] Move slow external calls off the request path: send email asynchronously,
       and do the same for the synchronous AWS Rekognition moderation call in
       `check_image_moderation` (views.py) so a slow/failing third party can't
       break registration or listing uploads. Handle send/mod failures gracefully.
+      (Welcome email currently sends synchronously after commit with a 5s/15s
+      timeout; failures are logged and never break signup. Still to do: async.)
 
 ## Make it demoable
 
@@ -105,7 +107,7 @@
 
 ## Email
 
-- [ ] Welcome email at account creation (IN PROGRESS —
+- [x] Welcome email at account creation (done —
       feature/welcome-email branch, Resend + django-anymail)
 - [ ] Admin alert on new signup (salvage the idea from
       feature/profile-email-notifications; build after welcome email)
