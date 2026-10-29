@@ -1,4 +1,7 @@
+from unittest import mock
+
 from django.contrib.auth.models import User
+from django.core import mail
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -157,3 +160,60 @@ class SellerStateTests(APITestCase):
         )
         self.listing.user.profile.refresh_from_db()
         self.assertEqual(self.listing.user.profile.state, "OH")
+
+
+class WelcomeEmailTests(APITestCase):
+    url = "/register/"
+
+    def register(self, **extra):
+        data = {"username": "newbie", "email": "n@example.com", "password": PASSWORD}
+        data.update(extra)
+        # on_commit callbacks only run in tests when we ask for them.
+        with self.captureOnCommitCallbacks(execute=True):
+            return self.client.post(self.url, data)
+
+    def test_welcome_email_sent_to_new_user(self):
+        response = self.register()
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(len(mail.outbox), 1)
+        message = mail.outbox[0]
+        self.assertEqual(message.to, ["n@example.com"])
+        self.assertEqual(message.subject, "Welcome to Fox Body Swap Meet")
+        self.assertIn("newbie", message.body)
+        self.assertIn("/login", message.body)
+        html, mimetype = message.alternatives[0]
+        self.assertEqual(mimetype, "text/html")
+        self.assertIn("newbie", html)
+
+    def test_sender_is_the_noreply_address(self):
+        self.register()
+        self.assertIn("noreply@foxbodyswapmeet.com", mail.outbox[0].from_email)
+
+    def test_no_email_sent_when_user_has_no_address(self):
+        response = self.register(email="")
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(mail.outbox, [])
+
+    def test_no_email_sent_when_registration_is_invalid(self):
+        response = self.register(password="123")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(mail.outbox, [])
+
+    def test_send_failure_does_not_break_registration(self):
+        with mock.patch(
+            "django.core.mail.message.EmailMessage.send",
+            side_effect=RuntimeError("resend is down"),
+        ):
+            with self.assertLogs("backend_project.backend_app.emails", "ERROR"):
+                response = self.register()
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(User.objects.filter(username="newbie").exists())
+
+    def test_email_is_not_sent_until_commit(self):
+        with self.captureOnCommitCallbacks(execute=False) as callbacks:
+            self.client.post(
+                self.url,
+                {"username": "newbie", "email": "n@example.com", "password": PASSWORD},
+            )
+        self.assertEqual(mail.outbox, [])
+        self.assertEqual(len(callbacks), 1)

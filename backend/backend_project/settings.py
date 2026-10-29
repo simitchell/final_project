@@ -200,9 +200,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY")
 if RESEND_API_KEY and os.environ.get("SEND_REAL_EMAIL", "").lower() == "true":
     EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
-    ANYMAIL = {"RESEND_API_KEY": RESEND_API_KEY}
+    # (connect, read) seconds, so a slow Resend can't hang a signup for long.
+    ANYMAIL = {"RESEND_API_KEY": RESEND_API_KEY, "REQUESTS_TIMEOUT": (5, 15)}
 else:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Frontend base URL, used for links in emails.
+SITE_URL = os.environ.get("SITE_URL", "https://foxbodyswapmeet.com").rstrip("/")
 
 DEFAULT_FROM_EMAIL = "Fox Body Swap Meet <noreply@foxbodyswapmeet.com>"
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
