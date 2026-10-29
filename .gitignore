@@ -11,3 +11,6 @@ __pycache__/
 # Media files
 mediafiles/
 backend/staticfiles/
+
+# Local notes with credentials
+USER-ACCOUNTS.md
