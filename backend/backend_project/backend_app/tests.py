@@ -2,6 +2,7 @@ from unittest import mock
 
 from django.contrib.auth.models import User
 from django.core import mail
+from django.core.cache import cache
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -21,6 +22,23 @@ def make_user(username, state="", **profile_fields):
 
 class RegistrationStateTests(APITestCase):
     url = "/register/"
+
+    def setUp(self):
+        # Registration is throttled per IP ("registration" scope, 5/hour).
+        # The throttle's counters live in Django's cache, which persists for
+        # the whole test run (not reset between tests by the test runner),
+        # so without clearing it here, later test classes would start
+        # failing once enough /register/ calls had accumulated across the
+        # whole suite — not because of anything those tests do wrong.
+        cache.clear()
+        # These tests predate Turnstile and aren't about it; treat every
+        # token as verified so they keep exercising state-handling only.
+        patcher = mock.patch(
+            "backend_project.backend_app.views.verify_turnstile_token",
+            return_value=True,
+        )
+        patcher.start()
+        self.addCleanup(patcher.stop)
 
     def register(self, **extra):
         data = {"username": "newbie", "email": "n@example.com", "password": PASSWORD}
@@ -165,6 +183,18 @@ class SellerStateTests(APITestCase):
 class WelcomeEmailTests(APITestCase):
     url = "/register/"
 
+    def setUp(self):
+        # See RegistrationStateTests.setUp for why this is needed.
+        cache.clear()
+        # These tests are about the welcome email, not Turnstile; treat
+        # every token as verified so they aren't coupled to that check.
+        patcher = mock.patch(
+            "backend_project.backend_app.views.verify_turnstile_token",
+            return_value=True,
+        )
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
     def register(self, **extra):
         data = {"username": "newbie", "email": "n@example.com", "password": PASSWORD}
         data.update(extra)
@@ -217,3 +247,59 @@ class WelcomeEmailTests(APITestCase):
             )
         self.assertEqual(mail.outbox, [])
         self.assertEqual(len(callbacks), 1)
+
+
+class RegistrationBotProtectionTests(APITestCase):
+    url = "/register/"
+
+    def setUp(self):
+        # See RegistrationStateTests.setUp for why this is needed.
+        cache.clear()
+
+    def register(self, **extra):
+        data = {"username": "newbie", "email": "n@example.com", "password": PASSWORD}
+        data.update(extra)
+        return self.client.post(self.url, data)
+
+    def test_honeypot_filled_is_rejected(self):
+        # Real users never see or fill the "website" field; only a bot that
+        # blindly fills every input on the page would send a value here.
+        response = self.register(website="http://spammy-example.com")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(User.objects.filter(username="newbie").exists())
+
+    def test_honeypot_rejection_message_is_generic(self):
+        # A bot shouldn't be able to tell "honeypot tripped" apart from any
+        # other validation failure by reading the error message.
+        response = self.register(website="http://spammy-example.com")
+        messages = [str(m) for m in response.data.get("non_field_errors", [])]
+        self.assertEqual(messages, ["Unable to complete registration."])
+
+    def test_missing_turnstile_token_is_rejected(self):
+        # No TURNSTILE_SECRET_KEY is configured in the test environment and
+        # no token is sent, so this exercises the "fail closed" behavior:
+        # verify_turnstile_token isn't mocked at all here.
+        response = self.register()
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(User.objects.filter(username="newbie").exists())
+
+    def test_invalid_turnstile_token_is_rejected(self):
+        with mock.patch(
+            "backend_project.backend_app.views.verify_turnstile_token",
+            return_value=False,
+        ) as verify:
+            response = self.register(**{"cf-turnstile-response": "bad-token"})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(User.objects.filter(username="newbie").exists())
+        verify.assert_called_once()
+
+    def test_valid_turnstile_token_allows_registration(self):
+        # Simulates Cloudflare's siteverify call succeeding, without making a
+        # real network call in the test suite.
+        with mock.patch(
+            "backend_project.backend_app.views.verify_turnstile_token",
+            return_value=True,
+        ):
+            response = self.register(**{"cf-turnstile-response": "good-token"})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(User.objects.filter(username="newbie").exists())
