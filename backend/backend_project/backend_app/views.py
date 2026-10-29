@@ -16,8 +16,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
 from rest_framework import status
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.throttling import ScopedRateThrottle
 from .emails import send_welcome_email
 from .models import Cart, Listing, Profile
+from .turnstile import verify_turnstile_token
 
 from .serializers import (
     ProfileSerializer,
@@ -119,10 +121,33 @@ class ListingViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 
+def _client_ip(request):
+    # Same single-proxy assumption as NUM_PROXIES in settings.py: Railway's
+    # proxy sets X-Forwarded-For to just the real client IP.
+    forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if forwarded_for:
+        return forwarded_for.split(",")[0].strip()
+    return request.META.get("REMOTE_ADDR", "")
+
+
 class RegisterView(APIView):
+    # Scoped to "registration" only — doesn't touch any other endpoint's
+    # throttling, since there's no DEFAULT_THROTTLE_CLASSES globally.
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = "registration"
+
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
+        # Verified after the honeypot/field checks above (cheap, local) but
+        # before saving the user — fail closed, so any Turnstile problem
+        # (bad token, network error, missing key) blocks the signup rather
+        # than letting it through.
+        token = request.data.get("cf-turnstile-response", "")
+        if not verify_turnstile_token(token, remote_ip=_client_ip(request)):
+            raise ValidationError("Unable to complete registration.")
+
         user = serializer.save()
         # After commit, so we never email someone whose signup rolled back.
         # send_welcome_email swallows and logs its own errors.

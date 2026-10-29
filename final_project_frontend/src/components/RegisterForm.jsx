@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "../config";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
 import { Form } from "./GlobalStyles/StyleUtility";
 // import { Button } from "./GlobalStyles/StyleUtility";
@@ -13,6 +13,20 @@ export default function RegisterForm() {
   // const navigate = Navigate();
   const updateForm = useRef(null);
   const [errors, setErrors] = useState([]);
+  // Turnstile's implicit-render widget inserts its own hidden
+  // "cf-turnstile-response" input into the form once a human passes the
+  // check, so handleSubmit doesn't need to read this directly — it's only
+  // used to disable the submit button until that's happened.
+  const [turnstileVerified, setTurnstileVerified] = useState(false);
+
+  useEffect(() => {
+    // The widget calls this by name (set via data-callback below), since
+    // implicit rendering reads it as a string, not a React closure.
+    window.onTurnstileVerified = () => setTurnstileVerified(true);
+    return () => {
+      delete window.onTurnstileVerified;
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,6 +83,34 @@ export default function RegisterForm() {
           Optional. Your state is shown on your listings so buyers know roughly
           where you are.
         </small>
+        {/* Honeypot: hidden from sighted/keyboard users via CSS + tabIndex,
+            not type="hidden", since bots specifically skip type="hidden"
+            fields. Real users never see or fill this; bots that auto-fill
+            every input on the page do. */}
+        <div
+          style={{
+            position: "absolute",
+            left: "-9999px",
+            width: "1px",
+            height: "1px",
+            overflow: "hidden",
+          }}
+          aria-hidden="true"
+        >
+          <label htmlFor="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabIndex="-1"
+            autoComplete="off"
+          />
+        </div>
+        <div
+          className="cf-turnstile"
+          data-sitekey={import.meta.env.VITE_TURNSTILE_SITE_KEY}
+          data-callback="onTurnstileVerified"
+        />
         {errors.length > 0 && (
           <ul style={{ color: "red", margin: "0.5rem 0", paddingLeft: "1.25rem" }}>
             {errors.map((msg, i) => (
@@ -76,7 +118,7 @@ export default function RegisterForm() {
             ))}
           </ul>
         )}
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" disabled={!turnstileVerified}>
           Register User
         </Button>
         <p>

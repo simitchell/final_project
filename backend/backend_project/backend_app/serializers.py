@@ -76,10 +76,23 @@ class UserSerializer(serializers.ModelSerializer):
     state = serializers.ChoiceField(
         choices=US_STATES, required=False, allow_blank=True, write_only=True
     )
+    # Honeypot: real users never see or fill this (hidden via CSS on the
+    # frontend). Bots that auto-fill every field trip it. Not a model field —
+    # popped in validate() and never saved.
+    website = serializers.CharField(
+        required=False, allow_blank=True, write_only=True
+    )
 
     class Meta:
         model = User
-        fields = ["id", "email", "username", "password", "state"]
+        fields = ["id", "email", "username", "password", "state", "website"]
+
+    def validate(self, attrs):
+        # Generic message so a bot can't distinguish "honeypot tripped" from
+        # any other validation failure.
+        if attrs.pop("website", ""):
+            raise serializers.ValidationError("Unable to complete registration.")
+        return attrs
 
     def create(self, validated_data):
         state = validated_data.pop("state", "")
