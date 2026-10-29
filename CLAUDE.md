@@ -24,7 +24,7 @@ The venv lives at `backend/venv` (gitignored). Use `venv/bin/python`.
 venv/bin/python manage.py runserver 8000
 venv/bin/python manage.py migrate
 venv/bin/python manage.py makemigrations
-venv/bin/python manage.py test                 # tests.py is currently empty
+venv/bin/python manage.py test                 # profile address / seller_state tests; use the local DB overrides below
 venv/bin/python manage.py createsuperuser
 ```
 
