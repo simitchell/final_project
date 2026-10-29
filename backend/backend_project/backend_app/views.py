@@ -96,7 +96,7 @@ def check_image_moderation(image_file):
 
 class ListingViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
-    queryset = Listing.objects.all()
+    queryset = Listing.objects.select_related("user__profile")
     serializer_class = ListingSerializer
     parser_classes = (MultiPartParser, FormParser)
     search_fields = ["title"]

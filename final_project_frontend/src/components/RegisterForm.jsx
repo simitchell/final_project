@@ -5,6 +5,7 @@ import { Form } from "./GlobalStyles/StyleUtility";
 // import { Button } from "./GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import { Link, useRevalidator, Navigate } from "react-router-dom";
+import StateSelect from "./StateSelect";
 
 export default function RegisterForm() {
   const auth = localStorage.getItem("access_token");
@@ -62,6 +63,12 @@ export default function RegisterForm() {
         <input type="email" name="email" />
         <label>Password</label>
         <input type="password" name="password" />
+        <label>State</label>
+        <StateSelect />
+        <small>
+          Optional. Your state is shown on your listings so buyers know roughly
+          where you are.
+        </small>
         {errors.length > 0 && (
           <ul style={{ color: "red", margin: "0.5rem 0", paddingLeft: "1.25rem" }}>
             {errors.map((msg, i) => (
