@@ -120,5 +120,8 @@ Don't `git stash` while `runserver` is up: the auto-reloader can restart on the 
 - `settings.py` has a duplicated `RENDER_EXTERNAL_HOSTNAME` block (harmless).
 - When adding a hostname, update `ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS`, and
   `CORS_ALLOWED_ORIGINS` together.
-- `EMAIL_BACKEND` is the console backend; transactional email (Resend) is a
-  planned TODO, not wired up.
+- Email: `settings.py` uses django-anymail's Resend backend only when
+  `SEND_REAL_EMAIL=true` and `RESEND_API_KEY` are set, else the console backend.
+  `backend/.env` holds the prod key, so never key off the API key alone.
+  `django-anymail` is pinned to 14.0 (15.x requires a newer Django than 4.2).
+  Sending itself (welcome email in `RegisterView`) is not built yet.

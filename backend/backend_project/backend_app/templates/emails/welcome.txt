@@ -1,0 +1,15 @@
+Hi {{ username }},
+
+Welcome to Fox Body Swap Meet, the marketplace for 1979-1993 Mustang parts,
+for enthusiasts, by enthusiasts.
+
+Your account is ready. Log in here to get started:
+{{ login_url }}
+
+Once you're in you can browse listings, add parts to your cart, and post
+your own listings. Adding your state to your profile lets buyers and sellers
+see roughly where you are, which helps when you want to meet up in person.
+
+See you at the swap meet,
+Fox Body Swap Meet
+{{ site_url }}

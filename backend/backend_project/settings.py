@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "storages",
     "hijack",
     "hijack.contrib.admin",
+    "anymail",
 ]
 CORS_ALLOWED_ORIGINS = [
     "https://foxbodyswapmeet.com",
@@ -193,7 +194,22 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# Transactional email — Resend via django-anymail only when SEND_REAL_EMAIL is
+# true (set on Railway). backend/.env holds the prod RESEND_API_KEY, so keying
+# off the API key alone would send real mail from local dev.
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY")
+if RESEND_API_KEY and os.environ.get("SEND_REAL_EMAIL", "").lower() == "true":
+    EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
+    # (connect, read) seconds, so a slow Resend can't hang a signup for long.
+    ANYMAIL = {"RESEND_API_KEY": RESEND_API_KEY, "REQUESTS_TIMEOUT": (5, 15)}
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Frontend base URL, used for links in emails.
+SITE_URL = os.environ.get("SITE_URL", "https://foxbodyswapmeet.com").rstrip("/")
+
+DEFAULT_FROM_EMAIL = "Fox Body Swap Meet <noreply@foxbodyswapmeet.com>"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # File upload limits
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152  # 2MB

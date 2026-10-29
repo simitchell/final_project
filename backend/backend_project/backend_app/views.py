@@ -1,4 +1,5 @@
 import os
+from django.db import transaction
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework import status, viewsets, permissions
@@ -15,6 +16,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import redirect
 from rest_framework import status
 from rest_framework.filters import SearchFilter, OrderingFilter
+from .emails import send_welcome_email
 from .models import Cart, Listing, Profile
 
 from .serializers import (
@@ -121,7 +123,10 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        user = serializer.save()
+        # After commit, so we never email someone whose signup rolled back.
+        # send_welcome_email swallows and logs its own errors.
+        transaction.on_commit(lambda: send_welcome_email(user))
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
