@@ -58,7 +58,7 @@ Don't `git stash` while `runserver` is up: the auto-reloader can restart on the 
 ## Architecture
 
 ### Backend
-- Single Django app: `backend_project.backend_app`. All URLs are defined in
+- Single Django app: `backend_app`. All URLs are defined in
   `backend_project/urls.py` (no per-app `urls.py`).
 - Models (`models.py`): `Listing`, `Cart`, `Profile`. Uses Django's built-in
   `User` for auth. A `post_save` signal auto-creates a `Profile` for every new

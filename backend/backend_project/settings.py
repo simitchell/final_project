@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "corsheaders",
-    "backend_project.backend_app",
+    "backend_app",
     "rest_framework_simplejwt.token_blacklist",
     "storages",
     "hijack",
