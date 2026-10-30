@@ -34,7 +34,7 @@ class RegistrationStateTests(APITestCase):
         # These tests predate Turnstile and aren't about it; treat every
         # token as verified so they keep exercising state-handling only.
         patcher = mock.patch(
-            "backend_project.backend_app.views.verify_turnstile_token",
+            "backend_app.views.verify_turnstile_token",
             return_value=True,
         )
         patcher.start()
@@ -189,7 +189,7 @@ class WelcomeEmailTests(APITestCase):
         # These tests are about the welcome email, not Turnstile; treat
         # every token as verified so they aren't coupled to that check.
         patcher = mock.patch(
-            "backend_project.backend_app.views.verify_turnstile_token",
+            "backend_app.views.verify_turnstile_token",
             return_value=True,
         )
         patcher.start()
@@ -234,7 +234,7 @@ class WelcomeEmailTests(APITestCase):
             "django.core.mail.message.EmailMessage.send",
             side_effect=RuntimeError("resend is down"),
         ):
-            with self.assertLogs("backend_project.backend_app.emails", "ERROR"):
+            with self.assertLogs("backend_app.emails", "ERROR"):
                 response = self.register()
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(User.objects.filter(username="newbie").exists())
@@ -285,7 +285,7 @@ class RegistrationBotProtectionTests(APITestCase):
 
     def test_invalid_turnstile_token_is_rejected(self):
         with mock.patch(
-            "backend_project.backend_app.views.verify_turnstile_token",
+            "backend_app.views.verify_turnstile_token",
             return_value=False,
         ) as verify:
             response = self.register(**{"cf-turnstile-response": "bad-token"})
@@ -297,7 +297,7 @@ class RegistrationBotProtectionTests(APITestCase):
         # Simulates Cloudflare's siteverify call succeeding, without making a
         # real network call in the test suite.
         with mock.patch(
-            "backend_project.backend_app.views.verify_turnstile_token",
+            "backend_app.views.verify_turnstile_token",
             return_value=True,
         ):
             response = self.register(**{"cf-turnstile-response": "good-token"})

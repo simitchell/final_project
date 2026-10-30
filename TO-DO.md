@@ -7,7 +7,7 @@
 ## Transactional email (Resend)
 
 > `RESEND_API_KEY` already lives in `backend/.env`. These hook into
-> `RegisterView` in `backend/backend_project/backend_app/views.py`.
+> `RegisterView` in `backend/backend_app/views.py`.
 
 - [x] Welcome email: on registration, send from `noreply@foxbodyswapmeet.com`
       (or similar) to the new user's email address.

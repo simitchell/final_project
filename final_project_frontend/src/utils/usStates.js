@@ -1,4 +1,4 @@
-// Keep in sync with US_STATES in backend/backend_project/backend_app/models.py.
+// Keep in sync with US_STATES in backend/backend_app/models.py.
 const US_STATES = [
   ["AL", "Alabama"], ["AK", "Alaska"], ["AZ", "Arizona"], ["AR", "Arkansas"],
   ["CA", "California"], ["CO", "Colorado"], ["CT", "Connecticut"],
