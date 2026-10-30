@@ -24,9 +24,9 @@ export default function Footer() {
       </TopRow>
       <BottomRow>
         <p>Contact us at: sam@foxbodyswapmeet.com</p>
-        <p className="col-sm">
-          &copy;{new Date().getFullYear()} FOX BODY SWAP MEET INC | ALL RIGHTS
-          RESERVED | LLC
+        <p className="col-sm copyright">
+          <span>&copy;{new Date().getFullYear()} FOX BODY SWAP MEET INC</span>
+          <span>ALL RIGHTS RESERVED</span>
         </p>
       </BottomRow>
     </StyleFooter>
