@@ -30,6 +30,14 @@ export const FormCard = styled.div`
   p {
     text-align: center;
   }
+
+  /* Intro blurb under a form's title: body-sized text, not a heading. */
+  h3 {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #555;
+    margin: 0 0 1rem;
+  }
 `;
 
 export const Form = styled.form`
