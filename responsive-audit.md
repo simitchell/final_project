@@ -1,7 +1,7 @@
 # Responsive Design Audit — Fox Body Swap Meet Frontend
 
 **Date:** 2026-06-29  
-**Scope:** All `.jsx` files under `final_project_frontend/src/`  
+**Scope:** All `.jsx` files under `frontend/src/`  
 **Files audited:** 50  
 **Files with issues:** 10  
 **Total issues found:** 18
