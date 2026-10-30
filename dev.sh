@@ -20,6 +20,16 @@ PG_BIN="/Applications/Postgres.app/Contents/Versions/latest/bin"
 RUN_MIGRATE=false
 [[ "${1:-}" == "--migrate" ]] && RUN_MIGRATE=true
 
+# ---- Local-only overrides: NEVER hit prod ------------------------
+# backend/.env points DB_* at the production Railway Postgres and holds the
+# prod AWS keys. These win over it, so Django uses the local database, local
+# media storage, and skips the real Rekognition call. Exported before any
+# Django command so --migrate is covered too.
+export DATABASE_URL="postgres://$(whoami)@localhost:5432/foxbody_local"
+export DEBUG=true
+export AWS_ACCESS_KEY_ID=
+export SKIP_IMAGE_MODERATION=true
+
 # ---- Pretty output -----------------------------------------------
 blue()  { printf "\033[1;34m%s\033[0m\n" "$*"; }
 green() { printf "\033[1;32m%s\033[0m\n" "$*"; }
