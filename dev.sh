@@ -13,7 +13,7 @@ set -euo pipefail
 
 # ---- Config ------------------------------------------------------
 PROJECT_ROOT="$HOME/Repos/foxbody-swap-meet"
-FRONTEND_DIR="$PROJECT_ROOT/final_project_frontend"
+FRONTEND_DIR="$PROJECT_ROOT/frontend"
 DJANGO_PORT=8000
 PG_BIN="/Applications/Postgres.app/Contents/Versions/latest/bin"
 

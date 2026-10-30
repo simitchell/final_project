@@ -11,7 +11,7 @@ and shipping are not built yet (see `TO-DO.md`).
 
 Two deployable pieces in one repo:
 - `backend/` — Django 4.2 + Django REST Framework API (Python 3.12)
-- `final_project_frontend/` — React 18 SPA built with Vite, MUI, and styled-components
+- `frontend/` — React 18 SPA built with Vite, MUI, and styled-components
 
 Production: frontend on Netlify (`foxbodyswapmeet.com`), backend on Railway
 (`finalproject-production-bb8b.up.railway.app`), media on S3.
@@ -28,7 +28,7 @@ venv/bin/python manage.py test                 # profile address / seller_state 
 venv/bin/python manage.py createsuperuser
 ```
 
-### Frontend (run from `final_project_frontend/`)
+### Frontend (run from `frontend/`)
 ```bash
 npm install
 npm run dev        # Vite dev server on :5173, auto-loads .env.development
