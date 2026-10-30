@@ -3,7 +3,7 @@ import styled from "styled-components";
 // Centers a form page's content and keeps it off the screen edges on phones.
 export const FormContainer = styled.div`
   max-width: 420px;
-  margin: 0 auto;
+  margin: 0 auto 24px;
   padding: 0 16px;
 `;
 
