@@ -9,16 +9,18 @@
 > `RESEND_API_KEY` already lives in `backend/.env`. These hook into
 > `RegisterView` in `backend/backend_project/backend_app/views.py`.
 
-- [ ] Welcome email: on registration, send from `noreply@foxbodyswapmeet.com`
+- [x] Welcome email: on registration, send from `noreply@foxbodyswapmeet.com`
       (or similar) to the new user's email address.
 - [ ] Admin notification email: on registration, send to
       `sam@foxbodyswapmeet.com` announcing the new account (username + email).
-- [ ] Verify `foxbodyswapmeet.com` as a sending domain in Resend (SPF/DKIM)
+- [x] Verify `foxbodyswapmeet.com` as a sending domain in Resend (SPF/DKIM)
       so mail doesn't land in spam.
 - [ ] Move slow external calls off the request path: send email asynchronously,
       and do the same for the synchronous AWS Rekognition moderation call in
       `check_image_moderation` (views.py) so a slow/failing third party can't
       break registration or listing uploads. Handle send/mod failures gracefully.
+      (Welcome email currently sends synchronously after commit with a 5s/15s
+      timeout; failures are logged and never break signup. Still to do: async.)
 
 ## Make it demoable
 
@@ -38,8 +40,21 @@
 - [ ] Make `SECRET_KEY` and `DEBUG` env-driven and fail loudly in production.
       `SECRET_KEY` currently falls back to the literal `"your secret key"` and
       there is no explicit `DEBUG` setting in `settings.py`.
-- [ ] Add DRF throttling (e.g. `AnonRateThrottle`) on `token/` and `register/` —
-      they are currently brute-forceable (no `DEFAULT_THROTTLE_CLASSES`).
+- [x] Add DRF throttling on `register/` — `ScopedRateThrottle` (5/hour per IP,
+      `NUM_PROXIES=1` for Railway's proxy). Scoped to this view only, so the
+      rest of the API (including `token/`) is unaffected.
+- [ ] `token/` (login) is still brute-forceable — no throttling on it yet.
+- [x] Honeypot field on registration — hidden form field real users never
+      fill in; rejects with a generic error if it's non-empty.
+- [x] Cloudflare Turnstile on registration — frontend widget + backend
+      `siteverify` check (stdlib `urllib`, fails closed). PR #28.
+- [ ] Email verification before account activation: gate login (not just
+      listing creation) on a confirmed email, to make bot/junk signups
+      harmless rather than just harder. Recommended approach: a signed,
+      expiring token (Django's `signing.TimestampSigner`) rather than a new
+      DB model/migration, riding in the same Resend email as the welcome
+      message. Explicitly out of scope for PR #28 (registration bot
+      protection) — revisit separately.
 - [ ] Refresh token is stored in `localStorage` (set in `LoginForm.jsx`), which
       is XSS-exposed. Consider httpOnly cookies, or document as a known risk.
 - [ ] Add pagination to `listing/` (no `DEFAULT_PAGINATION_CLASS` today) — the
@@ -88,3 +103,32 @@
 - [ ] Transaction & shipping tracking
 - [ ] Add field for email address on profiles
 - [ ] Fix EditListing.jsx useEffect loop (dependency array should be [] not [listingDetail])
+
+## Styling consistency (from Claude Code audit, Aug 4)
+
+- [ ] Uncomment + populate GlobalStyles/Colors.jsx — root cause;
+      hex values currently hand-duplicated across StyleCard,
+      StyleCart, StyleListingDetail
+- [ ] Create/Edit listing form parity — EditListing has a card
+      wrapper, ListingForm (StyleCreateListing) has none
+- [ ] Decide: fully off MUI, or keep it? ListingForm, ListingDetail,
+      CartDetail still on MUI buttons; EditListing already migrated
+      to styled-components (this is the destination, not the drift)
+- [ ] EditListing button hexes #1976d2 / #c62828 are MUI defaults,
+      not FBSM branding — resolves once Colors.jsx lands
+- [ ] EditListing image preview — DEFER into multi-image work
+
+## Email
+
+- [x] Welcome email at account creation (done —
+      feature/welcome-email branch, Resend + django-anymail)
+- [ ] Admin alert on new signup (salvage the idea from
+      feature/profile-email-notifications; build after welcome email)
+
+## Multi-image listings
+
+- [ ] ListingImage model (FK to Listing, order field), data-migrate
+      existing Listing.image rows, then drop the field
+- [ ] Rekognition loop + max image count (~6-8)
+- [ ] Thumbnail strip first, lightbox (native <dialog>) second
+- [ ] Create flow first, edit flow as separate PR

@@ -41,6 +41,15 @@ export const BottomRow = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  line-height: 0.2rem;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+
+  p {
+    margin: 0;
+  }
+
+  .copyright span {
+    display: block;
+  }
 `;
 

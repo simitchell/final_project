@@ -5,7 +5,11 @@ import { useNavigate } from "react-router";
 // import { Button } from "../components/GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { Form } from "../components/GlobalStyles/StyleUtility";
+import {
+  Form,
+  FormCard,
+  FormContainer,
+} from "../components/GlobalStyles/StyleUtility";
 import { Link } from "react-router-dom";
 
 export default function LoginForm() {
@@ -52,30 +56,32 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit}>
-        <h2>Log In</h2>
-        <label>Username</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={handleChangeUsername}
-        />
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChangePassword}
-        />
-        <Button variant="contained" type="submit">
-          Login
-        </Button>
-        <p>
-          <Link to="./register">Register</Link> as a new user
-        </p>
-      </Form>
-    </div>
+    <FormContainer>
+      <FormCard>
+        <Form onSubmit={handleSubmit}>
+          <h2>Log In</h2>
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={handleChangeUsername}
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChangePassword}
+          />
+          <Button variant="contained" type="submit">
+            Login
+          </Button>
+          <p>
+            <Link to="./register">Register</Link> as a new user
+          </p>
+        </Form>
+      </FormCard>
+    </FormContainer>
   );
 }

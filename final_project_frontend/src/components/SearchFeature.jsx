@@ -59,7 +59,10 @@ export default function Search() {
                       {listing.condition}
                     </span>
                   </div>
-                  <p className="seller">{listing.username}</p>
+                  <p className="seller">
+                        {listing.username}
+                        {listing.seller_state && ` · ${listing.seller_state}`}
+                      </p>
                 </div>
               </Card>
             </Link>

@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "storages",
     "hijack",
     "hijack.contrib.admin",
+    "anymail",
 ]
 CORS_ALLOWED_ORIGINS = [
     "https://foxbodyswapmeet.com",
@@ -159,6 +160,20 @@ REST_FRAMEWORK = {
     #   'DEFAULT_PERMISSION_CLASSES': [
     #       'rest_framework.permission.IsAdminUser'
     #   ],
+    # No DEFAULT_THROTTLE_CLASSES here on purpose — throttling is opted into
+    # per-view (see RegisterView) so the rest of the API is unaffected.
+    "DEFAULT_THROTTLE_RATES": {
+        "registration": "5/hour",
+    },
+    # Railway puts one reverse proxy in front of the app, which sets
+    # X-Forwarded-For to "<real client ip>" (single hop). Without this, DRF's
+    # throttle would key on REMOTE_ADDR, which behind the proxy is Railway's
+    # own address for every request — every signup would share one throttle
+    # bucket. NUM_PROXIES=1 tells DRF to trust exactly one hop of
+    # X-Forwarded-For and read the client IP from it.
+    # Verify after deploying (see Step 2 notes) in case Railway's proxy chain
+    # ever changes shape.
+    "NUM_PROXIES": 1,
 }
 
 SIMPLE_JWT = {
@@ -193,7 +208,28 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# Transactional email — Resend via django-anymail only when SEND_REAL_EMAIL is
+# true (set on Railway). backend/.env holds the prod RESEND_API_KEY, so keying
+# off the API key alone would send real mail from local dev.
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY")
+if RESEND_API_KEY and os.environ.get("SEND_REAL_EMAIL", "").lower() == "true":
+    EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
+    # (connect, read) seconds, so a slow Resend can't hang a signup for long.
+    ANYMAIL = {"RESEND_API_KEY": RESEND_API_KEY, "REQUESTS_TIMEOUT": (5, 15)}
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Frontend base URL, used for links in emails.
+SITE_URL = os.environ.get("SITE_URL", "https://foxbodyswapmeet.com").rstrip("/")
+
+# Cloudflare Turnstile secret key, used server-side to verify the token the
+# frontend widget produces. backend/.env does not set this for local dev —
+# export Cloudflare's documented "always passes" test secret key instead
+# (see CLAUDE.md's local-testing section).
+TURNSTILE_SECRET_KEY = os.environ.get("TURNSTILE_SECRET_KEY", "")
+
+DEFAULT_FROM_EMAIL = "Fox Body Swap Meet <noreply@foxbodyswapmeet.com>"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # File upload limits
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2097152  # 2MB

@@ -7,6 +7,9 @@ import { Form, ProgressDiv } from "./GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import Toast from "./Toast";
+import StateSelect from "./StateSelect";
+import apiErrorMessage from "../utils/apiErrorMessage";
 
 export default function ProfileDetail() {
   const [profileDetail, setProfileDetail] = useState(null);
@@ -16,6 +19,7 @@ export default function ProfileDetail() {
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
   const [alert, setAlert] = useState(false);
+  const [errorToast, setErrorToast] = useState({ open: false, message: "" });
   // const [alertContent, setAlertContent] = useState('');
 
   const { id } = useParams();
@@ -47,44 +51,46 @@ export default function ProfileDetail() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(updateForm.current);
-    console.log(profileDetail);
-    const data =
-      profileDetail.detail != "Not "
-        ? await handlePut(formData)
-        : await handlePost(formData);
-    setProfileDetail(data);
-    updateForm.current.reset();
-    revalidator.revalidate();
-    // alert("Profile updated successfully");
+
+    // Send only the fields the user changed, so editing one field never
+    // overwrites the others. (Inputs are prefilled from the saved profile, so
+    // "changed" means different from what's saved; emptying a field clears it.)
+    const changes = new FormData();
+    for (const [name, value] of formData.entries()) {
+      if (name === "user") continue;
+      if (value !== String(profileDetail?.[name] ?? "")) {
+        changes.append(name, value);
+      }
+    }
+    if ([...changes.keys()].length === 0) {
+      setErrorToast({ open: true, message: "No changes to save." });
+      return;
+    }
+
+    const response = await handlePatch(changes);
+    if (!response.ok) {
+      const body = await response.json().catch(() => null);
+      setErrorToast({
+        open: true,
+        message: apiErrorMessage(body, "Couldn't update your profile."),
+      });
+      return;
+    }
+    setProfileDetail(await response.json());
     setAlert(true);
-    // location.reload();
   };
 
-  const handlePost = async (formData) => {
-    // const formData = new FormData(updateForm.current);
-    const apiUrl = `${API_BASE_URL}/profile/`;
-    const data = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${auth}`,
-      },
-      body: formData,
-    });
-    return data;
-  };
-
-  const handlePut = async (formData) => {
+  const handlePatch = async (formData) => {
     const apiUrl = `${API_BASE_URL}/profile/${localStorage.getItem(
       "userId"
     )}/`;
-    const data = await fetch(apiUrl, {
-      method: "PUT",
+    return fetch(apiUrl, {
+      method: "PATCH",
       headers: {
         Authorization: `Bearer ${auth}`,
       },
       body: formData,
     });
-    return data;
   };
 
   return (
@@ -99,7 +105,16 @@ export default function ProfileDetail() {
             <div>
               <h3>Current Information</h3>
               <p>
-                <strong>Address:</strong> {profileDetail.address}
+                <strong>Street:</strong> {profileDetail.street}
+              </p>
+              <p>
+                <strong>City:</strong> {profileDetail.city}
+              </p>
+              <p>
+                <strong>State:</strong> {profileDetail.state}
+              </p>
+              <p>
+                <strong>ZIP:</strong> {profileDetail.zip_code}
               </p>
               <p>
                 <strong>Birthdate:</strong> {profileDetail.birthdate}
@@ -124,14 +139,67 @@ export default function ProfileDetail() {
         <></>
       )}
 
-      <Form onSubmit={(e) => handleSubmit(e)} ref={updateForm}>
+      <Toast
+        open={errorToast.open}
+        message={errorToast.message}
+        severity="error"
+        onClose={() => setErrorToast({ ...errorToast, open: false })}
+      />
+
+      {/* Prefilled from the saved profile (remounts when it loads) so the diff in
+          handleSubmit can tell what the user actually changed. */}
+      <Form
+        key={[
+          profileDetail?.street,
+          profileDetail?.city,
+          profileDetail?.state,
+          profileDetail?.zip_code,
+          profileDetail?.birthdate,
+          profileDetail?.bio,
+        ].join("|")}
+        onSubmit={(e) => handleSubmit(e)}
+        ref={updateForm}
+      >
         <h4>Update your profile information</h4>
-        <label>Address</label>
-        <input type="text" name="address" />
+        <label>Street</label>
+        <input
+          type="text"
+          name="street"
+          maxLength="100"
+          defaultValue={profileDetail?.street || ""}
+        />
+        <label>City</label>
+        <input
+          type="text"
+          name="city"
+          maxLength="50"
+          defaultValue={profileDetail?.city || ""}
+        />
+        <label>State</label>
+        <StateSelect defaultValue={profileDetail?.state || ""} />
+        <small>Your state is shown on your listings.</small>
+        <label>ZIP code</label>
+        <input
+          type="text"
+          name="zip_code"
+          defaultValue={profileDetail?.zip_code || ""}
+          inputMode="numeric"
+          maxLength="10"
+          pattern="\d{5}(-\d{4})?"
+          title="12345 or 12345-6789"
+        />
         <label>Birthdate</label>
-        <input type="date" name="birthdate" />
+        <input
+          type="date"
+          name="birthdate"
+          defaultValue={profileDetail?.birthdate || ""}
+        />
         <label>Bio</label>
-        <textarea type="text" name="bio" />
+        <textarea
+          type="text"
+          name="bio"
+          defaultValue={profileDetail?.bio || ""}
+        />
         <input
           type="hidden"
           name="user"

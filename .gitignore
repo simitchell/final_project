@@ -13,4 +13,5 @@ mediafiles/
 backend/staticfiles/
 
 # local credentials listing
+# Local notes with credentials
 USER-ACCOUNTS.md

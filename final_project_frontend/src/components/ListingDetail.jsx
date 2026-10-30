@@ -134,7 +134,11 @@ export default function ListingDetail({ refreshKey = 0 }) {
                   <div className="top-row">
                     <div className="cell">
                       <p className="label">Seller</p>
-                      <p className="value">{listingDetail.username}</p>
+                      <p className="value">
+                        {listingDetail.username}
+                        {listingDetail.seller_state &&
+                          ` · ${listingDetail.seller_state}`}
+                      </p>
                     </div>
                     <div className="cell condition">
                       <p className="label">Condition</p>
