@@ -11,6 +11,14 @@ import Toast from "./Toast";
 import StateSelect from "./StateSelect";
 import apiErrorMessage from "../utils/apiErrorMessage";
 
+// Newest year first, back to 1979 (the first Fox body model year). Matches the
+// limits the backend enforces on enthusiast_since.
+const FOX_BODY_FIRST_YEAR = 1979;
+const ENTHUSIAST_YEARS = Array.from(
+  { length: new Date().getFullYear() - FOX_BODY_FIRST_YEAR + 1 },
+  (_, i) => new Date().getFullYear() - i
+);
+
 export default function ProfileDetail() {
   const [profileDetail, setProfileDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -105,6 +113,17 @@ export default function ProfileDetail() {
             <div>
               <h3>Current Information</h3>
               <p>
+                <strong>Name:</strong> {profileDetail.first_name}{" "}
+                {profileDetail.last_name}
+              </p>
+              <p>
+                <strong>Member since:</strong> {profileDetail.member_since}
+              </p>
+              <p>
+                <strong>Fox body enthusiast since:</strong>{" "}
+                {profileDetail.enthusiast_since}
+              </p>
+              <p>
                 <strong>Street:</strong> {profileDetail.street}
               </p>
               <p>
@@ -150,6 +169,9 @@ export default function ProfileDetail() {
           handleSubmit can tell what the user actually changed. */}
       <Form
         key={[
+          profileDetail?.first_name,
+          profileDetail?.last_name,
+          profileDetail?.enthusiast_since,
           profileDetail?.street,
           profileDetail?.city,
           profileDetail?.state,
@@ -161,6 +183,32 @@ export default function ProfileDetail() {
         ref={updateForm}
       >
         <h4>Update your profile information</h4>
+        <label>First name</label>
+        <input
+          type="text"
+          name="first_name"
+          maxLength="150"
+          defaultValue={profileDetail?.first_name || ""}
+        />
+        <label>Last name</label>
+        <input
+          type="text"
+          name="last_name"
+          maxLength="150"
+          defaultValue={profileDetail?.last_name || ""}
+        />
+        <label>Fox body enthusiast since</label>
+        <select
+          name="enthusiast_since"
+          defaultValue={profileDetail?.enthusiast_since ?? ""}
+        >
+          <option value="">Select a year</option>
+          {ENTHUSIAST_YEARS.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
         <label>Street</label>
         <input
           type="text"
