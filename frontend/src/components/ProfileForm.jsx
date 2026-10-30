@@ -52,9 +52,11 @@ export default function ProfileDetail() {
     }
   };
 
+  // Load once on mount. (Depending on profileDetail re-fetched forever, since
+  // the fetch itself sets profileDetail. Saves update it from the response.)
   useEffect(() => {
     getIndividualProfile();
-  }, [profileDetail]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
