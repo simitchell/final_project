@@ -15,7 +15,8 @@ export const FormCard = styled.div`
   border-radius: 10px;
   padding: 24px 20px;
 
-  input {
+  input,
+  select {
     width: 100%;
     height: 46px;
     font-size: 16px;
