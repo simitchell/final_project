@@ -1,16 +1,20 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import ProfileForm from "../components/ProfileForm";
-import ProfileComponent from "../components/Profile";
+import SellerTools from "../components/SellerTools";
 import DisplayUserListings from "../components/DisplayUserListings";
 import {
   ProfileContainer,
   WelcomePanel,
   PanelRow,
   InfoPanel,
-  ToolsPanel,
 } from "../components/GlobalStyles/StyleProfile";
 
 export default function Profile() {
+  // Lives here because two siblings need it: SellerTools turns editing on,
+  // ProfileForm shows the form while it's on.
+  const [isEditing, setIsEditing] = useState(false);
+
   return (
     <ProfileContainer>
       <WelcomePanel>
@@ -27,10 +31,7 @@ export default function Profile() {
         <InfoPanel>
           <ProfileForm />
         </InfoPanel>
-        <ToolsPanel>
-          <h2>Seller Tools</h2>
-          <ProfileComponent />
-        </ToolsPanel>
+        <SellerTools isEditing={isEditing} onEdit={() => setIsEditing(true)} />
       </PanelRow>
 
       <DisplayUserListings />

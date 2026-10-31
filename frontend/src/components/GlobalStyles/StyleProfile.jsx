@@ -69,13 +69,9 @@ export const ToolsPanel = styled(Panel)`
   display: flex;
   flex-direction: column;
   gap: 12px;
-`;
 
-// Old Cart / Create buttons; removed with Profile.jsx in the next step.
-export const ProfileDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  max-width: 300px;
-  margin: auto;
+  /* 4px + the 12px gap = the same 16px under the heading as Current Information. */
+  h2 {
+    margin-bottom: 4px;
+  }
 `;
