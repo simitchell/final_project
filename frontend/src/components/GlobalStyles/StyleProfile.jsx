@@ -74,6 +74,14 @@ export const ToolsPanel = styled(Panel)`
   h2 {
     margin-bottom: 4px;
   }
+
+  /* margin-top: auto pushes this to the bottom of the stretched panel. */
+  .listingCount {
+    margin: auto 0 0;
+    padding-top: 8px;
+    font-size: 13px;
+    color: #6b7280;
+  }
 `;
 
 // View mode: label/value pairs. max-content sizes the label column to the

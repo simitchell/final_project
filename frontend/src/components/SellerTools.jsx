@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { ToolsPanel } from "./GlobalStyles/StyleProfile";
 
-export default function SellerTools({ isEditing, onEdit }) {
+export default function SellerTools({ isEditing, onEdit, listingCount }) {
   return (
     <ToolsPanel>
       <h2>Seller Tools</h2>
@@ -26,6 +26,13 @@ export default function SellerTools({ isEditing, onEdit }) {
       >
         Edit Information
       </Button>
+      {/* null until the listings load, so it never flashes "0". */}
+      {listingCount !== null && (
+        <p className="listingCount">
+          You have {listingCount} active{" "}
+          {listingCount === 1 ? "listing" : "listings"}.
+        </p>
+      )}
     </ToolsPanel>
   );
 }

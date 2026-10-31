@@ -14,6 +14,8 @@ export default function Profile() {
   // Lives here because two siblings need it: SellerTools turns editing on,
   // ProfileForm shows the form while it's on.
   const [isEditing, setIsEditing] = useState(false);
+  // Reported by DisplayUserListings once its fetch finishes.
+  const [listingCount, setListingCount] = useState(null);
 
   return (
     <ProfileContainer>
@@ -34,10 +36,14 @@ export default function Profile() {
             onDone={() => setIsEditing(false)}
           />
         </InfoPanel>
-        <SellerTools isEditing={isEditing} onEdit={() => setIsEditing(true)} />
+        <SellerTools
+          isEditing={isEditing}
+          onEdit={() => setIsEditing(true)}
+          listingCount={listingCount}
+        />
       </PanelRow>
 
-      <DisplayUserListings />
+      <DisplayUserListings onCountChange={setListingCount} />
     </ProfileContainer>
   );
 }
