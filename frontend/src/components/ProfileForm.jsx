@@ -113,7 +113,7 @@ export default function ProfileDetail() {
         <>
           {profileDetail ? (
             <div>
-              <h3>Current Information</h3>
+              <h2>Current Information</h2>
               <p>
                 <strong>Name:</strong> {profileDetail.first_name}{" "}
                 {profileDetail.last_name}
