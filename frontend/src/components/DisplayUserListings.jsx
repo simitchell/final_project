@@ -16,7 +16,7 @@ import {
 } from "./GlobalStyles/StyleDisplayListing";
 import conditionColor from "../utils/conditionColor";
 
-export default function DisplayUserListings() {
+export default function DisplayUserListings({ onCountChange }) {
   const [listingData, setListingData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
@@ -43,6 +43,12 @@ export default function DisplayUserListings() {
   const filteredListings = listingData.filter(
     (listing) => listing.username === localStorage.getItem("username"),
   );
+
+  // Tell the page how many listings this user has, so Seller Tools can show
+  // the count without fetching the listings a second time.
+  useEffect(() => {
+    if (!isLoading) onCountChange?.(filteredListings.length);
+  }, [isLoading, filteredListings.length, onCountChange]);
 
   // console.log(filteredListings);
 
@@ -72,7 +78,6 @@ export default function DisplayUserListings() {
                       {listing.condition}
                     </span>
                   </div>
-                  <p className="seller">{listing.username}</p>
                 </div>
               </Card>
             </Link>

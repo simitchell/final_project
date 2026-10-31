@@ -1,43 +1,199 @@
 import styled from "styled-components";
 
+// Page column: everything on the profile page stacks inside this, 24px apart.
 export const ProfileContainer = styled.div`
-  ul {
-    list-style-type: none;
-    li {
-      margin-bottom: 1rem;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px;
 
-  .listingHeader {
-    text-align: center;
-    margin: 3rem;
-  }
-  
-  .profileWrapper {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 10%;
-    justify-content: space-between;
-
-    @media (max-width: 640px) {
-      flex-direction: column;
-      margin: 0 1rem;
-    }
-  }
-
-  .profileIntro {
-    flex: 1 1 300px;
-  }
-
-  .profileUpdate {
-    flex: 1 1 240px;
+  @media (max-width: 640px) {
+    padding: 24px 16px;
   }
 `;
 
-export const ProfileDiv = styled.div`
+// Shared card look, matching the cart and listing-detail panels.
+export const Panel = styled.section`
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px 28px;
+
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 16px;
+  }
+
+  @media (max-width: 640px) {
+    padding: 20px;
+  }
+`;
+
+export const WelcomePanel = styled(Panel)`
+  h1 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+
+  p {
+    color: #4b5563;
+    margin: 0;
+    line-height: 1.5;
+  }
+`;
+
+// Side-by-side panels. align-items: stretch keeps both the height of the
+// taller one; flex-wrap stacks them once there isn't room for both.
+export const PanelRow = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  max-width: 300px;
-  margin: auto;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: stretch;
+`;
+
+// flex-grow 999 means this panel takes nearly all the spare width, so Seller
+// Tools stays near its 260px basis. min-width: 0 lets long content shrink
+// instead of pushing the row wider than the screen.
+export const InfoPanel = styled(Panel)`
+  flex: 999 1 420px;
+  min-width: 0;
+`;
+
+export const ToolsPanel = styled(Panel)`
+  flex: 1 1 260px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  /* 4px + the 12px gap = the same 16px under the heading as Current Information. */
+  h2 {
+    margin-bottom: 4px;
+  }
+
+  /* margin-top: auto pushes this to the bottom of the stretched panel. */
+  .listingCount {
+    margin: auto 0 0;
+    padding-top: 8px;
+    font-size: 13px;
+    color: #6b7280;
+  }
+`;
+
+// View mode: label/value pairs. max-content sizes the label column to the
+// longest label, and the value column takes the rest.
+export const InfoList = styled.dl`
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 24px;
+  row-gap: 12px;
+  margin: 0;
+
+  dt {
+    color: #6b7280;
+  }
+
+  dd {
+    color: #111;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  /* Keep line breaks the user typed in their bio. */
+  .bio {
+    white-space: pre-line;
+  }
+
+  .empty {
+    color: #9ca3af;
+  }
+
+  /* On phones the longest label would squeeze values into a sliver, so stack
+     each label above its value instead. */
+  @media (max-width: 640px) {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2px;
+
+    dt {
+      font-size: 13px;
+    }
+
+    dd + dt {
+      margin-top: 12px;
+    }
+  }
+`;
+
+// Edit mode. Each .field is a <label> wrapping its input, which ties the two
+// together for screen readers and click-to-focus without needing ids.
+export const EditForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    color: #374151;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    /* 16px stops iOS Safari zooming in when an input is focused. */
+    font-size: 16px;
+    font-family: inherit;
+    background-color: white;
+  }
+
+  textarea {
+    min-height: 96px;
+    resize: vertical;
+  }
+
+  /* minmax(0, 1fr) lets columns shrink below their content's width. */
+  .row2,
+  .row3 {
+    display: grid;
+    gap: 16px;
+  }
+
+  .row2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .row3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (max-width: 640px) {
+    .row2,
+    .row3 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .hint {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: -8px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+  }
 `;

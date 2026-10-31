@@ -132,3 +132,14 @@
 - [ ] Rekognition loop + max image count (~6-8)
 - [ ] Thumbnail strip first, lightbox (native <dialog>) second
 - [ ] Create flow first, edit flow as separate PR
+
+## Profile page
+
+- [ ] Iconography pass: decide whether to install @mui/icons-material (or use inline SVGs) and add icons to Seller Tools buttons + elsewhere
+- [x] Profile page redesign (feature/profile-redesign): welcome panel,
+      equal-height Current Information + Seller Tools panels, view/edit
+      modes with Cancel/Save, active listing count, phone-width layout
+- [x] Shared Toast no longer hidden under the site header
+- [ ] Format birthdate for display (currently raw 1990-05-17)
+- [ ] Decide whether "Save changes" with no edits should just close edit
+      mode instead of showing the "No changes to save." error toast

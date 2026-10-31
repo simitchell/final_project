@@ -1,43 +1,49 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import ProfileForm from "../components/ProfileForm";
-import ProfileComponent from "../components/Profile";
+import SellerTools from "../components/SellerTools";
 import DisplayUserListings from "../components/DisplayUserListings";
-import { ProfileContainer } from "../components/GlobalStyles/StyleProfile";
+import {
+  ProfileContainer,
+  WelcomePanel,
+  PanelRow,
+  InfoPanel,
+} from "../components/GlobalStyles/StyleProfile";
 
 export default function Profile() {
+  // Lives here because two siblings need it: SellerTools turns editing on,
+  // ProfileForm shows the form while it's on.
+  const [isEditing, setIsEditing] = useState(false);
+  // Reported by DisplayUserListings once its fetch finishes.
+  const [listingCount, setListingCount] = useState(null);
+
   return (
     <ProfileContainer>
-      <div className="profileWrapper">
-        <div className="profileIntro">
-          <h2>Welcome, {localStorage.getItem("username")}!</h2>
-          <h3>
-            This is your profile page, where you can update your information and
-            manage your listings.
-          </h3>
-          <ul>
-            <li>
-              <a href="../">Home</a> to browse Fox Body Mustang parts currently
-              listed for sale
-            </li>
-            <li>
-              <a href="../howitworks">How it Works</a> is recommended reading on
-              how to become a great seller and buyer on Fox Body Swap Meet
-            </li>
-            <li>
-              <a href="../aboutus">About Us</a> for more about who we are and
-              what we do here at Fox Body Swap Meet
-            </li>
-          </ul>
-          <ProfileComponent />
-        </div>
+      <WelcomePanel>
+        <h1>Welcome back, {localStorage.getItem("username")}!</h1>
+        <p>
+          This is your profile page, where you can update your information and
+          manage your listings. New here?{" "}
+          <Link to="/howitworks">How it Works</Link> covers how to be a great
+          buyer and seller on Fox Body Swap Meet.
+        </p>
+      </WelcomePanel>
 
-        <div className="profileUpdate">
-          <ProfileForm />
-        </div>
-      </div>
-      <div>
-        
-        <DisplayUserListings />
-      </div>
+      <PanelRow>
+        <InfoPanel>
+          <ProfileForm
+            isEditing={isEditing}
+            onDone={() => setIsEditing(false)}
+          />
+        </InfoPanel>
+        <SellerTools
+          isEditing={isEditing}
+          onEdit={() => setIsEditing(true)}
+          listingCount={listingCount}
+        />
+      </PanelRow>
+
+      <DisplayUserListings onCountChange={setListingCount} />
     </ProfileContainer>
   );
 }
