@@ -29,7 +29,10 @@ export default function Profile() {
 
       <PanelRow>
         <InfoPanel>
-          <ProfileForm />
+          <ProfileForm
+            isEditing={isEditing}
+            onDone={() => setIsEditing(false)}
+          />
         </InfoPanel>
         <SellerTools isEditing={isEditing} onEdit={() => setIsEditing(true)} />
       </PanelRow>

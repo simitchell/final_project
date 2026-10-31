@@ -2,11 +2,11 @@ import { API_BASE_URL } from "../config";
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useRevalidator, useParams, useNavigate } from "react-router-dom";
-import { Form, ProgressDiv } from "./GlobalStyles/StyleUtility";
+import { ProgressDiv } from "./GlobalStyles/StyleUtility";
+import { InfoList, EditForm } from "./GlobalStyles/StyleProfile";
 // import { Button } from "./GlobalStyles/StyleUtility";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import Alert from "@mui/material/Alert";
 import Toast from "./Toast";
 import StateSelect from "./StateSelect";
 import apiErrorMessage from "../utils/apiErrorMessage";
@@ -19,15 +19,23 @@ const ENTHUSIAST_YEARS = Array.from(
   (_, i) => new Date().getFullYear() - i
 );
 
-export default function ProfileDetail() {
+// Empty values show a muted dash instead of a blank row.
+function show(value) {
+  return value ? value : <span className="empty">—</span>;
+}
+
+export default function ProfileDetail({ isEditing, onDone }) {
   const [profileDetail, setProfileDetail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const updateForm = useRef(null);
   const auth = localStorage.getItem("access_token");
   const revalidator = useRevalidator();
-  const [alert, setAlert] = useState(false);
-  const [errorToast, setErrorToast] = useState({ open: false, message: "" });
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
   // const [alertContent, setAlertContent] = useState('');
 
   const { id } = useParams();
@@ -73,21 +81,27 @@ export default function ProfileDetail() {
       }
     }
     if ([...changes.keys()].length === 0) {
-      setErrorToast({ open: true, message: "No changes to save." });
+      setToast({ open: true, message: "No changes to save.", severity: "error" });
       return;
     }
 
     const response = await handlePatch(changes);
     if (!response.ok) {
       const body = await response.json().catch(() => null);
-      setErrorToast({
+      setToast({
         open: true,
         message: apiErrorMessage(body, "Couldn't update your profile."),
+        severity: "error",
       });
       return;
     }
     setProfileDetail(await response.json());
-    setAlert(true);
+    onDone();
+    setToast({
+      open: true,
+      message: "Profile information updated successfully!",
+      severity: "success",
+    });
   };
 
   const handlePatch = async (formData) => {
@@ -103,162 +117,167 @@ export default function ProfileDetail() {
     });
   };
 
+  const fullName = [profileDetail?.first_name, profileDetail?.last_name]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <>
+      <h2>Current Information</h2>
+
       {isLoading ? (
         <ProgressDiv>
           <CircularProgress />
         </ProgressDiv>
+      ) : !isEditing ? (
+        profileDetail ? (
+          <InfoList>
+            <dt>Name</dt>
+            <dd>{show(fullName)}</dd>
+            <dt>Member since</dt>
+            <dd>{show(profileDetail.member_since)}</dd>
+            <dt>Fox body enthusiast since</dt>
+            <dd>{show(profileDetail.enthusiast_since)}</dd>
+            <dt>Street</dt>
+            <dd>{show(profileDetail.street)}</dd>
+            <dt>City</dt>
+            <dd>{show(profileDetail.city)}</dd>
+            <dt>State</dt>
+            <dd>{show(profileDetail.state)}</dd>
+            <dt>ZIP</dt>
+            <dd>{show(profileDetail.zip_code)}</dd>
+            <dt>Birthdate</dt>
+            <dd>{show(profileDetail.birthdate)}</dd>
+            <dt>Bio</dt>
+            <dd className="bio">{show(profileDetail.bio)}</dd>
+          </InfoList>
+        ) : (
+          <p>Couldn&apos;t load your profile information.</p>
+        )
       ) : (
-        <>
-          {profileDetail ? (
-            <div>
-              <h2>Current Information</h2>
-              <p>
-                <strong>Name:</strong> {profileDetail.first_name}{" "}
-                {profileDetail.last_name}
-              </p>
-              <p>
-                <strong>Member since:</strong> {profileDetail.member_since}
-              </p>
-              <p>
-                <strong>Fox body enthusiast since:</strong>{" "}
-                {profileDetail.enthusiast_since}
-              </p>
-              <p>
-                <strong>Street:</strong> {profileDetail.street}
-              </p>
-              <p>
-                <strong>City:</strong> {profileDetail.city}
-              </p>
-              <p>
-                <strong>State:</strong> {profileDetail.state}
-              </p>
-              <p>
-                <strong>ZIP:</strong> {profileDetail.zip_code}
-              </p>
-              <p>
-                <strong>Birthdate:</strong> {profileDetail.birthdate}
-              </p>
-              <p>
-                <strong>Bio:</strong> {profileDetail.bio}
-              </p>
-            </div>
-          ) : (
-            <div>
-              Profile Information will display here. Please fill out the form.
-            </div>
-          )}
-        </>
-      )}
-
-      {alert ? (
-        <Alert severity="success">
-          Profile information updated successfully!
-        </Alert>
-      ) : (
-        <></>
+        /* Prefilled from the saved profile (remounts when it loads) so the diff in
+           handleSubmit can tell what the user actually changed. */
+        <EditForm
+          key={[
+            profileDetail?.first_name,
+            profileDetail?.last_name,
+            profileDetail?.enthusiast_since,
+            profileDetail?.street,
+            profileDetail?.city,
+            profileDetail?.state,
+            profileDetail?.zip_code,
+            profileDetail?.birthdate,
+            profileDetail?.bio,
+          ].join("|")}
+          onSubmit={(e) => handleSubmit(e)}
+          ref={updateForm}
+        >
+          <div className="row2">
+            <label className="field">
+              First name
+              <input
+                type="text"
+                name="first_name"
+                maxLength="150"
+                defaultValue={profileDetail?.first_name || ""}
+              />
+            </label>
+            <label className="field">
+              Last name
+              <input
+                type="text"
+                name="last_name"
+                maxLength="150"
+                defaultValue={profileDetail?.last_name || ""}
+              />
+            </label>
+          </div>
+          <label className="field">
+            Fox body enthusiast since
+            <select
+              name="enthusiast_since"
+              defaultValue={profileDetail?.enthusiast_since ?? ""}
+            >
+              <option value="">Select a year</option>
+              {ENTHUSIAST_YEARS.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="field">
+            Street
+            <input
+              type="text"
+              name="street"
+              maxLength="100"
+              defaultValue={profileDetail?.street || ""}
+            />
+          </label>
+          <div className="row3">
+            <label className="field">
+              City
+              <input
+                type="text"
+                name="city"
+                maxLength="50"
+                defaultValue={profileDetail?.city || ""}
+              />
+            </label>
+            <label className="field">
+              State
+              <StateSelect defaultValue={profileDetail?.state || ""} />
+            </label>
+            <label className="field">
+              ZIP code
+              <input
+                type="text"
+                name="zip_code"
+                defaultValue={profileDetail?.zip_code || ""}
+                inputMode="numeric"
+                maxLength="10"
+                pattern="\d{5}(-\d{4})?"
+                title="12345 or 12345-6789"
+              />
+            </label>
+          </div>
+          <small className="hint">Your state is shown on your listings.</small>
+          <label className="field">
+            Birthdate
+            <input
+              type="date"
+              name="birthdate"
+              defaultValue={profileDetail?.birthdate || ""}
+            />
+          </label>
+          <label className="field">
+            Bio
+            <textarea name="bio" defaultValue={profileDetail?.bio || ""} />
+          </label>
+          <input
+            type="hidden"
+            name="user"
+            value={localStorage.getItem("userId")}
+          />
+          <div className="actions">
+            {/* type="button" so Cancel doesn't submit the form. */}
+            <Button variant="outlined" type="button" onClick={onDone}>
+              Cancel
+            </Button>
+            <Button variant="contained" type="submit">
+              Save changes
+            </Button>
+          </div>
+        </EditForm>
       )}
 
       <Toast
-        open={errorToast.open}
-        message={errorToast.message}
-        severity="error"
-        onClose={() => setErrorToast({ ...errorToast, open: false })}
+        open={toast.open}
+        message={toast.message}
+        severity={toast.severity}
+        onClose={() => setToast({ ...toast, open: false })}
       />
-
-      {/* Prefilled from the saved profile (remounts when it loads) so the diff in
-          handleSubmit can tell what the user actually changed. */}
-      <Form
-        key={[
-          profileDetail?.first_name,
-          profileDetail?.last_name,
-          profileDetail?.enthusiast_since,
-          profileDetail?.street,
-          profileDetail?.city,
-          profileDetail?.state,
-          profileDetail?.zip_code,
-          profileDetail?.birthdate,
-          profileDetail?.bio,
-        ].join("|")}
-        onSubmit={(e) => handleSubmit(e)}
-        ref={updateForm}
-      >
-        <h4>Update your profile information</h4>
-        <label>First name</label>
-        <input
-          type="text"
-          name="first_name"
-          maxLength="150"
-          defaultValue={profileDetail?.first_name || ""}
-        />
-        <label>Last name</label>
-        <input
-          type="text"
-          name="last_name"
-          maxLength="150"
-          defaultValue={profileDetail?.last_name || ""}
-        />
-        <label>Fox body enthusiast since</label>
-        <select
-          name="enthusiast_since"
-          defaultValue={profileDetail?.enthusiast_since ?? ""}
-        >
-          <option value="">Select a year</option>
-          {ENTHUSIAST_YEARS.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-        <label>Street</label>
-        <input
-          type="text"
-          name="street"
-          maxLength="100"
-          defaultValue={profileDetail?.street || ""}
-        />
-        <label>City</label>
-        <input
-          type="text"
-          name="city"
-          maxLength="50"
-          defaultValue={profileDetail?.city || ""}
-        />
-        <label>State</label>
-        <StateSelect defaultValue={profileDetail?.state || ""} />
-        <small>Your state is shown on your listings.</small>
-        <label>ZIP code</label>
-        <input
-          type="text"
-          name="zip_code"
-          defaultValue={profileDetail?.zip_code || ""}
-          inputMode="numeric"
-          maxLength="10"
-          pattern="\d{5}(-\d{4})?"
-          title="12345 or 12345-6789"
-        />
-        <label>Birthdate</label>
-        <input
-          type="date"
-          name="birthdate"
-          defaultValue={profileDetail?.birthdate || ""}
-        />
-        <label>Bio</label>
-        <textarea
-          type="text"
-          name="bio"
-          defaultValue={profileDetail?.bio || ""}
-        />
-        <input
-          type="hidden"
-          name="user"
-          value={localStorage.getItem("userId")}
-        />
-        <Button variant="contained" type="submit">
-          Update Profile
-        </Button>
-      </Form>
     </>
   );
 }
