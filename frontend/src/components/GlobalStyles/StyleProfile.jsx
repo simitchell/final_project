@@ -111,6 +111,21 @@ export const InfoList = styled.dl`
   .empty {
     color: #9ca3af;
   }
+
+  /* On phones the longest label would squeeze values into a sliver, so stack
+     each label above its value instead. */
+  @media (max-width: 640px) {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2px;
+
+    dt {
+      font-size: 13px;
+    }
+
+    dd + dt {
+      margin-top: 12px;
+    }
+  }
 `;
 
 // Edit mode. Each .field is a <label> wrapping its input, which ties the two
