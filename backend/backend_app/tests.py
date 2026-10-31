@@ -1,3 +1,4 @@
+from datetime import date
 from unittest import mock
 
 from django.contrib.auth.models import User
@@ -136,6 +137,58 @@ class ProfileAddressTests(APITestCase):
             self.url, {"street": "", "city": "", "state": "", "zip_code": ""}
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class ProfileNameAndYearTests(APITestCase):
+    def setUp(self):
+        self.user = make_user("alice")
+        self.client.force_authenticate(self.user)
+        self.url = f"/profile/{self.user.id}/"
+
+    def test_names_are_saved_on_the_user(self):
+        response = self.client.patch(
+            self.url, {"first_name": "Alice", "last_name": "Smith"}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.first_name, "Alice")
+        self.assertEqual(self.user.last_name, "Smith")
+        self.assertEqual(response.data["first_name"], "Alice")
+
+    def test_names_and_profile_fields_save_together(self):
+        response = self.client.patch(
+            self.url, {"first_name": "Alice", "enthusiast_since": 1987}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.first_name, "Alice")
+        self.assertEqual(self.user.profile.enthusiast_since, 1987)
+
+    def test_member_since_is_the_join_year(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.data["member_since"], self.user.date_joined.year)
+
+    def test_member_since_is_read_only(self):
+        self.client.patch(self.url, {"member_since": 1985})
+        response = self.client.get(self.url)
+        self.assertEqual(response.data["member_since"], self.user.date_joined.year)
+
+    def test_enthusiast_since_rejects_years_out_of_range(self):
+        for year in (1978, date.today().year + 1):
+            with self.subTest(year=year):
+                response = self.client.patch(self.url, {"enthusiast_since": year})
+                self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+                self.assertIn("enthusiast_since", response.data)
+
+    def test_enthusiast_since_can_be_cleared(self):
+        self.user.profile.enthusiast_since = 1990
+        self.user.profile.save()
+        response = self.client.patch(
+            self.url, {"enthusiast_since": None}, format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.user.profile.refresh_from_db()
+        self.assertIsNone(self.user.profile.enthusiast_since)
 
 
 class SellerStateTests(APITestCase):

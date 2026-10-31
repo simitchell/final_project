@@ -53,20 +53,47 @@ class ListingSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    # Names live on Django's built-in User, not Profile; exposed here so the
+    # profile page can read and edit them in one request.
+    first_name = serializers.CharField(
+        source="user.first_name", max_length=150, required=False, allow_blank=True
+    )
+    last_name = serializers.CharField(
+        source="user.last_name", max_length=150, required=False, allow_blank=True
+    )
+    # Year the account was created; set by Django, so users can't change it.
+    member_since = serializers.IntegerField(
+        source="user.date_joined.year", read_only=True
+    )
+
     class Meta:
         model = Profile
         fields = [
             "id",
             "user_id",
+            "first_name",
+            "last_name",
+            "member_since",
             "bio",
             "street",
             "city",
             "state",
             "zip_code",
             "birthdate",
+            "enthusiast_since",
         ]
         read_only_fields = ["user_id"]
         lookup_field = "user_id"
+
+    def update(self, instance, validated_data):
+        # DRF collects the "user.*" fields into a nested dict; save those on
+        # the User and let the default update handle the Profile fields.
+        user_data = validated_data.pop("user", {})
+        if user_data:
+            for attr, value in user_data.items():
+                setattr(instance.user, attr, value)
+            instance.user.save(update_fields=list(user_data))
+        return super().update(instance, validated_data)
 
 
 class UserSerializer(serializers.ModelSerializer):

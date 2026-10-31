@@ -1,5 +1,6 @@
 import uuid
-from django.core.validators import RegexValidator
+from datetime import date
+from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -86,6 +87,14 @@ zip_code_validator = RegexValidator(
     r"^\d{5}(-\d{4})?$", "Enter a ZIP code like 12345 or 12345-6789."
 )
 
+# The Fox body platform debuted with the 1979 model year.
+FOX_BODY_FIRST_YEAR = 1979
+
+
+# A function (not a fixed number) so the upper limit moves with the calendar.
+def current_year():
+    return date.today().year
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -99,6 +108,15 @@ class Profile(models.Model):
     )
     bio = models.TextField(max_length=400, blank=True)
     birthdate = models.DateField(null=True, blank=True)
+    enthusiast_since = models.PositiveSmallIntegerField(
+        "Fox body enthusiast since",
+        null=True,
+        blank=True,
+        validators=[
+            MinValueValidator(FOX_BODY_FIRST_YEAR),
+            MaxValueValidator(current_year),
+        ],
+    )
 
     def __str__(self):
         return self.user.username
